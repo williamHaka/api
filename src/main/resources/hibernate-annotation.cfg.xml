@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.password">Feature2020</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://hakalabdb.database.windows.net:1433;database=hakalab;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;</property>
+        <property name="hibernate.connection.username">hakalab@hakalabdb</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">true</property>
+        
+        <mapping class="com.hakalab.api.entity.Feature"/>
+        <mapping class="com.hakalab.api.entity.Scenario"/>
+    </session-factory>
+</hibernate-configuration>

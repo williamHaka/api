@@ -7,66 +7,62 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Feature")
-public class Feature {
+@Table(name="Scenario")
+public class Scenario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_feature")
+	@Column(name="id_scenario")
 	private Integer id;
-	
 	@Column(name = "nombre")
 	private String nombre;
-
-	@Column(name = "descripcion")
-	private String descripcion;
-
-	@OneToMany(mappedBy="feature")
-//	@OrderBy("number")
-	private List<Scenario> scenarios;
+	@Column(name = "tipo")
+	private String tipo;
+	
+	@ManyToOne
+	@JoinColumn(name="id_feature", nullable=true)
+	private Feature feature;
+	
+	@OneToMany(mappedBy="scenario")
+	private List<Step> steps;
 	
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getNombre() {
 		return nombre;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getDescripcion() {
-		return descripcion;
+	public String getTipo() {
+		return tipo;
 	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
-	public List<Scenario> getScenarios() {
-		return scenarios;
+	public List<Step> getSteps() {
+		return steps;
 	}
-
-	public void setScenarios(List<Scenario> scenarios) {
-		this.scenarios = scenarios;
+	public void setSteps(List<Step> steps) {
+		this.steps = steps;
 	}
-
 	@Override
 	public String toString() {
-		return "Feature: {"
-				+ "id=" + id+","
+		return "Scenario ["
+				+ "id=" + id + ","
 				+ "nombre=" + nombre + ","
-				+ "descripcion=" + descripcion +  "},"
-				+ "scenarios = ["+ scenarios+"]";
-//"
-	}
+				+ "tipo=" + tipo + ","
+				+ "steps=" + steps + "]";
+	}	
+	
 }

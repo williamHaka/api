@@ -22,12 +22,17 @@ public class FeatureRestController {
 	
 	//Inyectamos el servicio para poder hacer uso de el
 		@Autowired
+//		private IFeatureService featureService;
 		private FeatureService featureService;
 		
 		/*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url 
 		http://127.0.0.1:8080/api/users*/
-		@GetMapping("/feature")
+		@GetMapping("/findAllFeature")
 		public List<Feature> findAll(){
+			List<Feature> features = featureService.findAll();
+			if(features.isEmpty()) 
+				throw new RuntimeException("features not found");	
+			
 			return featureService.findAll();
 		}
 		
