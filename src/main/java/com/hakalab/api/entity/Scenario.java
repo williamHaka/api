@@ -8,61 +8,82 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Scenario")
-public class Scenario {
+@Table(name="scenario")
+public class Scenario{
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_scenario")
 	private Integer id;
+	
 	@Column(name = "nombre")
-	private String nombre;
+	private String nameScenario;
+	
 	@Column(name = "tipo")
-	private String tipo;
+	private String typeScenario;
 	
 	@ManyToOne
-	@JoinColumn(name="id_feature", nullable=true)
+    @JoinColumns({
+    	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
+    })
 	private Feature feature;
 	
-	@OneToMany(mappedBy="scenario")
-	private List<Step> steps;
 	
+	@OneToMany(mappedBy = "scenario")
+    private List<Step> steps;
+
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNombre() {
-		return nombre;
+
+	public String getNameScenario() {
+		return nameScenario;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+
+	public void setNameScenario(String nameScenario) {
+		this.nameScenario = nameScenario;
 	}
-	public String getTipo() {
-		return tipo;
+
+	public String getTypeScenario() {
+		return typeScenario;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+
+	public void setTypeScenario(String typeScenario) {
+		this.typeScenario = typeScenario;
 	}
-	
+
+	public Feature getFeature() {
+		return feature;
+	}
+
+	public void setFeature(Feature feature) {
+		this.feature = feature;
+	}
+
 	public List<Step> getSteps() {
 		return steps;
 	}
+
 	public void setSteps(List<Step> steps) {
 		this.steps = steps;
 	}
+	
 	@Override
 	public String toString() {
-		return "Scenario ["
-				+ "id=" + id + ","
-				+ "nombre=" + nombre + ","
-				+ "tipo=" + tipo + ","
-				+ "steps=" + steps + "]";
-	}	
-	
+		return "{"
+				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
+				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
+				+ "\r\n \"steps\" : "+ steps+"}";
+	}
 }

@@ -1,84 +1,67 @@
 package com.hakalab.api.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hakalab.api.Service.FeatureService;
 import com.hakalab.api.entity.Feature;
+import com.hakalab.api.service.FeatureService;
 
 //Indicamos que es un controlador rest
 @RestController
-@RequestMapping("/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/api/
+@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
 public class FeatureRestController {
 	
-	//Inyectamos el servicio para poder hacer uso de el
 		@Autowired
-//		private IFeatureService featureService;
 		private FeatureService featureService;
 		
-		/*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url 
-		http://127.0.0.1:8080/api/users*/
-		@GetMapping("/findAllFeature")
-		public List<Feature> findAll(){
+		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> findAll(){
 			List<Feature> features = featureService.findAll();
 			if(features.isEmpty()) 
-				throw new RuntimeException("features not found");	
+				 return new ResponseEntity<String>("Features not found", HttpStatus.NOT_FOUND);
 			
-			return featureService.findAll();
+			return ResponseEntity.status(HttpStatus.OK).body(features.toString());
 		}
-		
-		/*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
-		http://127.0.0.1:8080/api/users/1*/
-		@GetMapping("/feature/{name}")
-		public Feature getFeature(@PathVariable String name){
+
+		@GetMapping(value = "/features/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> getFeature(@PathVariable String name){
 			Feature feature = featureService.finByName(name);		
-			if(feature == null) {
-				throw new RuntimeException("feature name not found -"+name);
-			}
-			return feature;
+			if(feature==null) 
+				 return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
 		
-		/*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
-		http://127.0.0.1:8080/api/users/  */
-		@PostMapping("/feature")
-		public Feature addFeature(@RequestBody Feature feature) {
-			feature.setId(0);
-			featureService.save(feature);
-			return feature;
-			
+		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
+			featureService.saveOrUpdateFeature(feature);
+			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
 		
-		/*Este método se hará cuando por una petición PUT (como indica la anotación) se llame a la url
-		http://127.0.0.1:8080/api/users/  */
-		@PutMapping("/feature")
-		public Feature updateFeature(@RequestBody Feature feature) {
-			featureService.save(feature);
-			return feature;
+		
+//		@PutMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+//		public ResponseEntity<String> updateFeature(@RequestBody Feature feature) {
+//				featureService.update(feature);
+//				return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
+//		}
+//		
+		@DeleteMapping("features/{name}")
+		public ResponseEntity<String> deteteFeature(@PathVariable String name) {
+			Feature feature = featureService.deleteFeature(name);
+			if(feature!=null)
+				return ResponseEntity.status(HttpStatus.OK).body("Elimated feature with name: "+name);
+			return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
 		}
 		
-		/*Este método se hará cuando por una petición DELETE (como indica la anotación) se llame a la url + id del usuario
-		http://127.0.0.1:8080/api/users/1  */
-		@DeleteMapping("feature/{name}")
-		public String deteteUser(@PathVariable String name) {
-			
-			Feature user = featureService.finByName(name);
-			
-			if(user == null) {
-				throw new RuntimeException("User id not found -"+name);
-			}
-			
-			featureService.deleteByName(name);
-			
-			//Esto método, recibira el id de un usuario por URL y se borrará de la bd.
-			return "Deleted feature name - "+name;
-		}
 }

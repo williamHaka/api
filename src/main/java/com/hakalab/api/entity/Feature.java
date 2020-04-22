@@ -1,5 +1,6 @@
 package com.hakalab.api.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,21 +12,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Feature")
-public class Feature {
+@Table(name="feature")
+public class Feature{
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_feature")
 	private Integer id;
 	
 	@Column(name = "nombre")
-	private String nombre;
+	private String nameFeature;
 
 	@Column(name = "descripcion")
-	private String descripcion;
-
-	@OneToMany(mappedBy="feature")
-//	@OrderBy("number")
+	private String descriptionFeature;
+	
+	@OneToMany(mappedBy = "feature")
 	private List<Scenario> scenarios;
 	
 	public Integer getId() {
@@ -36,22 +37,22 @@ public class Feature {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getNameFeature() {
+		return nameFeature;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNameFeature(String nameFeature) {
+		this.nameFeature = nameFeature;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getDescriptionFeature() {
+		return descriptionFeature;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescriptionFeature(String descriptionFeature) {
+		this.descriptionFeature = descriptionFeature;
 	}
-	
+
 	public List<Scenario> getScenarios() {
 		return scenarios;
 	}
@@ -59,14 +60,20 @@ public class Feature {
 	public void setScenarios(List<Scenario> scenarios) {
 		this.scenarios = scenarios;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Feature: {"
-				+ "id=" + id+","
-				+ "nombre=" + nombre + ","
-				+ "descripcion=" + descripcion +  "},"
-				+ "scenarios = ["+ scenarios+"]";
-//"
+		return 
+				"{"
+				+ "\r\n \"nameFeature\": \""+nameFeature+"\","
+				+ "\r\n \"descriptionFeature\": \""+descriptionFeature+"\","
+				+ "\r\n \"scenarios\" : "+ scenarios+"}";
 	}
+	
+	public void addScenario(Scenario scenarios){
+        if(this.scenarios == null){
+            this.scenarios = new ArrayList<>();
+        }
+        this.scenarios.add(scenarios);
+    }
 }
