@@ -13,6 +13,7 @@ import com.hakalab.api.dao.StepDAO;
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Parameter;
 import com.hakalab.api.entity.Scenario;
+import com.hakalab.api.entity.ScenarioStep;
 import com.hakalab.api.entity.Step;
 
 @Service
@@ -34,27 +35,28 @@ public class FeatureService{
 	}
 
 
-//	public Integer save(Feature feature) {
-//		Integer status = 0;
-//		try {
-//			featureDAO.save(feature);
-//			for (Scenario scenario : feature.getScenarios()) {
-//				scenario.setFeature(feature);
-//				scenarioDAO.save(scenario);
+	public Integer save(Feature feature) {
+		Integer status = 0;
+		try {
+			featureDAO.save(feature);
+			for (Scenario scenario : feature.getScenarios()) {
+				scenario.setFeature(feature);
+//				ScenarioStep scenarioStep = 
+				scenarioDAO.save(scenario);
+				
 //				for (Step step : scenario.getSteps()) {
-//					step.set
 //					stepDAO.save(step);
 //					for (Parameter parameter : step.getParameters()) {
 //						parameter.setStep(step);
 //						parameterDAO.save(parameter);
 //					}
 //				}
-//			}
-//			status = 1;
-//		} catch (Exception e) {
-//		}
-//		return status;
-//	} 
+			}
+			status = 1;
+		} catch (Exception e) {
+		}
+		return status;
+	} 
 	
 //	public Integer update(Feature feature) {
 //		Integer status = 0;

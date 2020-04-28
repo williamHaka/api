@@ -36,6 +36,7 @@ public class Scenario{
 	@OneToMany(mappedBy="scenario")
 	private List<ScenarioStep> scenarioSteps;
 
+	private List<Step> steps;
 
 	public Integer getIdScenario() {
 		return idScenario;
@@ -75,6 +76,14 @@ public class Scenario{
 
 	public void setScenarioSteps(List<ScenarioStep> scenarioSteps) {
 		this.scenarioSteps = scenarioSteps;
+	}
+	
+	public List<Step> getSteps() {
+		return steps;
+	}
+
+	public void setSteps(List<Step> steps) {
+		this.steps = steps;
 	}
 
 	@Override

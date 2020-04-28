@@ -22,8 +22,8 @@ public class Parameter {
 	@Column(name = "name")
 	private String nameParameter;
 	
-//	@Column(name = "values")
-//	private String valueParameter;
+	@Column(name = "values_parameter")
+	private String valueParameter;
 	
 	 @OneToMany(mappedBy="parameter")
 	 private List<StepParameter> stepParameter;
@@ -37,13 +37,13 @@ public class Parameter {
 		this.nameParameter = nameParameter;
 	}
 
-//	public String getValueParameter() {
-//		return valueParameter;
-//	}
-//
-//	public void setValueParameter(String valueParameter) {
-//		this.valueParameter = valueParameter;
-//	}
+	public String getValueParameter() {
+		return valueParameter;
+	}
+
+	public void setValueParameter(String valueParameter) {
+		this.valueParameter = valueParameter;
+	}
 	
 	public Integer getIdParameter() {
 		return idParameter;
@@ -65,7 +65,7 @@ public class Parameter {
 	public String toString() {
 		return "{"
 				+ "\r\n \"idParameter\": \"" + idParameter + "\","
-				+ "\r\n \"nameParameter\": \"" + nameParameter + "\"}";
-//				+ "\r\n \"valueParameter\": \"" + valueParameter+"\"}";
+				+ "\r\n \"nameParameter\": \"" + nameParameter + "\","
+				+ "\r\n \"valueParameter\": \"" + valueParameter+"\"}";
 	}
 }
