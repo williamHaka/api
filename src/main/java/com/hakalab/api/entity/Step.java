@@ -8,9 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,30 +18,27 @@ public class Step {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_step")
-	private Integer id;
+	private Integer idStep;
 	
-	@Column(name = "nombre")
+	@Column(name = "name")
 	private String nameStep;
 	
-	@Column(name = "descripcion")
+	@Column(name = "description")
 	private String descriptionStep;
 	
-	@ManyToOne
-    @JoinColumns({
-    	@JoinColumn(name = "id_scenario",referencedColumnName = "id_scenario")
-    })
-    private Scenario scenario;
 	
-	@OneToMany(mappedBy = "step")
-    private List<Parameter> parameters;
+	@OneToMany(mappedBy="step")
+	private List<ScenarioStep> scenarioSteps;
+	 
+	@OneToMany(mappedBy="step")
+	private List<StepParameter> stepParameter;
 	
-	
-	public Integer getId() {
-		return id;
-	}
+	 public Integer getIdStep() {
+		 return idStep;
+	 }
 
-	public void setId(Integer id) {
-		this.id = id;
+	 public void setIdStep(Integer idStep) {
+		this.idStep = idStep;
 	}
 
 	public String getNameStep() {
@@ -62,35 +56,40 @@ public class Step {
 	public void setDescriptionStep(String descriptionStep) {
 		this.descriptionStep = descriptionStep;
 	}
+
+	public List<ScenarioStep> getScenarioSteps() {
+		return scenarioSteps;
+	}
+
+	public void setScenarioSteps(List<ScenarioStep> scenarioSteps) {
+		this.scenarioSteps = scenarioSteps;
+	}
 	
-	public List<Parameter> getParameters() {
-		return parameters;
-	}
-
-	public void setParameters(List<Parameter> parameters) {
-		this.parameters = parameters;
-	}
-	
-	public Scenario getScenario() {
-		return scenario;
-	}
-
-	public void setScenario(Scenario scenario) {
-		this.scenario = scenario;
-	}
-
 	@Override
 	public String toString() {
+		List<Parameter> parameters = new ArrayList<Parameter>();
+		for (StepParameter sp : stepParameter) {
+			parameters.add(sp.getParameter());
+		}
 		return "{"
+				+ "\r\n \"idStep\": \"" + idStep + "\","
 				+ "\r\n \"nameStep\": \"" + nameStep + "\","
 				+ "\r\n \"descriptionStep\": \"" + descriptionStep +"\","
 				+ "\r\n \"parameters\" : "+ parameters+"}";
 	}	
 	
 	public void addParameter(Parameter parameter){
-        if(this.parameters == null){
-            this.parameters = new ArrayList<>();
-        }
-        this.parameters.add(parameter);
-    }
+		StepParameter stpa = new StepParameter();
+		stpa.setStep(this);
+		stpa.setIdStep(this.getIdStep());
+		stpa.setParameter(parameter);
+		stpa.setIdParameter(parameter.getIdParameter());
+		if(this.stepParameter==null)
+			this.stepParameter = new ArrayList<>();
+		
+		this.stepParameter.add(stpa);
+		parameter.getStepParameter().add(stpa);
+		
+	}
+
 }

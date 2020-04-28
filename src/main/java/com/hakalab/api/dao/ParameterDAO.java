@@ -2,24 +2,34 @@ package com.hakalab.api.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.query.Query;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
-import com.hakalab.api.entity.Scenario;
+import com.hakalab.api.entity.Parameter;
 
 @Repository
-public class ParameterDAO {
+public class ParameterDAO extends BaseDAO{
 
-	@Autowired
-	private EntityManager entityManager;
+	public List<Parameter> getByIdStep(Integer idStep) {
+		Query<Parameter> query = getSession().createQuery("select a from Parameter a where a.step.id=:idStep",Parameter.class);
+		query.setParameter("idStep", idStep);
+		return query.getResultList();
+	}
 	
-	public void saveAll(List<Scenario> scenarios) {
-		Session currentSession = entityManager.unwrap(Session.class);
-		for (Scenario scenario : scenarios) {
-			currentSession.save(scenario);
-		}
+	public void save(Parameter parameter) {
+		getSession().save(parameter);
+	}
+	
+	public void update(Parameter parameter) {
+		getSession().update(parameter);
+	}
+	
+	@Transactional
+	@Modifying
+	public void delete(Parameter parameter) {
+		getSession().delete(parameter);
 	}
 }

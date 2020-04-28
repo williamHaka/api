@@ -1,13 +1,13 @@
 package com.hakalab.api.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,27 +17,17 @@ public class Parameter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_parameter")
-	private Integer id;
+	private Integer idParameter;
 	
-	@Column(name = "nombre")
+	@Column(name = "name")
 	private String nameParameter;
 	
-	@Column(name = "valor")
-	private String valueParameter;
+//	@Column(name = "values")
+//	private String valueParameter;
 	
-	@ManyToOne
-    @JoinColumns({
-    	@JoinColumn(name = "id_step",referencedColumnName = "id_step")
-    })
-	private Step step;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	 @OneToMany(mappedBy="parameter")
+	 private List<StepParameter> stepParameter;
+	 
 
 	public String getNameParameter() {
 		return nameParameter;
@@ -47,26 +37,35 @@ public class Parameter {
 		this.nameParameter = nameParameter;
 	}
 
-	public String getValueParameter() {
-		return valueParameter;
-	}
-
-	public void setValueParameter(String valueParameter) {
-		this.valueParameter = valueParameter;
-	}
+//	public String getValueParameter() {
+//		return valueParameter;
+//	}
+//
+//	public void setValueParameter(String valueParameter) {
+//		this.valueParameter = valueParameter;
+//	}
 	
-	public Step getStep() {
-		return step;
+	public Integer getIdParameter() {
+		return idParameter;
 	}
 
-	public void setStep(Step step) {
-		this.step = step;
+	public void setIdParameter(Integer idParameter) {
+		this.idParameter = idParameter;
+	}
+
+	public List<StepParameter> getStepParameter() {
+		return stepParameter;
+	}
+
+	public void setStepParameter(List<StepParameter> stepParameter) {
+		this.stepParameter = stepParameter;
 	}
 
 	@Override
 	public String toString() {
 		return "{"
-				+ "\r\n \"nameParameter\": \"" + nameParameter + "\","
-				+ "\r\n \"valueParameter\": \"" + valueParameter+"\"}";
+				+ "\r\n \"idParameter\": \"" + idParameter + "\","
+				+ "\r\n \"nameParameter\": \"" + nameParameter + "\"}";
+//				+ "\r\n \"valueParameter\": \"" + valueParameter+"\"}";
 	}
 }

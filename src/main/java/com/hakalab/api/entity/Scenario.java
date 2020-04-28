@@ -1,5 +1,6 @@
 package com.hakalab.api.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,31 +20,29 @@ public class Scenario{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_scenario")
-	private Integer id;
+	private Integer idScenario;
 	
-	@Column(name = "nombre")
+	@Column(name = "name")
 	private String nameScenario;
 	
-	@Column(name = "tipo")
+	@Column(name = "type")
 	private String typeScenario;
 	
 	@ManyToOne
-    @JoinColumns({
-    	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
-    })
+	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
 	private Feature feature;
 	
 	
-	@OneToMany(mappedBy = "scenario")
-    private List<Step> steps;
+	@OneToMany(mappedBy="scenario")
+	private List<ScenarioStep> scenarioSteps;
 
 
-	public Integer getId() {
-		return id;
+	public Integer getIdScenario() {
+		return idScenario;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdScenario(Integer idScenario) {
+		this.idScenario = idScenario;
 	}
 
 	public String getNameScenario() {
@@ -71,19 +69,39 @@ public class Scenario{
 		this.feature = feature;
 	}
 
-	public List<Step> getSteps() {
-		return steps;
+	public List<ScenarioStep> getScenarioSteps() {
+		return scenarioSteps;
 	}
 
-	public void setSteps(List<Step> steps) {
-		this.steps = steps;
+	public void setScenarioSteps(List<ScenarioStep> scenarioSteps) {
+		this.scenarioSteps = scenarioSteps;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "{"
+		List<Step> steps = new ArrayList<Step>();
+		for (ScenarioStep scenarioStep : scenarioSteps) {
+			steps.add(scenarioStep.getStep());
+		}
+		return	"{"
+				+ "\r\n \"idScenario\": \""+idScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
-				+ "\r\n \"steps\" : "+ steps+"}";
+				+ "\r\n \"steps\" : "+ steps
+				+ "\r\n }";
 	}
+	
+	public void addSteps(Step step){
+		ScenarioStep scst = new ScenarioStep();
+		scst.setStep(step);
+		scst.setIdStep(step.getIdStep());
+		scst.setScenario(this);
+		scst.setIdScenario(this.getIdScenario());
+		if(this.scenarioSteps==null)
+			this.scenarioSteps = new ArrayList<>();
+		
+		this.scenarioSteps.add(scst);
+		step.getScenarioSteps().add(scst);
+		
+    }
 }

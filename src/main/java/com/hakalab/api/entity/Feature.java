@@ -18,23 +18,27 @@ public class Feature{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_feature")
-	private Integer id;
+	private Integer idFeature;
 	
-	@Column(name = "nombre")
+	@Column(name = "name")
 	private String nameFeature;
 
-	@Column(name = "descripcion")
+	@Column(name = "description")
 	private String descriptionFeature;
 	
 	@OneToMany(mappedBy = "feature")
 	private List<Scenario> scenarios;
 	
 	public Integer getId() {
-		return id;
+		return idFeature;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.idFeature = id;
+	}
+	
+	public void setId(String id) {
+		this.idFeature = Integer.parseInt(id);
 	}
 
 	public String getNameFeature() {
@@ -64,10 +68,10 @@ public class Feature{
 	@Override
 	public String toString() {
 		return 
-				"{"
+				  "\r\n \"idFeature\": "+idFeature+","
 				+ "\r\n \"nameFeature\": \""+nameFeature+"\","
 				+ "\r\n \"descriptionFeature\": \""+descriptionFeature+"\","
-				+ "\r\n \"scenarios\" : "+ scenarios+"}";
+				+ "\r\n \"scenarios\" : "+ scenarios;
 	}
 	
 	public void addScenario(Scenario scenarios){
