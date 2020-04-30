@@ -19,9 +19,15 @@ public class FeatureDAO extends BaseDAO{
 	}
 	
 	public Feature getByName(String name) {
-		Query<Feature> query = getSession().createQuery("select a from Feature a where a.nameFeature=:nombre",Feature.class);
-		query.setParameter("nombre", name);
-		return query.getSingleResult();
+		Feature feature = null;
+		try {
+			Query<Feature> query = getSession().createQuery("select a from Feature a where a.nameFeature=:nombre",Feature.class);
+			query.setParameter("nombre", name);
+			feature = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		
+		return feature;
 	}
 	
 	public Feature getById(Integer id) {
@@ -29,7 +35,6 @@ public class FeatureDAO extends BaseDAO{
 		query.setParameter("nombre", id);
 		return  query.getSingleResult();
 	}
-
 
 	public void save(Feature feature) {
 		getSession().save(feature);

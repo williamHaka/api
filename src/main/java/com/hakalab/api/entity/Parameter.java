@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,8 +25,11 @@ public class Parameter {
 	@Column(name = "values_parameter")
 	private String valueParameter;
 	
-	 @OneToMany(mappedBy="parameter")
-	 private List<StepParameter> stepParameter;
+//	 @OneToMany(mappedBy="parameter")
+//	 private List<StepParameter> stepParameter;
+	
+	@ManyToMany(mappedBy = "parameters")
+	private List<Step> steps;
 	 
 
 	public String getNameParameter() {
@@ -53,12 +56,20 @@ public class Parameter {
 		this.idParameter = idParameter;
 	}
 
-	public List<StepParameter> getStepParameter() {
-		return stepParameter;
+//	public List<StepParameter> getStepParameter() {
+//		return stepParameter;
+//	}
+//
+//	public void setStepParameter(List<StepParameter> stepParameter) {
+//		this.stepParameter = stepParameter;
+//	}
+
+	public List<Step> getSteps() {
+		return steps;
 	}
 
-	public void setStepParameter(List<StepParameter> stepParameter) {
-		this.stepParameter = stepParameter;
+	public void setSteps(List<Step> steps) {
+		this.steps = steps;
 	}
 
 	@Override
@@ -68,4 +79,9 @@ public class Parameter {
 				+ "\r\n \"nameParameter\": \"" + nameParameter + "\","
 				+ "\r\n \"valueParameter\": \"" + valueParameter+"\"}";
 	}
+	
+//	public void addSteps(Step step){
+//	step.setScenarios(scenarios);
+//	
+//}
 }
