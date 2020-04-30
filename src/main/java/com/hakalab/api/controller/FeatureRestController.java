@@ -24,6 +24,10 @@ public class FeatureRestController {
 		
 		private FeatureService featureService;
 		
+		@RequestMapping("/")  
+		public String hello() {   
+		 return "Hello, world"; 
+		 }
 		
 		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
