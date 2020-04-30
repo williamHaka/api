@@ -24,7 +24,7 @@ public class FeatureRestController {
 		
 		private FeatureService featureService;
 		
-		@RequestMapping("/")  
+		@RequestMapping(value ="/")  
 		public String hello() {   
 		 return "Hello, world"; 
 		 }
