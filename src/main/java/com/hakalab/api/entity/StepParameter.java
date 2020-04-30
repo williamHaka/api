@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,14 +21,15 @@ public class StepParameter {
 	
 	@Column(name = "id_parameter")
 	private Integer idParameter;
-	
-	@ManyToOne
-	  @JoinColumn(name = "id_step",updatable = false, insertable = false,referencedColumnName = "id_step")
-	private Step step;
-	
-	@ManyToOne
-	  @JoinColumn(name = "id_parameter",updatable = false, insertable = false,referencedColumnName = "id_parameter")
-	private Parameter parameter;
+//	
+//	@ManyToOne
+//	  @JoinColumn(name = "id_step",updatable = false, insertable = false,referencedColumnName = "id_step")
+//	private Step step;
+//	
+//	@ManyToOne
+//	  @JoinColumn(name = "id_parameter",updatable = false, insertable = false,referencedColumnName = "id_parameter")
+//	private Parameter parameter;
+//
 
 	public Integer getIdStepParameter() {
 		return idStepParameter;
@@ -54,22 +53,6 @@ public class StepParameter {
 
 	public void setIdParameter(Integer idParameter) {
 		this.idParameter = idParameter;
-	}
-
-	public Step getStep() {
-		return step;
-	}
-
-	public void setStep(Step step) {
-		this.step = step;
-	}
-
-	public Parameter getParameter() {
-		return parameter;
-	}
-
-	public void setParameter(Parameter parameter) {
-		this.parameter = parameter;
 	}
 
 }

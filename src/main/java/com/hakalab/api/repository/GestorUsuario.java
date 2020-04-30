@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.hakalab.api.entity.Usuario;
 
 
+
 @Repository("GestorUsuario")
 public interface GestorUsuario extends JpaRepository<Usuario, Serializable>{
 

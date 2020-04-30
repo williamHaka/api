@@ -11,20 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
-public class Usuario implements Serializable {
+@Table(name="users")
+public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_user")
 	private Integer idUser;
 	
-	@Column(name = "name_user")
+	@Column(name = "name")
 	private String nameUser;
 
-	@Column(name = "pass_user")
+	@Column(name = "password")
 	private String passUser;
 	
-	@Column(name="rol_user")
+	@Column(name="rol")
 	private byte rolUser;
 
 	public Integer getIdUser() {

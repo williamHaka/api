@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @SpringBootApplication
+//@ComponentScan
 public class ApiApplication {
 	
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {

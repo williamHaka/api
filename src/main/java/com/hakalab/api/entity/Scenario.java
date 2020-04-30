@@ -1,6 +1,5 @@
 package com.hakalab.api.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,9 +33,15 @@ public class Scenario{
 	private Feature feature;
 	
 	
-	@OneToMany(mappedBy="scenario")
-	private List<ScenarioStep> scenarioSteps;
-
+//	@OneToMany(mappedBy="scenario")
+//	private List<ScenarioStep> scenarioSteps;
+	@ManyToMany
+    @JoinTable(
+            name = "scenario_step",
+            joinColumns = {@JoinColumn(name = "id_scenario")},
+            inverseJoinColumns = {@JoinColumn(name = "id_step")}
+    )
+	private List<Step> steps;
 
 	public Integer getIdScenario() {
 		return idScenario;
@@ -69,20 +75,28 @@ public class Scenario{
 		this.feature = feature;
 	}
 
-	public List<ScenarioStep> getScenarioSteps() {
-		return scenarioSteps;
+//	public List<ScenarioStep> getScenarioSteps() {
+//		return scenarioSteps;
+//	}
+//
+//	public void setScenarioSteps(List<ScenarioStep> scenarioSteps) {
+//		this.scenarioSteps = scenarioSteps;
+//	}
+	
+	public List<Step> getSteps() {
+		return steps;
 	}
 
-	public void setScenarioSteps(List<ScenarioStep> scenarioSteps) {
-		this.scenarioSteps = scenarioSteps;
+	public void setSteps(List<Step> steps) {
+		this.steps = steps;
 	}
 
 	@Override
 	public String toString() {
-		List<Step> steps = new ArrayList<Step>();
-		for (ScenarioStep scenarioStep : scenarioSteps) {
-			steps.add(scenarioStep.getStep());
-		}
+//		List<Step> steps = new ArrayList<Step>();
+//		for (ScenarioStep scenarioStep : scenarioSteps) {
+//			steps.add(scenarioStep.getStep());
+//		}
 		return	"{"
 				+ "\r\n \"idScenario\": \""+idScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
@@ -91,17 +105,17 @@ public class Scenario{
 				+ "\r\n }";
 	}
 	
-	public void addSteps(Step step){
-		ScenarioStep scst = new ScenarioStep();
-		scst.setStep(step);
-		scst.setIdStep(step.getIdStep());
-		scst.setScenario(this);
-		scst.setIdScenario(this.getIdScenario());
-		if(this.scenarioSteps==null)
-			this.scenarioSteps = new ArrayList<>();
-		
-		this.scenarioSteps.add(scst);
-		step.getScenarioSteps().add(scst);
-		
-    }
+//	public void addSteps(Step step){
+//		ScenarioStep scst = new ScenarioStep();
+//		scst.setStep(step);
+//		scst.setIdStep(step.getIdStep());
+//		scst.setScenario(this);
+//		scst.setIdScenario(this.getIdScenario());
+//		if(this.scenarioSteps==null)
+//			this.scenarioSteps = new ArrayList<>();
+//		
+//		this.scenarioSteps.add(scst);
+//		step.getScenarioSteps().add(scst);
+//		
+//    }
 }

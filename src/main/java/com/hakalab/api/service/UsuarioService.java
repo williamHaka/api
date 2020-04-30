@@ -23,7 +23,6 @@ public class UsuarioService implements UserDetailsService{
 	@Qualifier("GestorUsuario")
 	private GestorUsuario repo;
 	
-	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 		Usuario user = repo.findByNameUser(username);
 		return new User(user.getNameUser(), user.getPassUser(), buildgrante(user.getRolUser()));
