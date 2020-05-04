@@ -1,7 +1,5 @@
 package com.hakalab.api.entity;
 
-import java.io.Serializable;
-
 //import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -13,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class Usuario implements Serializable {
+public class Usuario{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_user")
@@ -25,29 +23,36 @@ public class Usuario implements Serializable {
 	@Column(name = "password")
 	private String passUser;
 
-	public final Integer getIdUser() {
+
+	public Integer getIdUser() {
 		return idUser;
 	}
 
-	public final void setIdUser(Integer idUser) {
+
+	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
 
-	public final String getNameUser() {
+
+	public String getNameUser() {
 		return nameUser;
 	}
 
-	public final void setNameUser(String nameUser) {
+
+	public void setNameUser(String nameUser) {
 		this.nameUser = nameUser;
 	}
 
-	public final String getPassUser() {
+
+	public String getPassUser() {
 		return passUser;
 	}
 
-	public final void setPassUser(String passUser) {
+
+	public void setPassUser(String passUser) {
 		this.passUser = passUser;
 	}
+
 
 	@Override
 	public String toString() {

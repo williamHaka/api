@@ -15,19 +15,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hakalab.api.entity.Feature;
+import com.hakalab.api.entity.Usuario;
 import com.hakalab.api.service.FeatureService;
+import com.hakalab.api.service.UsuarioService;
 
 //Indicamos que es un controlador rest
 @RestController
-//@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
+@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
 public class FeatureRestController {
-		
+		@Autowired
 		private FeatureService featureService;
+		@Autowired
+		private UsuarioService usuarioService;
 		
 		@RequestMapping(value ="/")  
 		public String hello() {   
 		 return "Hello, world"; 
 		 }
+		
+		@GetMapping(value = "/authenticate")
+		public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
+			String token = usuarioService.getTokenByUsername(usuario);
+			if(token != null)
+				return ResponseEntity.status(HttpStatus.OK).body(token);	
+			return new ResponseEntity<String>("Token null: ", HttpStatus.NOT_FOUND);
+			
+		}
 		
 		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
@@ -74,12 +87,5 @@ public class FeatureRestController {
 				return ResponseEntity.status(HttpStatus.OK).body("Elimated feature with name: "+name);
 			return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
 		}
-		
-		@Autowired
-		public void setFeatureService(FeatureService featureService) {
-			this.featureService = featureService;
-		}
-		
-		
 		
 }
