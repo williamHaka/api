@@ -19,6 +19,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hakalab.api.entity.Usuario;
 
+
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
 	public LoginFilter(String url, AuthenticationManager authManager) {

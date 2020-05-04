@@ -18,15 +18,12 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_user")
 	private Integer idUser;
-	
+
 	@Column(name = "name")
 	private String nameUser;
 
 	@Column(name = "password")
 	private String passUser;
-	
-	@Column(name="rol")
-	private byte rolUser;
 
 	public final Integer getIdUser() {
 		return idUser;
