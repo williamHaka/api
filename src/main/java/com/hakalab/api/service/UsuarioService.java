@@ -25,7 +25,6 @@ public class UsuarioService implements UserDetailsService{
 	@Qualifier("GestorUsuario")
 	private GestorUsuario repo;
 	
-	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 		BCryptPasswordEncoder encoder = passwordEncoder();
 		Usuario user = repo.findByNameUser(username);
