@@ -17,37 +17,29 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hakalab.api.entity.Usuario;
 
-public class LoginFilter extends AbstractAuthenticationProcessingFilter{
-	
+
+public class LoginFilter extends AbstractAuthenticationProcessingFilter {
+
 	public LoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authManager);
 	}
-	
+
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException, IOException, ServletException{
+	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException, IOException, ServletException {
 		InputStream body = req.getInputStream();
-		
-		Usuario user = new ObjectMapper().readValue(body,Usuario.class);
-		
-		return getAuthenticationManager().authenticate(
-				new UsernamePasswordAuthenticationToken(
-						user.getUsuario(),
-						user.getContrasena(),
-						Collections.emptyList()
-						)
-				);
-	}
-	
-	@Override
-	protected void successfulAuthentication(
-			HttpServletRequest req,
-			HttpServletResponse res, FilterChain chain,
-			Authentication auth) throws IOException, ServletException {
-		
-		//Si la autenticacion fue exitosa, agregamos el token a la respuesta
-		JwtUtil.addAuthentication(res, auth.getName());
+
+		Usuario user = new ObjectMapper().readValue(body, Usuario.class);
+
+		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(user.getNameUser(), user.getPassUser(), Collections.emptyList()));
 	}
 
+	@Override
+	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
+
+		// Si la autenticacion fue exitosa, agregamos el token a la respuesta
+		JwtUtil.addAuthentication(res, auth.getName());
+	}
 }

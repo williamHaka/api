@@ -13,12 +13,12 @@ import com.hakalab.api.service.UsuarioService;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter{
+public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	@Qualifier("usuarioService")
 	private UsuarioService userdetailservice;
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userdetailservice);
@@ -26,16 +26,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll() //permite el acceso a /login a cualquiera
-												 .anyRequest().authenticated() // Cualquier otra peticion requiere autenticacion.
-												 .and()
-												 //Las peticiones /login pasaran previamente por este filtro
-												 .addFilterBefore(new LoginFilter("/login", authenticationManager()),
-														 UsernamePasswordAuthenticationFilter.class)
-												 //Las demas peticiones pasaron por este filtro para validar el token
-												 .addFilterBefore(new JwtFilter(),
-														 UsernamePasswordAuthenticationFilter.class);
+		http.csrf().disable().authorizeRequests().antMatchers("/token").permitAll() // permite el acceso a /token a cualquiera
+				.anyRequest().authenticated() // Cualquier otra peticion requiere autenticacion.
+				.and()
+				// Las peticiones /login pasaran previamente por este filtro
+				.addFilterBefore(new LoginFilter("/token", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+				// Las demas peticiones pasaron por este filtro para validar el token
+				.addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
-
-	
 }
