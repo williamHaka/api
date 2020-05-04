@@ -19,15 +19,15 @@ import com.hakalab.api.service.FeatureService;
 
 //Indicamos que es un controlador rest
 @RestController
-//@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
+@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8082/hakalab/
 public class FeatureRestController {
 		
 		private FeatureService featureService;
 		
-		@RequestMapping(value ="/")  
+		@RequestMapping(value ="/}")  
 		public String hello() {   
-		 return "Hello, world"; 
-		 }
+		 return "Welcome Api Hakalab"; 
+		}
 		
 		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
