@@ -29,16 +29,12 @@ public class Feature{
 	@OneToMany(mappedBy = "feature")
 	private List<Scenario> scenarios;
 	
-	public Integer getId() {
+	public Integer getIdFeature() {
 		return idFeature;
 	}
 
-	public void setId(Integer id) {
-		this.idFeature = id;
-	}
-	
-	public void setId(String id) {
-		this.idFeature = Integer.parseInt(id);
+	public void setIdFeature(Integer idFeature) {
+		this.idFeature = idFeature;
 	}
 
 	public String getNameFeature() {

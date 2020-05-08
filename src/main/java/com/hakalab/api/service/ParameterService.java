@@ -25,6 +25,12 @@ public class ParameterService {
 		}
 	}
 	
-	
+	public void deleteFromScenario(Scenario scenario) {
+		for (Step step : scenario.getSteps()) {
+			for (Parameter parameter : step.getParameters()) {
+				parameterDAO.delete(parameter);
+				}
+			}
+		}
 	
 }

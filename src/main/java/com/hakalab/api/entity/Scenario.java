@@ -41,6 +41,7 @@ public class Scenario{
             joinColumns = {@JoinColumn(name = "id_scenario")},
             inverseJoinColumns = {@JoinColumn(name = "id_step")}
     )
+	
 	private List<Step> steps;
 
 	public Integer getIdScenario() {

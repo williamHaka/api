@@ -22,5 +22,10 @@ public class StepService {
 		}
 	}
 	
+	public void deleteFromScenario(Scenario scenario) {
+		for (Step step : scenario.getSteps()) {
+			stepDAO.delete(step);
+			}
+		}
 	
 }

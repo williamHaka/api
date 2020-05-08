@@ -41,5 +41,20 @@ public class StepParameterService {
 		}
 	}
 	
+	public void deleteFromScenario(Scenario scenario) {
+		List<StepParameter> stepParameters = new ArrayList<>();
+			for (Step step: scenario.getSteps()) {
+				for (Parameter parameter : step.getParameters()) {
+					StepParameter stepParameter = new StepParameter();
+					stepParameter.setIdStep(step.getIdStep());
+					stepParameter.setIdParameter(parameter.getIdParameter());
+					stepParameters.addAll(stepParameterDAO.getByIdStepAndIdParameter(stepParameter));
+				}
+			}
+		for (StepParameter stepParameter : stepParameters) {
+			stepParameterDAO.delete(stepParameter);
+		}
+	}
+	
 	
 }

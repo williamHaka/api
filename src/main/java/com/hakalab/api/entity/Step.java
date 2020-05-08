@@ -1,5 +1,6 @@
 package com.hakalab.api.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -106,18 +107,23 @@ public class Step {
 				+ "\r\n \"parameters\" : "+ parameters+"}";
 	}	
 	
-//	public void addParameter(Parameter parameter){
-//		StepParameter stpa = new StepParameter();
-//		stpa.setStep(this);
-//		stpa.setIdStep(this.getIdStep());
-//		stpa.setParameter(parameter);
-//		stpa.setIdParameter(parameter.getIdParameter());
-//		if(this.stepParameter==null)
-//			this.stepParameter = new ArrayList<>();
-//		
-//		this.stepParameter.add(stpa);
-//		parameter.getStepParameter().add(stpa);
-//		
-//	}
+	public void addScenario(Scenario scenario){
+		if(this.scenarios == null)
+			this.scenarios = new ArrayList<>();
+		this.scenarios.add(scenario);
+	}
 
+//	public void addParameter(Parameter parameter){
+//	StepParameter stpa = new StepParameter();
+//	stpa.setStep(this);
+//	stpa.setIdStep(this.getIdStep());
+//	stpa.setParameter(parameter);
+//	stpa.setIdParameter(parameter.getIdParameter());
+//	if(this.stepParameter==null)
+//		this.stepParameter = new ArrayList<>();
+//	
+//	this.stepParameter.add(stpa);
+//	parameter.getStepParameter().add(stpa);
+//	
+//}
 }
