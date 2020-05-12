@@ -50,21 +50,12 @@ public class ScenarioRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(scenario.toString());
 	}
 	
-//	@PostMapping(value = "/scenarios/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<String> addScenario(@RequestBody Scenario scenario) {
-//		Integer status = scenarioService.save(scenario);
-//		if(status==0) 
-//			return new ResponseEntity<String>("Scenarios exist with name: "+scenario.getNameScenario(), HttpStatus.FOUND);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(scenario.toString());
-//	}
-	
 	@PostMapping(value = "/scenarios", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> addScenario(@RequestBody Feature feature) {
 		Integer status = scenarioService.saveScenario(feature);
 		if(status==0) 
-			return new ResponseEntity<String>("Scenarios exist with name: " + feature.getNameFeature(), HttpStatus.FOUND);
-		return new ResponseEntity<String>("Scenarios exist with name: " + feature.getNameFeature(), HttpStatus.FOUND);
-//		return ResponseEntity.status(HttpStatus.CREATED).body("Hola");
+			return new ResponseEntity<String>("Scenario Created with name: " + feature.getNameFeature(), HttpStatus.FOUND);
+		return new ResponseEntity<String>("Scenario exist with name: " + feature.getNameFeature(), HttpStatus.FOUND);
 	}
 	
 	@PutMapping(value = "/updatescenario", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
