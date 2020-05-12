@@ -1,8 +1,6 @@
 package com.hakalab.api.entity;
 
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class Usuario implements Serializable {
+public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_user")

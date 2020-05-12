@@ -9,15 +9,36 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import com.hakalab.api.entity.Scenario;
-import com.hakalab.api.entity.Step;
 
 @Repository
 public class ScenarioDAO extends BaseDAO{
 	
+	public List<Scenario> getAll() {
+		Query<Scenario> selectScenario = getSession().createQuery("select a from Scenario a", Scenario.class);
+		return selectScenario.getResultList();
+	}
+	
+	public Scenario getByName(String name) {
+		Scenario scenario = null;
+		try {
+			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.nameScenario=:nombre",Scenario.class);
+			query.setParameter("nombre", name);
+			scenario = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return scenario;
+	}
+	
 	public Scenario getById(Integer idScenario) {
-		Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.idScenario=:idScenario",Scenario.class);
-		query.setParameter("idScenario", idScenario);
-		return query.getSingleResult();
+		Scenario scenario = null;
+		try {
+			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.idScenario=:idScenario",Scenario.class);
+			query.setParameter("idScenario", idScenario);
+			scenario = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return scenario;	
+
 	}
 	
 	public List<Scenario> getByIdFeature(Integer idFeature) {
@@ -30,6 +51,8 @@ public class ScenarioDAO extends BaseDAO{
 		getSession().save(scenario);
 	}
 
+	@Transactional
+	@Modifying
 	public void update(Scenario scenario) {
 		getSession().update(scenario);
 	}

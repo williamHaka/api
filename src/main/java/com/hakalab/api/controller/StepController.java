@@ -4,27 +4,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.MediaType;
 
-import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.entity.Step;
-import com.hakalab.api.service.FeatureService;
 import com.hakalab.api.service.StepService;
 
 @RestController
 @RequestMapping(value = "/hakalab/features/scenarios/")
 public class StepController {
 
+	@Autowired
 	private StepService stepService;
 	
 	@GetMapping(value = "steps", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,11 +73,6 @@ public class StepController {
 		if(step2!=null)
 			return ResponseEntity.status(HttpStatus.OK).body("Eliminated step with id: "+step.getIdStep());
 		return new ResponseEntity<String>("Step not found with id: "+step.getIdStep(), HttpStatus.NOT_FOUND);
-	}
-	
-	@Autowired
-	public void setStepService(StepService stepService) {
-		this.stepService = stepService;
 	}
  
 }

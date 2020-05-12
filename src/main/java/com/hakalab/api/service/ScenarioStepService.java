@@ -37,5 +37,17 @@ public class ScenarioStepService {
 		}
 	}
 	
+	public void deleteFromScenario(Scenario scenario) {
+		List<ScenarioStep> scenarioSteps = new ArrayList<>();
+			for (Step step: scenario.getSteps()) {
+				ScenarioStep scenarioStep = new ScenarioStep();
+				scenarioStep.setIdScenario(scenario.getIdScenario());
+				scenarioStep.setIdStep(step.getIdStep());
+				scenarioSteps.addAll(scenarioStepDAO.getByIdScenarioAndIdStep(scenarioStep));
+			}
+		for (ScenarioStep scenarioStep : scenarioSteps) {
+			scenarioStepDAO.delete(scenarioStep);
+		}
+	}
 	
 }

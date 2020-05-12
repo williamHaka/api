@@ -20,10 +20,15 @@ import com.hakalab.api.entity.StepParameter;
 @Service
 public class StepService {
 
+	@Autowired
 	private StepDAO stepDAO;
+	@Autowired
 	private ScenarioStepDAO scenariostepDAO;
+	@Autowired
 	private StepParameterDAO stepParameterDAO;
+	@Autowired
 	private ParameterDAO parameterDAO;
+	@Autowired
 	private ScenarioDAO scenarioDAO;
 	
 	public List<Step> getAll() {
@@ -120,28 +125,10 @@ public class StepService {
 		return status;
 	}
 
-	@Autowired
-	public final void setStepDAO(StepDAO stepDAO) {
-		this.stepDAO = stepDAO;
+	public void deleteFromScenario(Scenario scenario) {
+		for (Step step : scenario.getSteps()) {
+			stepDAO.delete(step);
+		}
 	}
-
-	@Autowired
-	public final void setScenarioStepDAO(ScenarioStepDAO scenariostepDAO) {
-		this.scenariostepDAO = scenariostepDAO;
-	}
-
-	@Autowired
-	public final void setStepParameterDAO(StepParameterDAO stepParameterDAO) {
-		this.stepParameterDAO = stepParameterDAO;
-	}
-
-	@Autowired
-	public final void setParameterDAO(ParameterDAO parameterDAO) {
-		this.parameterDAO = parameterDAO;
-	}
-
-	@Autowired
-	public final void setScenarioDAO(ScenarioDAO scenarioDAO) {
-		this.scenarioDAO = scenarioDAO;
-	}
+	
 }

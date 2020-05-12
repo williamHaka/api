@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
-import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.entity.ScenarioStep;
 import com.hakalab.api.entity.Step;
 
