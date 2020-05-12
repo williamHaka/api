@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GeneratorType;
+
 @Entity
 @Table(name = "step")
 public class Step {
@@ -43,6 +45,7 @@ public class Step {
 	         joinColumns = {@JoinColumn(name = "id_step")},
 	         inverseJoinColumns = {@JoinColumn(name = "id_parameter")}
 	 )
+	 
 	private List<Parameter> parameters;
 	
 	 public Integer getIdStep() {
@@ -119,5 +122,4 @@ public class Step {
 //		parameter.getStepParameter().add(stpa);
 //		
 //	}
-
 }
