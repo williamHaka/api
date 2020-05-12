@@ -11,15 +11,17 @@ import com.hakalab.api.dao.StepParameterDAO;
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Parameter;
 import com.hakalab.api.entity.Scenario;
-import com.hakalab.api.entity.ScenarioStep;
 import com.hakalab.api.entity.Step;
 import com.hakalab.api.entity.StepParameter;
 
 @Service
 public class ParameterService {
 
+	@Autowired
 	private ParameterDAO parameterDAO;
+	@Autowired
 	private StepParameterDAO stepParameterDAO;
+	@Autowired
 	private StepDAO stepDAO;
 
 	public List<Parameter> getAll() {
@@ -136,19 +138,13 @@ public class ParameterService {
 			}
 		}
 	}
-
-	@Autowired
-	public final void setParameterDAO(ParameterDAO parameterDAO) {
-		this.parameterDAO = parameterDAO;
-	}
-
-	@Autowired
-	public final void setParameterDAO(StepParameterDAO stepParameterDAO) {
-		this.stepParameterDAO = stepParameterDAO;
-	}
-
-	@Autowired
-	public final void setStepDAO(StepDAO stepDAO) {
-		this.stepDAO = stepDAO;
-	}
+	
+	public void deleteFromScenario(Scenario scenario) {
+		for (Step step : scenario.getSteps()) {
+			for (Parameter parameter : step.getParameters()) {
+				parameterDAO.delete(parameter);
+				}
+			}
+		}
+	
 }

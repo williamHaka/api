@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import com.hakalab.api.entity.Parameter;
-import com.hakalab.api.entity.Step;
 
 @Repository
 public class ParameterDAO extends BaseDAO{

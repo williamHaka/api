@@ -22,17 +22,28 @@ import com.hakalab.api.entity.StepParameter;
 @Service
 public class FeatureService{
 	
+	@Autowired
 	private FeatureDAO featureDAO;
+	@Autowired
 	private ScenarioDAO scenarioDAO;
+	@Autowired
 	private ScenarioStepDAO scenarioStepDAO;
+	@Autowired
 	private StepParameterDAO stepParameterDAO;
+	@Autowired
 	private StepDAO stepDAO;
+	@Autowired
 	private ParameterDAO parameterDAO;
 	
+	@Autowired
 	private ScenarioStepService scenarioStepService;
+	@Autowired
 	private StepParameterService stepParameterService;
+	@Autowired
 	private ParameterService parameterService;
+	@Autowired
 	private StepService stepService;
+	@Autowired
 	private ScenarioService scenarioService;
 
 	public List<Feature> getAll() {
@@ -120,51 +131,6 @@ public class FeatureService{
 		}
 		
 		return feature;
-	}
-	
-	@Autowired
-	public void setFeatureDAO(FeatureDAO featureDAO) {
-		this.featureDAO = featureDAO;
-	}
-	@Autowired
-	public void setScenarioDAO(ScenarioDAO scenarioDAO) {
-		this.scenarioDAO = scenarioDAO;
-	}
-	@Autowired
-	public void setStepDAO(StepDAO stepDAO) {
-		this.stepDAO = stepDAO;
-	}
-	@Autowired
-	public void setParameterDAO(ParameterDAO parameterDAO) {
-		this.parameterDAO = parameterDAO;
-	}
-	@Autowired
-	public void setScenarioStepDAO(ScenarioStepDAO scenarioStepDAO) {
-		this.scenarioStepDAO = scenarioStepDAO;
-	}
-	@Autowired
-	public void setStepParameterDAO(StepParameterDAO stepParameterDAO) {
-		this.stepParameterDAO = stepParameterDAO;
-	}
-	@Autowired
-	public void setScenarioStepService(ScenarioStepService scenarioStepService) {
-		this.scenarioStepService = scenarioStepService;
-	}
-	@Autowired
-	public void setStepParameterService(StepParameterService stepParameterService) {
-		this.stepParameterService = stepParameterService;
-	}
-	@Autowired
-	public void setParameterService(ParameterService parameterService) {
-		this.parameterService = parameterService;
-	}
-	@Autowired
-	public void setStepService(StepService stepService) {
-		this.stepService = stepService;
-	}
-	@Autowired
-	public void setScenarioService(ScenarioService scenarioService) {
-		this.scenarioService = scenarioService;
 	}
 	
 }
