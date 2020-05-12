@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class Controller implements ErrorController {
 
-		// ...
 	@RequestMapping("/error")
 	public ModelAndView handleError(HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
