@@ -100,6 +100,7 @@ public class StepService {
 	public void delete(Feature feature) {
 		for (Scenario scenario : feature.getScenarios()) {
 			for (Step step : scenario.getSteps()) {
+				stepDAO.delete(step);
 			}
 		}
 	}
