@@ -14,6 +14,46 @@ import com.hakalab.api.entity.Step;
 
 @Repository
 public class StepDAO extends BaseDAO {
+	
+	public List<Step> getAll() {
+		Query<Step> selectStep = getSession().createQuery("select a from Step a",Step.class);
+		return selectStep.getResultList();
+	}
+	
+	public Step getById(Integer idStep) {
+		Step step = null;
+		try {
+			Query<Step> query = getSession().createQuery("select a from Step a where a.idStep=:idStep",Step.class);
+			query.setParameter("idStep", idStep);
+			step = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return step;
+	}
+	
+	public List<Step> getByName(String nameStep) {
+		Query<Step> query = getSession().createQuery("select a from Step a where a.nameStep=:nameStep",Step.class);
+		query.setParameter("nameStep", nameStep);
+		return query.getResultList();
+	}
+	
+	public Step getByNameAndDescription(String name, String description) {
+		Step step = null;
+		try {
+			Query<Step> query = getSession().createQuery("select a from Step a where a.nameStep=:nombre and a.descriptionStep=:description",Step.class);
+			query.setParameter("nombre", name);
+			query.setParameter("description", description);
+			step = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return step;
+	}
+	
+	@Transactional
+	@Modifying
+	public void delete(Step step) {
+		getSession().delete(step);
+	}
 
 	public List<Step> getByIdScenario(Integer idScenario) {
 		List<ScenarioStep> scenarioSteps = new ArrayList<ScenarioStep>();
@@ -32,14 +72,10 @@ public class StepDAO extends BaseDAO {
 	public void save(Step step) {
 		getSession().save(step);
 	}
-	
-	public void update(Step step) {
-		getSession().update(step);
-	}
-	
+
 	@Transactional
 	@Modifying
-	public void delete(Step step) {
-		getSession().delete(step);
+	public void update(Step step) {
+		getSession().update(step);
 	}
 }
