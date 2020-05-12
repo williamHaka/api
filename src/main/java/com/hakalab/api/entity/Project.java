@@ -51,6 +51,22 @@ public class Project {
 	public void setFeatures(List<Feature> features) {
 		this.features = features;
 	}
+
+	public String getDescriptionProject() {
+		return descriptionProject;
+	}
+
+	public void setDescriptionProject(String descriptionProject) {
+		this.descriptionProject = descriptionProject;
+	}
 	
+//	@Override
+//	public String toString() {
+//		return 
+//				  "\r\n \"idProject\": "+idProject+","
+//				+ "\r\n \"nameProject\": \""+nameProject+"\","
+//				+ "\r\n \"descriptionProject\": \""+descriptionProject+"\","
+//				+ "\r\n \"scenarios\" : "+ scenarios;
+//	}
 	
 }
