@@ -30,6 +30,13 @@ public class Usuario{
 	private String roles="";
 	private String permissions;
 	
+//	@ManyToMany
+//	@JoinTable(
+//			name="user_project",
+//			joinColumns = {@JoinColumn(name = "id_user")},
+//			inverseJoinColumns = {@JoinColumn(name = "id_project")}
+//	)
+	
 	protected Usuario() {
 		// TODO Auto-generated constructor stub
 	}

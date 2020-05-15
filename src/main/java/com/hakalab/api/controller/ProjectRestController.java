@@ -2,6 +2,7 @@ package com.hakalab.api.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,10 @@ import com.hakalab.api.entity.Project;
 import com.hakalab.api.service.ProjectService;
 
 @RestController
-@RequestMapping(value = "/hakalab") //http://127.0.0.1:8082/hakalab/
+@RequestMapping(value = "/hakalab")
 public class ProjectRestController {
 
+	@Autowired
 	private ProjectService projectService;
 	
 	@GetMapping(value = "/projects", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,13 +49,12 @@ public class ProjectRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(project.toString());
 	}
 	
-	@PostMapping(value = "/projects", consumes = "MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE")
-	public ResponseEntity<String> addScenario(@RequestBody Project project) {
+	@PostMapping(value = "/projects", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> addProject(@RequestBody Project project) {
 		Integer status = projectService.saveProject(project);
 		if(status==0)
-			return new ResponseEntity<String>("Project exist with name: " + project.getNameProject(), HttpStatus.FOUND);
+			return new ResponseEntity<String>("Project Created with name: " + project.getNameProject(), HttpStatus.FOUND);
 		return new ResponseEntity<String>("Project exist with name: " + project.getNameProject(), HttpStatus.FOUND);
-//		return ResponseEntity.status(HttpStatus.CREATED).body("Hola");
 	}
 	
 	@PutMapping(value = "/updateproject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

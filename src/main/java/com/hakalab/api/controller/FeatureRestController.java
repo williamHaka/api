@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hakalab.api.entity.Feature;
-import com.hakalab.api.entity.Usuario;
+import com.hakalab.api.entity.Project;
 import com.hakalab.api.service.FeatureService;
-import com.hakalab.api.service.UsuarioService;
 
 //Indicamos que es un controlador rest
 @RestController
@@ -26,21 +25,21 @@ public class FeatureRestController {
 		
 		@Autowired
 		private FeatureService featureService;
-		@Autowired
-		private UsuarioService usuarioService;
+//		@Autowired
+//		private UsuarioService usuarioService;
 		
 		@RequestMapping(value ="/}")  
 		public String hello() {   
 		 return "Welcome Api Hakalab"; 
 		}
 		
-		@GetMapping(value = "/login",consumes = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
-			String token = usuarioService.getTokenByUsername(usuario);
-			if(token!=null) 
-				return ResponseEntity.status(HttpStatus.OK).body(token);
-			return new ResponseEntity<String>("credential incorrect", HttpStatus.NOT_FOUND);
-		}
+//		@GetMapping(value = "/login",consumes = MediaType.APPLICATION_JSON_VALUE)
+//		public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
+//			String token = usuarioService.getTokenByUsername(usuario);
+//			if(token!=null) 
+//				return ResponseEntity.status(HttpStatus.OK).body(token);
+//			return new ResponseEntity<String>("credential incorrect", HttpStatus.NOT_FOUND);
+//		}
 		
 		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
@@ -60,11 +59,11 @@ public class FeatureRestController {
 		}
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
-			Integer status = featureService.save(feature);
+		public ResponseEntity<String> addFeature(@RequestBody Project project) {
+			Integer status = featureService.saveFeature(project);
 			if(status==0) 
-				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
-			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
+				return new ResponseEntity<String>("Features exist with name: "+project.getNameProject(), HttpStatus.FOUND);
+			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
 		}
 		
 		

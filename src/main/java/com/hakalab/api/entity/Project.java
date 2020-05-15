@@ -1,8 +1,10 @@
 package com.hakalab.api.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +14,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="project")
-public class Project {
+public class Project implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +35,13 @@ public class Project {
 	@OneToMany(mappedBy = "project")
 	private List<Feature> features;
 
+	@Embedded
+	private BaseEntity baseEntity;
+	
+//	@ManyToMany(mappedBy = "projects")
+//	private List<Usuario> usuarios;
+	
+	
 	public Integer getIdProject() {
 		return idProject;
 	}
@@ -60,13 +74,21 @@ public class Project {
 		this.descriptionProject = descriptionProject;
 	}
 	
-//	@Override
-//	public String toString() {
-//		return 
-//				  "\r\n \"idProject\": "+idProject+","
-//				+ "\r\n \"nameProject\": \""+nameProject+"\","
-//				+ "\r\n \"descriptionProject\": \""+descriptionProject+"\","
-//				+ "\r\n \"scenarios\" : "+ scenarios;
-//	}
+	public BaseEntity getBaseEntity() {
+		return baseEntity;
+	}
+
+	public void setBaseEntity(BaseEntity baseEntity) {
+		this.baseEntity = baseEntity;
+	}
+
+	@Override
+	public String toString() {
+		return 
+				  "\r\n \"idProject\": "+idProject+","
+				+ "\r\n \"nameProject\": \""+nameProject+"\","
+				+ "\r\n \"descriptionProject\": \""+descriptionProject+"\","
+				+ "\r\n \"features\" : "+ features;
+	}
 	
 }

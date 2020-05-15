@@ -1,19 +1,29 @@
 package com.hakalab.api.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="feature")
-public class Feature{
+public class Feature implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +38,13 @@ public class Feature{
 	
 	@OneToMany(mappedBy = "feature")
 	private List<Scenario> scenarios;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_project", referencedColumnName = "id_project")
+	private Project project;
+	
+	@Embedded
+	private BaseEntity baseEntity;
 	
 	public Integer getIdFeature() {
 		return idFeature;
@@ -61,6 +78,22 @@ public class Feature{
 		this.scenarios = scenarios;
 	}
 	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public BaseEntity getBaseEntity() {
+		return baseEntity;
+	}
+
+	public void setBaseEntity(BaseEntity baseEntity) {
+		this.baseEntity = baseEntity;
+	}
+
 	@Override
 	public String toString() {
 		return 
