@@ -44,6 +44,7 @@ public class Step {
 	         joinColumns = {@JoinColumn(name = "id_step")},
 	         inverseJoinColumns = {@JoinColumn(name = "id_parameter")}
 	 )
+	 
 	private List<Parameter> parameters;
 	
 	 public Integer getIdStep() {
