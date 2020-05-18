@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Project;
 import com.hakalab.api.service.FeatureService;
+import com.hakalab.api.service.ProjectService;
 
 //Indicamos que es un controlador rest
 @RestController
