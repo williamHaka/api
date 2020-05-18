@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class Usuario{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_user")
@@ -38,31 +39,25 @@ public class Usuario{
 		return idUser;
 	}
 
-
 	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
-
 
 	public String getNameUser() {
 		return nameUser;
 	}
 
-
 	public void setNameUser(String nameUser) {
 		this.nameUser = nameUser;
 	}
-
 
 	public String getPassUser() {
 		return passUser;
 	}
 
-
 	public void setPassUser(String passUser) {
 		this.passUser = passUser;
 	}
-
 
 	public Integer getActive() {
 		return active;
