@@ -107,11 +107,11 @@ public class FeatureService{
 	public Integer update(Feature feature) {
 		Integer status = 0;
 		try {
-			Project projectExist = projectDAO.getById(feature.getIdFeature());
-			if (projectExist != null) {
-				projectExist.setNameProject(feature.getNameFeature());
-				projectExist.setDescriptionProject(feature.getDescriptionFeature());
-				projectDAO.update(projectExist);
+			Feature featureExist = featureDAO.getById(feature.getIdFeature());
+			if (featureExist != null) {
+				featureExist.setNameFeature(feature.getNameFeature());
+				featureExist.setDescriptionFeature(feature.getDescriptionFeature());
+				featureDAO.update(featureExist);
 				status = 1;
 			}
 		} catch (Exception e) {

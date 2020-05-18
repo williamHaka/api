@@ -31,6 +31,9 @@ public class Scenario{
 	@Column(name = "type")
 	private String typeScenario;
 	
+	@Column(name = "status")
+	private String statusScenario;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
 	private Feature feature;
@@ -78,6 +81,14 @@ public class Scenario{
 		this.typeScenario = typeScenario;
 	}
 
+	public String getStatusScenario() {
+		return statusScenario;
+	}
+
+	public void setStatusScenario(String statusScenario) {
+		this.statusScenario = statusScenario;
+	}
+
 	public Feature getFeature() {
 		return feature;
 	}
@@ -110,8 +121,10 @@ public class Scenario{
 //		}
 		return	"{"
 				+ "\r\n \"idScenario\": \""+idScenario+"\","
+				+ "\r\n \"tagScenario\": \""+tagScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
+				+ "\r\n \"statusScenario\": \""+statusScenario+"\","
 				+ "\r\n \"steps\" : "+ steps
 				+ "\r\n }";
 	}

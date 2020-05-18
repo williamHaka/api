@@ -71,19 +71,6 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
 		}
 		
-		
-//		@PutMapping(value = "/updatefeatures",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-//		public void updateFeature(@RequestBody Feature feature) {
-//			//TODO
-//			Integer status = 0;
-//			if (feature.getId()!=null || feature.getId()!=0) {
-//				status = featureService.update(feature);
-//			}
-//			if(status==0)
-//				 return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
-//			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
-//		}
-		
 		@PutMapping(value = "/updatescenario", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> updateScenario(@RequestBody Feature feature) {
 			Integer status = 0;
