@@ -22,6 +22,9 @@ public class Scenario{
 	@Column(name="id_scenario")
 	private Integer idScenario;
 	
+	@Column(name = "tag")
+	private String tagScenario;
+	
 	@Column(name = "name")
 	private String nameScenario;
 	
@@ -31,7 +34,6 @@ public class Scenario{
 	@ManyToOne
 	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
 	private Feature feature;
-	
 	
 //	@OneToMany(mappedBy="scenario")
 //	private List<ScenarioStep> scenarioSteps;
@@ -43,6 +45,14 @@ public class Scenario{
     )
 	
 	private List<Step> steps;
+
+	public String getTagScenario() {
+		return tagScenario;
+	}
+
+	public void setTagScenario(String tagScenario) {
+		this.tagScenario = tagScenario;
+	}
 
 	public Integer getIdScenario() {
 		return idScenario;
