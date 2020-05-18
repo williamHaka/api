@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Project;
+import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.service.FeatureService;
 import com.hakalab.api.service.ProjectService;
 
@@ -81,6 +83,15 @@ public class FeatureRestController {
 //				 return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
 //			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 //		}
+		
+		@PutMapping(value = "/updatescenario", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> updateScenario(@RequestBody Feature feature) {
+			Integer status = 0;
+			status = featureService.update(feature);
+			if(status==0)
+				 return new ResponseEntity<String>("Feature not found with name: " + feature.getNameFeature(), HttpStatus.NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
+		}
 		
 		@DeleteMapping("features/{name}")
 		public ResponseEntity<String> deteteFeature(@PathVariable String name) {

@@ -104,28 +104,20 @@ public class FeatureService{
 		return status;
 		} 
 	
-//	public Integer update(Feature feature) {
-//		Integer status = 0;
-//		try {
-//			featureDAO.update(feature);
-//			for (Scenario scenario : feature.getScenarios()) {
-//				scenario.setFeature(feature);
-//				scenarioDAO.update(scenario);
-//				for (Step step : scenario.getSteps()) {
-//					step.setScenarios(scenario);
-//					stepDAO.update(step);
-//					for (Parameter parameter : step.getParameters()) {
-//						parameter.setStep(step);
-//						parameterDAO.update(parameter);
-//					}
-//				}
-//			}
-//			status = 1;
-//		} catch (Exception e) {
-//		}
-//		return status;
-//	}
-
+	public Integer update(Feature feature) {
+		Integer status = 0;
+		try {
+			Project projectExist = projectDAO.getById(feature.getIdFeature());
+			if (projectExist != null) {
+				projectExist.setNameProject(feature.getNameFeature());
+				projectExist.setDescriptionProject(feature.getDescriptionFeature());
+				projectDAO.update(projectExist);
+				status = 1;
+			}
+		} catch (Exception e) {
+		}return status;
+	}
+	
 	public Feature deleteFeature(String name) {
 		Feature feature = featureDAO.getByName(name);
 		if(feature!=null) {
