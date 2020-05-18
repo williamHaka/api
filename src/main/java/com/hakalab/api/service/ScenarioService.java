@@ -105,6 +105,7 @@ public class ScenarioService {
 		try {
 			Scenario scenarioExist = scenarioDAO.getById(scenario.getIdScenario());
 			if (scenarioExist != null) {
+				scenarioExist.setTagScenario(scenario.getTagScenario());
 				scenarioExist.setNameScenario(scenario.getNameScenario());
 				scenarioExist.setTypeScenario(scenario.getTypeScenario());
 				scenarioDAO.update(scenarioExist);
