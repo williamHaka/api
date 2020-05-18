@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class Usuario{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_user")
@@ -30,13 +31,6 @@ public class Usuario{
 	private String roles="";
 	private String permissions;
 	
-//	@ManyToMany
-//	@JoinTable(
-//			name="user_project",
-//			joinColumns = {@JoinColumn(name = "id_user")},
-//			inverseJoinColumns = {@JoinColumn(name = "id_project")}
-//	)
-	
 	protected Usuario() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,31 +39,25 @@ public class Usuario{
 		return idUser;
 	}
 
-
 	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
-
 
 	public String getNameUser() {
 		return nameUser;
 	}
 
-
 	public void setNameUser(String nameUser) {
 		this.nameUser = nameUser;
 	}
-
 
 	public String getPassUser() {
 		return passUser;
 	}
 
-
 	public void setPassUser(String passUser) {
 		this.passUser = passUser;
 	}
-
 
 	public Integer getActive() {
 		return active;

@@ -25,6 +25,8 @@ public class FeatureRestController {
 		
 		@Autowired
 		private FeatureService featureService;
+		@Autowired
+		private ProjectService projectService;
 //		@Autowired
 //		private UsuarioService usuarioService;
 		
