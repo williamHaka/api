@@ -1,6 +1,5 @@
 package com.hakalab.api.entity;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
 
 import javax.persistence.Column;

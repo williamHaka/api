@@ -125,8 +125,7 @@ public class Scenario{
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
 				+ "\r\n \"statusScenario\": \""+statusScenario+"\","
-				+ "\r\n \"steps\" : "+ steps
-				+ "\r\n }";
+				+ "\r\n \"steps\" : "+ steps;
 	}
 	
 //	public void addSteps(Step step){
