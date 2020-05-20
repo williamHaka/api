@@ -9,16 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hakalab.api.dao.UsuarioDAO;
-import com.hakalab.api.entity.Scenario;
+import com.hakalab.api.dao.UsuarioProjectDAO;
 import com.hakalab.api.entity.Usuario;
+import com.hakalab.api.entity.UsuarioProject;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UsuarioService{
+	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	@Autowired
+	private UsuarioProjectDAO usuarioprojectDAO;
 
 	public String getTokenByUsername(Usuario usuario) throws Exception {
 		String jwt = Jwts.builder()
@@ -76,11 +80,16 @@ public class UsuarioService{
 		}return status;
 	}
 	
-	public Usuario deleteUsuario(String name) {
-		Usuario usuario = usuarioDAO.getByName(name);
+	public Usuario deleteUsuario(Integer idUsuario) {
+		Usuario usuario = usuarioDAO.getById(idUsuario);
 		if(usuario!=null) {
-//			usuarioProject.delete(usuario);
-			usuarioDAO.delete(usuario);
+			List<UsuarioProject> usuariosProject = usuarioprojectDAO.getByIdUsuario(usuario);
+			if (usuariosProject != null) {
+				for (UsuarioProject usuarioProject : usuariosProject) {
+					usuarioprojectDAO.delete(usuarioProject);
+					usuarioDAO.delete(usuario);
+					}
+				}
 			}
 		return usuario;
 		}

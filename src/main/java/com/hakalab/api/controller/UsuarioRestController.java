@@ -67,11 +67,11 @@ public class UsuarioRestController {
 	}
 	
 	@DeleteMapping("usuariosByName/{name}")
-	public ResponseEntity<String> deleteScenario(@PathVariable String name) {
-		Usuario usuario = usuarioService.deleteUsuario(name);
-		if(usuario!=null)
-			return ResponseEntity.status(HttpStatus.OK).body("Eliminated user with name: "+name);
-		return new ResponseEntity<String>("Usuarios not found with name: "+name, HttpStatus.NOT_FOUND);
+	public ResponseEntity<String> deleteUsuario(@PathVariable Usuario usuario) {
+		Usuario usuario2 = usuarioService.deleteUsuario(usuario.getIdUser());
+		if(usuario2!=null)
+			return ResponseEntity.status(HttpStatus.OK).body("Eliminated user with name: "+usuario.getIdUser());
+		return new ResponseEntity<String>("Usuarios not found with name: "+usuario.getIdUser(), HttpStatus.NOT_FOUND);
 	}
 	
 }
