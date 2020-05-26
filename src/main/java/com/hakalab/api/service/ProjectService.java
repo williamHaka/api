@@ -71,41 +71,39 @@ public class ProjectService {
 		Integer status = 0;
 		try {
 			Project projectExist = projectDAO.getById(project.getIdProject());
-			if (projectExist != null) {
+			if (projectExist == null) {
 				projectDAO.save(project);
 				for (Feature feature : project.getFeatures()) {
-					Feature featureExist = featureDAO.getByName(feature.getNameFeature());
-					if(featureExist == null) {
-						featureDAO.save(feature);
-						for (Scenario scenario : feature.getScenarios()) {
-							scenario.setFeature(feature);
-							scenarioDAO.save(scenario);
-							for (Step step : scenario.getSteps()) {
-								ScenarioStep scenarioStep = new ScenarioStep();
-								step.setScenarios(feature.getScenarios());
-								stepDAO.save(step);
-								scenarioStep.setIdScenario(scenario.getIdScenario());
-								scenarioStep.setIdStep(step.getIdStep());
-								scenarioStepDAO.save(scenarioStep);
-								for (Parameter parameter : step.getParameters()) {
-									List<Step> stepAux = new ArrayList<Step>();
-									for (Step steps : scenario.getSteps()) {
-										stepAux.add(steps);
-										}
-									parameter.setSteps(stepAux);
-									parameterDAO.save(parameter);
-									StepParameter stepParameter = new StepParameter();
-									stepParameter.setIdStep(step.getIdStep());
-									stepParameter.setIdParameter(parameter.getIdParameter());
-									stepParameterDAO.save(stepParameter);
+					feature.setProject(project);
+					featureDAO.save(feature);
+					for (Scenario scenario : feature.getScenarios()) {
+						scenario.setFeature(feature);
+						scenarioDAO.save(scenario);
+						for (Step step : scenario.getSteps()) {
+							ScenarioStep scenarioStep = new ScenarioStep();
+							step.setScenarios(feature.getScenarios());
+							stepDAO.save(step);
+							scenarioStep.setIdScenario(scenario.getIdScenario());
+							scenarioStep.setIdStep(step.getIdStep());
+							scenarioStepDAO.save(scenarioStep);
+							for (Parameter parameter : step.getParameters()) {
+								List<Step> stepAux = new ArrayList<Step>();
+								for (Step steps : scenario.getSteps()) {
+									stepAux.add(steps);
+									}
+								parameter.setSteps(stepAux);
+								parameterDAO.save(parameter);
+								StepParameter stepParameter = new StepParameter();
+								stepParameter.setIdStep(step.getIdStep());
+								stepParameter.setIdParameter(parameter.getIdParameter());
+								stepParameterDAO.save(stepParameter);
 								}
 							}
 						}
 					}
 				}
+			} catch (Exception e) {
 			}
-		} catch (Exception e) {
-		}
 		return status;
 	}
 	

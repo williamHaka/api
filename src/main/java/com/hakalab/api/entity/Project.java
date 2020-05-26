@@ -1,6 +1,7 @@
 package com.hakalab.api.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -93,5 +94,5 @@ public class Project implements Serializable {
 				+ "\r\n \"descriptionProject\": \""+descriptionProject+"\","
 				+ "\r\n \"features\" : "+ features;
 	}
-	
+
 }
