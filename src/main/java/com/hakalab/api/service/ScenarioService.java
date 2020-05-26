@@ -108,6 +108,7 @@ public class ScenarioService {
 				scenarioExist.setTagScenario(scenario.getTagScenario());
 				scenarioExist.setNameScenario(scenario.getNameScenario());
 				scenarioExist.setTypeScenario(scenario.getTypeScenario());
+				scenarioExist.setStatusScenario(scenario.getStatusScenario());
 				scenarioDAO.update(scenarioExist);
 				status = 1;
 			}
