@@ -10,6 +10,7 @@ import com.hakalab.api.dao.StepDAO;
 import com.hakalab.api.dao.StepParameterDAO;
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Parameter;
+import com.hakalab.api.entity.Project;
 import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.entity.Step;
 import com.hakalab.api.entity.StepParameter;
@@ -129,6 +130,18 @@ public class ParameterService {
 		return parameterExist;
 	}
 
+	public void deleteFromProject(Project project) {
+		for (Feature feature : project.getFeatures()) {
+			for (Scenario scenario : feature.getScenarios()) {
+				for (Step step : scenario.getSteps()) {
+					for (Parameter parameter : step.getParameters()) {
+						parameterDAO.delete(parameter);
+						}
+					}
+				}
+			}
+		}
+	
 	public void delete(Feature feature) {
 		for (Scenario scenario : feature.getScenarios()) {
 			for (Step step : scenario.getSteps()) {

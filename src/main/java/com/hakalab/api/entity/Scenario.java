@@ -22,16 +22,21 @@ public class Scenario{
 	@Column(name="id_scenario")
 	private Integer idScenario;
 	
+	@Column(name = "tag")
+	private String tagScenario;
+	
 	@Column(name = "name")
 	private String nameScenario;
 	
 	@Column(name = "type")
 	private String typeScenario;
 	
+	@Column(name = "status")
+	private String statusScenario;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
 	private Feature feature;
-	
 	
 //	@OneToMany(mappedBy="scenario")
 //	private List<ScenarioStep> scenarioSteps;
@@ -43,6 +48,14 @@ public class Scenario{
     )
 	
 	private List<Step> steps;
+
+	public String getTagScenario() {
+		return tagScenario;
+	}
+
+	public void setTagScenario(String tagScenario) {
+		this.tagScenario = tagScenario;
+	}
 
 	public Integer getIdScenario() {
 		return idScenario;
@@ -66,6 +79,14 @@ public class Scenario{
 
 	public void setTypeScenario(String typeScenario) {
 		this.typeScenario = typeScenario;
+	}
+
+	public String getStatusScenario() {
+		return statusScenario;
+	}
+
+	public void setStatusScenario(String statusScenario) {
+		this.statusScenario = statusScenario;
 	}
 
 	public Feature getFeature() {
@@ -100,10 +121,11 @@ public class Scenario{
 //		}
 		return	"{"
 				+ "\r\n \"idScenario\": \""+idScenario+"\","
+				+ "\r\n \"tagScenario\": \""+tagScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
-				+ "\r\n \"steps\" : "+ steps
-				+ "\r\n }";
+				+ "\r\n \"statusScenario\": \""+statusScenario+"\","
+				+ "\r\n \"steps\" : "+ steps;
 	}
 	
 //	public void addSteps(Step step){

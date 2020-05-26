@@ -54,7 +54,7 @@ public class ScenarioRestController {
 	public ResponseEntity<String> addScenario(@RequestBody Feature feature) {
 		Integer status = scenarioService.saveScenario(feature);
 		if(status==0) 
-			return new ResponseEntity<String>("Scenario Created with name: " + feature.getNameFeature(), HttpStatus.FOUND);
+			return new ResponseEntity<String>("Scenario created with name: " + feature.getNameFeature(), HttpStatus.FOUND);
 		return new ResponseEntity<String>("Scenario exist with name: " + feature.getNameFeature(), HttpStatus.FOUND);
 	}
 	

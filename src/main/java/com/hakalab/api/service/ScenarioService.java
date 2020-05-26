@@ -14,6 +14,7 @@ import com.hakalab.api.dao.StepDAO;
 import com.hakalab.api.dao.StepParameterDAO;
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Parameter;
+import com.hakalab.api.entity.Project;
 import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.entity.ScenarioStep;
 import com.hakalab.api.entity.Step;
@@ -104,13 +105,23 @@ public class ScenarioService {
 		try {
 			Scenario scenarioExist = scenarioDAO.getById(scenario.getIdScenario());
 			if (scenarioExist != null) {
+				scenarioExist.setTagScenario(scenario.getTagScenario());
 				scenarioExist.setNameScenario(scenario.getNameScenario());
 				scenarioExist.setTypeScenario(scenario.getTypeScenario());
+				scenarioExist.setStatusScenario(scenario.getStatusScenario());
 				scenarioDAO.update(scenarioExist);
 				status = 1;
 			}
 		} catch (Exception e) {
 		}return status;
+	}
+	
+	public void deleteFromProject(Project project) {
+		for (Feature feature: project.getFeatures()) {
+			for (Scenario scenario : feature.getScenarios()) {
+				scenarioDAO.delete(scenario);
+			}
+		}
 	}
 	
 	public void delete(Feature feature) {

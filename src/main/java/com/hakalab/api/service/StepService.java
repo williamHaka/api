@@ -12,6 +12,7 @@ import com.hakalab.api.dao.StepDAO;
 import com.hakalab.api.dao.StepParameterDAO;
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Parameter;
+import com.hakalab.api.entity.Project;
 import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.entity.ScenarioStep;
 import com.hakalab.api.entity.Step;
@@ -100,6 +101,16 @@ public class StepService {
 			stepDAO.delete(step);
 		}
 		return step;
+	}
+	
+	public void deleteFromProject(Project project) {
+		for (Feature feature: project.getFeatures()) {
+			for (Scenario scenario : feature.getScenarios()) {
+				for (Step step : scenario.getSteps()) {
+					stepDAO.delete(step);
+					}
+				}
+			}
 	}
 	
 	public void delete(Feature feature) {

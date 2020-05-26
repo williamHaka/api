@@ -38,7 +38,6 @@ public class ScenarioDAO extends BaseDAO{
 		} catch (Exception e) {
 		}
 		return scenario;	
-
 	}
 	
 	public List<Scenario> getByIdFeature(Integer idFeature) {
