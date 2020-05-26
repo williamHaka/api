@@ -71,7 +71,7 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
 		}
 		
-		@PutMapping(value = "/updatescenario", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+		@PutMapping(value = "/updatefeature", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> updateScenario(@RequestBody Feature feature) {
 			Integer status = 0;
 			status = featureService.update(feature);
