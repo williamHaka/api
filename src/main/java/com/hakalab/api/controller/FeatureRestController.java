@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.hakalab.api.service.UsuarioService;
 
 //Indicamos que es un controlador rest
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8082/hakalab/
 public class FeatureRestController {
 		
@@ -58,6 +60,7 @@ public class FeatureRestController {
 				 return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
 			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
+
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
