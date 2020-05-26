@@ -64,12 +64,20 @@ public class FeatureRestController {
 		}
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> addFeature(@RequestBody Project project) {
-			Integer status = featureService.saveFeature(project);
+		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
+			Integer status = featureService.saveFeature(feature);
 			if(status==0) 
-				return new ResponseEntity<String>("Features exist with name: "+project.getNameProject(), HttpStatus.FOUND);
-			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
+				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
+			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
 		}
+		
+//		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+//		public ResponseEntity<String> addFeature(@RequestBody Project project) {
+//			Integer status = featureService.saveFeature(project);
+//			if(status==0) 
+//				return new ResponseEntity<String>("Features exist with name: "+project.getNameProject(), HttpStatus.FOUND);
+//			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
+//		}
 		
 		@PutMapping(value = "/updatefeature", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> updateScenario(@RequestBody Feature feature) {
