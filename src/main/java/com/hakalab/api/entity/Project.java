@@ -35,8 +35,8 @@ public class Project implements Serializable {
 	@OneToMany(mappedBy = "project")
 	private List<Feature> features;
 
-	@Embedded
-	private BaseEntity baseEntity;
+//	@Embedded
+//	private BaseEntity baseEntity;
 	
 //	@ManyToMany(mappedBy = "projects")
 //	private List<Usuario> usuarios;
@@ -74,12 +74,16 @@ public class Project implements Serializable {
 		this.descriptionProject = descriptionProject;
 	}
 	
-	public BaseEntity getBaseEntity() {
-		return baseEntity;
-	}
+//	public BaseEntity getBaseEntity() {
+//		return baseEntity;
+//	}
+//
+//	public void setBaseEntity(BaseEntity baseEntity) {
+//		this.baseEntity = baseEntity;
+//	}
 
-	public void setBaseEntity(BaseEntity baseEntity) {
-		this.baseEntity = baseEntity;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

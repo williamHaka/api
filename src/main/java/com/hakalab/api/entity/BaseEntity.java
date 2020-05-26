@@ -7,10 +7,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-//@Entity
 @Embeddable
 public class BaseEntity {
 
@@ -19,12 +15,12 @@ public class BaseEntity {
 //	@Column(name = "id_base")
 //	private Integer idBase;
 	
-	@CreationTimestamp
+//	@CreationTimestamp
 	@Column(name = "creation_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar creationDate;
 	
-	@UpdateTimestamp
+//	@UpdateTimestamp
 	@Column(name = "updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar updatedDate;
