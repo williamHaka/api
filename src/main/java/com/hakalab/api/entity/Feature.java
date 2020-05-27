@@ -95,11 +95,11 @@ public class Feature implements Serializable{
 
 	@Override
 	public String toString() {
-		return 
-				  "\r\n \"idFeature\": "+idFeature+","
-				+ "\r\n \"nameFeature\": \""+nameFeature+"\","
-				+ "\r\n \"descriptionFeature\": \""+descriptionFeature+"\","
-				+ "\r\n \"scenarios\" : "+ scenarios;
+		return "{"
+				+ "\r\n \"idFeature\": \"" + idFeature+ "\","
+				+ "\r\n \"nameFeature\": \"" + nameFeature + "\","
+				+ "\r\n \"descriptionFeature\": \"" + descriptionFeature + "\","
+				+ "\r\n \"scenarios\" : "+ scenarios +"}";
 	}
 	
 	public void addScenario(Scenario scenarios){

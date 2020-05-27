@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,7 +45,7 @@ public class FeatureRestController {
 //			return new ResponseEntity<String>("credential incorrect", HttpStatus.NOT_FOUND);
 //		}
 		
-		@GetMapping(value = "/features", produces = MediaType.APPLICATION_JSON_VALUE)
+		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
 			List<Feature> features = featureService.getAll();
 			if(features.isEmpty()) 
@@ -65,11 +64,11 @@ public class FeatureRestController {
 
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> addFeature(@RequestBody Project project) {
-			Integer status = featureService.saveFeature(project);
+		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
+			Integer status = featureService.saveFeature(feature);
 			if(status==0) 
-				return new ResponseEntity<String>("Features exist with name: "+project.getNameProject(), HttpStatus.FOUND);
-			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
+				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
+			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
 		}
 		
 		@PutMapping(value = "/updatefeature", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -80,6 +79,7 @@ public class FeatureRestController {
 				 return new ResponseEntity<String>("Feature not found with name: " + feature.getNameFeature(), HttpStatus.NOT_FOUND);
 			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
+		
 		@DeleteMapping("features")
 		public ResponseEntity<String> deteteFeature(@RequestBody Feature feature) {
 			Feature feature2 = featureService.deleteFeature(feature.getNameFeature());

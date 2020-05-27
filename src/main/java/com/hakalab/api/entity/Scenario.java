@@ -38,8 +38,6 @@ public class Scenario{
 	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
 	private Feature feature;
 	
-//	@OneToMany(mappedBy="scenario")
-//	private List<ScenarioStep> scenarioSteps;
 	@ManyToMany
     @JoinTable(
             name = "scenario_step",
@@ -97,14 +95,6 @@ public class Scenario{
 		this.feature = feature;
 	}
 
-//	public List<ScenarioStep> getScenarioSteps() {
-//		return scenarioSteps;
-//	}
-//
-//	public void setScenarioSteps(List<ScenarioStep> scenarioSteps) {
-//		this.scenarioSteps = scenarioSteps;
-//	}
-	
 	public List<Step> getSteps() {
 		return steps;
 	}
@@ -115,30 +105,13 @@ public class Scenario{
 
 	@Override
 	public String toString() {
-//		List<Step> steps = new ArrayList<Step>();
-//		for (ScenarioStep scenarioStep : scenarioSteps) {
-//			steps.add(scenarioStep.getStep());
-//		}
-		return	"{"
+		return "{"
 				+ "\r\n \"idScenario\": \""+idScenario+"\","
 				+ "\r\n \"tagScenario\": \""+tagScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
 				+ "\r\n \"statusScenario\": \""+statusScenario+"\","
-				+ "\r\n \"steps\" : "+ steps;
+				+ "\r\n \"steps\" : "+ steps + "}";
 	}
 	
-//	public void addSteps(Step step){
-//		ScenarioStep scst = new ScenarioStep();
-//		scst.setStep(step);
-//		scst.setIdStep(step.getIdStep());
-//		scst.setScenario(this);
-//		scst.setIdScenario(this.getIdScenario());
-//		if(this.scenarioSteps==null)
-//			this.scenarioSteps = new ArrayList<>();
-//		
-//		this.scenarioSteps.add(scst);
-//		step.getScenarioSteps().add(scst);
-//		
-//    }
 }

@@ -18,22 +18,15 @@ public class FeatureDAO extends BaseDAO{
 		return selectFeture.getResultList();
 	}
 	
-	public List<Feature> getByName(String nameFeature) {
-		Query<Feature> query = getSession().createQuery("select a from Feature a where a.nameFeature=:nombre", Feature.class);
-		query.setParameter("nombre", nameFeature);
-		return query.getResultList();
-	}
-	
-	public Feature getByNameAndDescription(String nameFeature, String descriptionFeature) {
+	public Feature getByName(String name) {
 		Feature feature = null;
 		try {
-			Query<Feature> query = getSession().createQuery("select a from Feature a where a.nameFeature=:nombre and a.descriptionFeature=:description", Feature.class);
-			query.setParameter("nombre", nameFeature);
-			query.setParameter("description", descriptionFeature);
-			return query.getSingleResult();
+			Query<Feature> query = getSession().createQuery("select a from Feature a where a.nameFeature=:nombre",Feature.class);
+			query.setParameter("nombre", name);
+			feature = query.getSingleResult();
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
+		
 		return feature;
 	}
 	
