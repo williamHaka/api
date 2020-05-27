@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hakalab.api.entity.Feature;
-import com.hakalab.api.entity.Project;
-import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.service.FeatureService;
 import com.hakalab.api.service.ProjectService;
 
@@ -57,11 +55,11 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.OK).body(features.toString());
 		}
 
-		@GetMapping(value = "/features/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> getFeature(@PathVariable String name){
-			Feature feature = featureService.getByName(name);		
-			if(feature==null) 
-				 return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
+		@GetMapping(value = "/feature",produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> getFeature(@RequestBody Feature feature){
+			Feature feature2 = featureService.getByName(feature.getNameFeature());		
+			if(feature2==null) 
+				 return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
 			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
 
@@ -91,12 +89,11 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
 		
-		@DeleteMapping("features/{name}")
-		public ResponseEntity<String> deteteFeature(@PathVariable String name) {
-			Feature feature = featureService.deleteFeature(name);
-			if(feature!=null)
-				return ResponseEntity.status(HttpStatus.OK).body("Eliminated feature with name: "+name);
-			return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
+		@DeleteMapping("features")
+		public ResponseEntity<String> deteteFeature(@RequestBody Feature feature) {
+			Feature feature2 = featureService.deleteFeature(feature.getNameFeature());
+			if(feature2!=null)
+				return ResponseEntity.status(HttpStatus.OK).body("Eliminated feature with name: "+feature.getNameFeature());
+			return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
 		}
-		
 }
