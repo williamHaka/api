@@ -34,20 +34,20 @@ public class ScenarioRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(scenarios.toString());
 	}
 
-	@GetMapping(value = "/scenariosByName/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getScenarioByName(@PathVariable String name){
-		Scenario scenario = scenarioService.getByName(name);		
-		if(scenario == null) 
-			 return new ResponseEntity<String>("Scenarios not found with name: "+name, HttpStatus.NOT_FOUND);
-		return ResponseEntity.status(HttpStatus.OK).body(scenario.toString());
+	@GetMapping(value = "/scenariosByName", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getScenarioByName(@RequestBody Scenario scenario){
+		Scenario scenario1 = scenarioService.getByName(scenario.getNameScenario());		
+		if(scenario1 == null) 
+			 return new ResponseEntity<String>("Scenarios not found with name: "+scenario.getNameScenario(), HttpStatus.NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.OK).body(scenario1.toString());
 	}
 	
-	@GetMapping(value = "/scenariosById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getScenarioById(@PathVariable Integer id){
-		Scenario scenario = scenarioService.getById(id);		
-		if(scenario == null)
-			 return new ResponseEntity<String>("Scenarios not found with id: "+ id, HttpStatus.NOT_FOUND);
-		return ResponseEntity.status(HttpStatus.OK).body(scenario.toString());
+	@GetMapping(value = "/scenariosById", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getScenarioById(@RequestBody Scenario scenario){
+		Scenario scenario1 = scenarioService.getById(scenario.getIdScenario());		
+		if(scenario1 == null)
+			 return new ResponseEntity<String>("Scenarios not found with id: "+ scenario.getIdScenario(), HttpStatus.NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.OK).body(scenario1.toString());
 	}
 	
 	@PostMapping(value = "/scenarios", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,11 +68,11 @@ public class ScenarioRestController {
 	}
 	
 	@DeleteMapping("scenariosByName/{name}")
-	public ResponseEntity<String> deleteScenario(@PathVariable String name) {
-		Scenario scenario = scenarioService.deleteScenario(name);
-		if(scenario!=null)
-			return ResponseEntity.status(HttpStatus.OK).body("Eliminated scenario with name: "+name);
-		return new ResponseEntity<String>("Scenarios not found with name: "+name, HttpStatus.NOT_FOUND);
+	public ResponseEntity<String> deleteScenario(@RequestBody Scenario scenario) {
+		Scenario scenario1 = scenarioService.deleteScenario(scenario.getNameScenario());
+		if(scenario1!=null)
+			return ResponseEntity.status(HttpStatus.OK).body("Eliminated scenario with name: "+scenario.getNameScenario());
+		return new ResponseEntity<String>("Scenarios not found with name: "+scenario.getNameScenario(), HttpStatus.NOT_FOUND);
 	}
 	
 }
