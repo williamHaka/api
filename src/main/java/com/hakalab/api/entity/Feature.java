@@ -98,7 +98,7 @@ public class Feature implements Serializable{
 		return "\r\n \"idFeature\": \"" + idFeature+ "\","
 				+ "\r\n \"nameFeature\": \"" + nameFeature + "\","
 				+ "\r\n \"descriptionFeature\": \"" + descriptionFeature + "\","
-				+ "\r\n \"scenarios\" : "+ scenarios+"}";
+				+ "\r\n \"scenarios\" : "+ scenarios;
 	}
 	
 	public void addScenario(Scenario scenarios){
