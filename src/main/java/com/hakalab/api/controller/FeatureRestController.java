@@ -46,7 +46,7 @@ public class FeatureRestController {
 //			return new ResponseEntity<String>("credential incorrect", HttpStatus.NOT_FOUND);
 //		}
 		
-		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
+		@GetMapping(value = "/features", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
 			List<Feature> features = featureService.getAll();
 			if(features.isEmpty()) 
@@ -55,29 +55,29 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.OK).body(features.toString());
 		}
 
-		@GetMapping(value = "/features/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> getFeature(@PathVariable String name){
-			Feature feature = featureService.getByName(name);		
-			if(feature==null) 
-				 return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
-			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
+//		@GetMapping(value = "/features/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
+//		public ResponseEntity<String> getFeature(@PathVariable String name){
+//			Feature feature = featureService.getByName(name);		
+//			if(feature==null) 
+//				 return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
+//			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
+//		}
+		
+		@GetMapping(value = "/feature", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> getFeature(@RequestBody Feature feature){
+			List<Feature> featureExist = featureService.getByName(feature.getNameFeature());		
+			if(featureExist.isEmpty()) 
+				 return new ResponseEntity<String>("Features not found with name: " + feature.getNameFeature(), HttpStatus.NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.OK).body(featureExist.toString());
 		}
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
-			Integer status = featureService.saveFeature(feature);
+		public ResponseEntity<String> addFeature(@RequestBody Project project) {
+			Integer status = featureService.saveFeature(project);
 			if(status==0) 
-				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
-			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
+				return new ResponseEntity<String>("Features exist with name: "+project.getNameProject(), HttpStatus.FOUND);
+			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
 		}
-		
-//		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-//		public ResponseEntity<String> addFeature(@RequestBody Project project) {
-//			Integer status = featureService.saveFeature(project);
-//			if(status==0) 
-//				return new ResponseEntity<String>("Features exist with name: "+project.getNameProject(), HttpStatus.FOUND);
-//			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
-//		}
 		
 		@PutMapping(value = "/updatefeature", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> updateScenario(@RequestBody Feature feature) {
@@ -88,12 +88,12 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
 		
-		@DeleteMapping("features/{name}")
-		public ResponseEntity<String> deteteFeature(@PathVariable String name) {
-			Feature feature = featureService.deleteFeature(name);
-			if(feature!=null)
-				return ResponseEntity.status(HttpStatus.OK).body("Eliminated feature with name: "+name);
-			return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
+		@DeleteMapping(value = "feature", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> deleteFeature(@RequestBody Feature feature) {
+			Feature featureExist = featureService.deleteFeature(feature);
+			if(featureExist!=null)
+				return ResponseEntity.status(HttpStatus.OK).body("Eliminated feature with name: " + feature.getNameFeature());
+			return new ResponseEntity<String>("Features not found with name: " + feature.getNameFeature(), HttpStatus.NOT_FOUND);
 		}
 		
 }
