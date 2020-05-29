@@ -50,7 +50,6 @@ public class FeatureRestController {
 			List<Feature> features = featureService.getAll();
 			if(features.isEmpty()) 
 				 return new ResponseEntity<String>("Features not found", HttpStatus.NOT_FOUND);
-			
 			return ResponseEntity.status(HttpStatus.OK).body(features.toString());
 		}
 
@@ -62,7 +61,6 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
 
-		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
 			Integer status = featureService.saveFeature(feature);
@@ -81,10 +79,10 @@ public class FeatureRestController {
 		}
 		
 		@DeleteMapping("features")
-		public ResponseEntity<String> deteteFeature(@RequestBody Feature feature) {
+		public ResponseEntity<String> deteleFeature(@RequestBody Feature feature) {
 			Feature feature2 = featureService.deleteFeature(feature.getNameFeature());
 			if(feature2!=null)
 				return ResponseEntity.status(HttpStatus.OK).body("Eliminated feature with name: "+feature.getNameFeature());
-			return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Feature not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
 		}
 }

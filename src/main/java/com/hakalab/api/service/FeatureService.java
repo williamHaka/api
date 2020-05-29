@@ -56,7 +56,7 @@ public class FeatureService{
 	}
 
 	public Feature getByName(String name) {
-		Feature feature = featureDAO.getByName(name) ;
+		Feature feature = featureDAO.getByName(name);
 		return feature;
 	}
 	
