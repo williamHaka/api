@@ -14,8 +14,8 @@ import com.hakalab.api.entity.Feature;
 public class FeatureDAO extends BaseDAO{
 
 	public List<Feature> getAll() {
-		Query<Feature> selectFeture = getSession().createQuery("select a from Feature a",Feature.class);
-		return selectFeture.getResultList();
+		Query<Feature> selectFeature = getSession().createQuery("select a from Feature a",Feature.class);
+		return selectFeature.getResultList();
 	}
 	
 	public Feature getByName(String name) {
@@ -26,7 +26,6 @@ public class FeatureDAO extends BaseDAO{
 			feature = query.getSingleResult();
 		} catch (Exception e) {
 		}
-		
 		return feature;
 	}
 	

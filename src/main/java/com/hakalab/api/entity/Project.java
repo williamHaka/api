@@ -1,7 +1,5 @@
 package com.hakalab.api.entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,17 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="project")
-public class Project implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Project {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,12 +29,11 @@ public class Project implements Serializable {
 	@OneToMany(mappedBy = "project")
 	private List<Feature> features;
 
+	@ManyToMany(mappedBy = "projects")
+	private List<Usuario> usuarios;
+	
 //	@Embedded
 //	private BaseEntity baseEntity;
-	
-//	@ManyToMany(mappedBy = "projects")
-//	private List<Usuario> usuarios;
-	
 	
 	public Integer getIdProject() {
 		return idProject;
@@ -81,10 +74,6 @@ public class Project implements Serializable {
 //	public void setBaseEntity(BaseEntity baseEntity) {
 //		this.baseEntity = baseEntity;
 //	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	@Override
 	public String toString() {
