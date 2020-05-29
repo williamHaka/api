@@ -67,21 +67,13 @@ public class Project {
 		this.descriptionProject = descriptionProject;
 	}
 	
-//	public BaseEntity getBaseEntity() {
-//		return baseEntity;
-//	}
-//
-//	public void setBaseEntity(BaseEntity baseEntity) {
-//		this.baseEntity = baseEntity;
-//	}
-
 	@Override
 	public String toString() {
-		return 
-				  "\r\n \"idProject\": "+idProject+","
+		return "{"
+				+ "\r\n \"idProject\": "+idProject+","
 				+ "\r\n \"nameProject\": \""+nameProject+"\","
 				+ "\r\n \"descriptionProject\": \""+descriptionProject+"\","
-				+ "\r\n \"features\" : "+ features;
+				+ "\r\n \"features\" :  "+ features + "}";
 	}
 
 }

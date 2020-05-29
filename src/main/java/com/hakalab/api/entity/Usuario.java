@@ -156,7 +156,7 @@ public class Usuario {
 				+ "\r\n \"lastNameUsuario\": \"" + lastNameUsuario + "\","
 				+ "\r\n \"postalCodeUsuario\": \"" + postalCodeUsuario + "\","
 				+ "\r\n \"nameEmpresaUsuario\": \"" + nameEmpresaUsuario+ "\","
-				+ "\r\n \"projects\": \"" + projects+"\"}";
+				+ "\r\n \"projects\" : " + projects + "}";
 	}
 	
 }
