@@ -105,12 +105,13 @@ public class Scenario{
 
 	@Override
 	public String toString() {
-		return "\r\n \"idScenario\": \""+idScenario+"\","
+		return "{"
+				+ "\r\n \"idScenario\": \""+idScenario+"\","
 				+ "\r\n \"tagScenario\": \""+tagScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
 				+ "\r\n \"statusScenario\": \""+statusScenario+"\","
-				+ "\r\n \"steps\" : "+ steps;
+				+ "\r\n \"steps\" : "+ steps + "}";
 	}
 	
 }
