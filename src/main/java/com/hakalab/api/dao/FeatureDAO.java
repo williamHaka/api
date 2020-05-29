@@ -45,6 +45,8 @@ public class FeatureDAO extends BaseDAO{
 		getSession().save(feature);
 	}
 	
+	@Transactional
+	@Modifying
 	public void update(Feature feature) {
 		getSession().update(feature);
 	}

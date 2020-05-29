@@ -2,7 +2,6 @@ package com.hakalab.api.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -96,10 +95,9 @@ public class Feature implements Serializable{
 
 	@Override
 	public String toString() {
-		return 
-				  "\r\n \"idFeature\": "+idFeature+","
-				+ "\r\n \"nameFeature\": \""+nameFeature+"\","
-				+ "\r\n \"descriptionFeature\": \""+descriptionFeature+"\","
+		return "\r\n \"idFeature\": \"" + idFeature+ "\","
+				+ "\r\n \"nameFeature\": \"" + nameFeature + "\","
+				+ "\r\n \"descriptionFeature\": \"" + descriptionFeature + "\","
 				+ "\r\n \"scenarios\" : "+ scenarios;
 	}
 	
