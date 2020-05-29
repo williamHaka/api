@@ -46,6 +46,13 @@ public class UsuarioService {
 	
 	public Integer saveUsuario(Usuario usuario) {
 		Integer status = 0;
+		try {
+			Usuario usuarioExist = usuarioDAO.getNameUser(usuario.getNameUsuario());
+			if (usuarioExist == null) {
+				usuarioDAO.save(usuario);
+			}
+		} catch (Exception e) {
+		}
 		return status;
 	}
 
@@ -54,7 +61,7 @@ public class UsuarioService {
 		try {
 			Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
 			if (!usuarioExist.equals(null)) {
-				usuarioExist.setUsernameUsuario(usuario.getUsernameUsuario());
+				usuarioExist.setUserNameUsuario(usuario.getUserNameUsuario());
 				usuarioExist.setPassUsuario(usuario.getPassUsuario());
 				usuarioExist.setPhoneUsuario(usuario.getPhoneUsuario());
 				usuarioExist.setEmailUsuario(usuario.getEmailUsuario());

@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
+import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Step;
 import com.hakalab.api.entity.Usuario;
 
@@ -25,6 +26,17 @@ public class UsuarioDAO extends BaseDAO{
 			return query.getResultList();
 	}
 
+	public Usuario getNameUser(String name) {
+		Usuario usuario = null;
+		try {
+			Query<Usuario> query = getSession().createQuery("select a from Usuario a where a.nameUsuario=:nombre", Usuario.class);
+			query.setParameter("nombre", name);
+			usuario = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return usuario;
+	}
+	
 	public Usuario getById(Integer idUsuario) {
 		Usuario usuario = null;
 		try {

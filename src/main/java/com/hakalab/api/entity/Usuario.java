@@ -21,8 +21,8 @@ public class Usuario {
 	@Column(name = "id_usuario")
 	private Integer idUsuario;
 	
-	@Column(name = "usernameUsuario")
-	private String usernameUsuario;
+	@Column(name = "userNameUsuario")
+	private String userNameUsuario;
 	
 	@Column(name = "passUsuario")
 	private String passUsuario;
@@ -64,12 +64,12 @@ public class Usuario {
 		this.idUsuario = idUsuario;
 	}
 
-	public String getUsernameUsuario() {
-		return usernameUsuario;
+	public String getUserNameUsuario() {
+		return userNameUsuario;
 	}
 
-	public void setUsernameUsuario(String usernameUsuario) {
-		this.usernameUsuario = usernameUsuario;
+	public void setUserNameUsuario(String userNameUsuario) {
+		this.userNameUsuario = userNameUsuario;
 	}
 
 	public String getPassUsuario() {
@@ -148,7 +148,8 @@ public class Usuario {
 	public String toString() {
 		return "{"
 				+ "\r\n \"idUsuario\": \"" + idUsuario + "\","
-				+ "\r\n \"nameUsuario\": \"" + usernameUsuario + "\","
+				+ "\r\n \"userNameUsuario\": \"" + userNameUsuario + "\","
+				+ "\r\n \"passUsuario\": \"" + passUsuario + "\","
 				+ "\r\n \"phoneUsuario\": \"" + phoneUsuario + "\","
 				+ "\r\n \"emailUsuario\": \"" + emailUsuario + "\","
 				+ "\r\n \"addressUsuario\": \"" + addressUsuario + "\","
