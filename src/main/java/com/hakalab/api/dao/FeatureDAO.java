@@ -31,15 +31,22 @@ public class FeatureDAO extends BaseDAO{
 	}
 	
 	public Feature getById(Integer id) {
-		Query<Feature> query = getSession().createQuery("select a from Feature a where a.id=:id",Feature.class);
-		query.setParameter("nombre", id);
-		return  query.getSingleResult();
+		Feature feature = null;
+		try {
+			Query<Feature> query = getSession().createQuery("select a from Feature a where a.idFeature=:id",Feature.class);
+			query.setParameter("id", id);
+			feature = query.getSingleResult();
+		}catch (Exception e) {
+		}
+		return feature;
 	}
 
 	public void save(Feature feature) {
 		getSession().save(feature);
 	}
 	
+	@Transactional
+	@Modifying
 	public void update(Feature feature) {
 		getSession().update(feature);
 	}

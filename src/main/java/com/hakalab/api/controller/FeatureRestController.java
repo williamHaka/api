@@ -61,7 +61,7 @@ public class FeatureRestController {
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
-			Integer status = featureService.save(feature);
+			Integer status = featureService.saveFeature(feature);
 			if(status==0) 
 				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
 			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
@@ -80,12 +80,11 @@ public class FeatureRestController {
 //			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 //		}
 		
-		@DeleteMapping("features/{name}")
-		public ResponseEntity<String> deteteFeature(@PathVariable String name) {
-			Feature feature = featureService.deleteFeature(name);
-			if(feature!=null)
-				return ResponseEntity.status(HttpStatus.OK).body("Elimated feature with name: "+name);
-			return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
+		@DeleteMapping("features")
+		public ResponseEntity<String> deteteFeature(@RequestBody Feature feature) {
+			Feature feature2 = featureService.deleteFeature(feature.getNameFeature());
+			if(feature2!=null)
+				return ResponseEntity.status(HttpStatus.OK).body("Elimated feature with name: "+feature.getNameFeature());
+			return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
 		}
-		
 }

@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.hakalab.api.dao.FeatureDAO;
 import com.hakalab.api.dao.ParameterDAO;
+import com.hakalab.api.dao.ProjectDAO;
 import com.hakalab.api.dao.ScenarioDAO;
 import com.hakalab.api.dao.ScenarioStepDAO;
 import com.hakalab.api.dao.StepDAO;
 import com.hakalab.api.dao.StepParameterDAO;
 import com.hakalab.api.entity.Feature;
 import com.hakalab.api.entity.Parameter;
+import com.hakalab.api.entity.Project;
 import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.entity.ScenarioStep;
 import com.hakalab.api.entity.Step;
@@ -22,17 +24,30 @@ import com.hakalab.api.entity.StepParameter;
 @Service
 public class FeatureService{
 	
+	@Autowired
+	private ProjectDAO projectDAO;
+	@Autowired
 	private FeatureDAO featureDAO;
+	@Autowired
 	private ScenarioDAO scenarioDAO;
+	@Autowired
 	private ScenarioStepDAO scenarioStepDAO;
+	@Autowired
 	private StepParameterDAO stepParameterDAO;
+	@Autowired
 	private StepDAO stepDAO;
+	@Autowired
 	private ParameterDAO parameterDAO;
 	
+	@Autowired
 	private ScenarioStepService scenarioStepService;
+	@Autowired
 	private StepParameterService stepParameterService;
+	@Autowired
 	private ParameterService parameterService;
+	@Autowired
 	private StepService stepService;
+	@Autowired
 	private ScenarioService scenarioService;
 
 	public List<Feature> getAll() {
@@ -44,9 +59,8 @@ public class FeatureService{
 		Feature feature = featureDAO.getByName(name) ;
 		return feature;
 	}
-
-
-	public Integer save(Feature feature) {
+	
+	public Integer saveFeature(Feature feature) {
 		Integer status = 0;
 		try {
 			Feature featureExist = featureDAO.getByName(feature.getNameFeature());
@@ -85,28 +99,19 @@ public class FeatureService{
 		return status;
 	} 
 	
-//	public Integer update(Feature feature) {
-//		Integer status = 0;
-//		try {
-//			featureDAO.update(feature);
-//			for (Scenario scenario : feature.getScenarios()) {
-//				scenario.setFeature(feature);
-//				scenarioDAO.update(scenario);
-//				for (Step step : scenario.getSteps()) {
-//					step.setScenarios(scenario);
-//					stepDAO.update(step);
-//					for (Parameter parameter : step.getParameters()) {
-//						parameter.setStep(step);
-//						parameterDAO.update(parameter);
-//					}
-//				}
-//			}
-//			status = 1;
-//		} catch (Exception e) {
-//		}
-//		return status;
-//	}
-	
+	public Integer update(Feature feature) {
+		Integer status = 0;
+		try {
+			Feature featureExist = featureDAO.getById(feature.getIdFeature());
+			if (featureExist != null) {
+				featureExist.setNameFeature(feature.getNameFeature());
+				featureExist.setDescriptionFeature(feature.getDescriptionFeature());
+				featureDAO.update(featureExist);
+				status = 1;
+			}
+		} catch (Exception e) {
+		}return status;
+	}
 	
 	public Feature deleteFeature(String name) {
 		Feature feature = featureDAO.getByName(name);
@@ -121,50 +126,11 @@ public class FeatureService{
 		
 		return feature;
 	}
-	
-	@Autowired
-	public void setFeatureDAO(FeatureDAO featureDAO) {
-		this.featureDAO = featureDAO;
-	}
-	@Autowired
-	public void setScenarioDAO(ScenarioDAO scenarioDAO) {
-		this.scenarioDAO = scenarioDAO;
-	}
-	@Autowired
-	public void setStepDAO(StepDAO stepDAO) {
-		this.stepDAO = stepDAO;
-	}
-	@Autowired
-	public void setParameterDAO(ParameterDAO parameterDAO) {
-		this.parameterDAO = parameterDAO;
-	}
-	@Autowired
-	public void setScenarioStepDAO(ScenarioStepDAO scenarioStepDAO) {
-		this.scenarioStepDAO = scenarioStepDAO;
-	}
-	@Autowired
-	public void setStepParameterDAO(StepParameterDAO stepParameterDAO) {
-		this.stepParameterDAO = stepParameterDAO;
-	}
-	@Autowired
-	public void setScenarioStepService(ScenarioStepService scenarioStepService) {
-		this.scenarioStepService = scenarioStepService;
-	}
-	@Autowired
-	public void setStepParameterService(StepParameterService stepParameterService) {
-		this.stepParameterService = stepParameterService;
-	}
-	@Autowired
-	public void setParameterService(ParameterService parameterService) {
-		this.parameterService = parameterService;
-	}
-	@Autowired
-	public void setStepService(StepService stepService) {
-		this.stepService = stepService;
-	}
-	@Autowired
-	public void setScenarioService(ScenarioService scenarioService) {
-		this.scenarioService = scenarioService;
+
+	public void deleteFromProject(Project project) {
+		for (Feature feature: project.getFeatures()) {
+			featureDAO.delete(feature);
+		}
 	}
 	
 }

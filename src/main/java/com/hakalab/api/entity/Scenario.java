@@ -22,26 +22,38 @@ public class Scenario{
 	@Column(name="id_scenario")
 	private Integer idScenario;
 	
+	@Column(name = "tag")
+	private String tagScenario;
+	
 	@Column(name = "name")
 	private String nameScenario;
 	
 	@Column(name = "type")
 	private String typeScenario;
 	
+	@Column(name = "status")
+	private String statusScenario;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_feature",referencedColumnName = "id_feature")
 	private Feature feature;
 	
-	
-//	@OneToMany(mappedBy="scenario")
-//	private List<ScenarioStep> scenarioSteps;
 	@ManyToMany
     @JoinTable(
             name = "scenario_step",
             joinColumns = {@JoinColumn(name = "id_scenario")},
             inverseJoinColumns = {@JoinColumn(name = "id_step")}
     )
+	
 	private List<Step> steps;
+
+	public String getTagScenario() {
+		return tagScenario;
+	}
+
+	public void setTagScenario(String tagScenario) {
+		this.tagScenario = tagScenario;
+	}
 
 	public Integer getIdScenario() {
 		return idScenario;
@@ -67,6 +79,14 @@ public class Scenario{
 		this.typeScenario = typeScenario;
 	}
 
+	public String getStatusScenario() {
+		return statusScenario;
+	}
+
+	public void setStatusScenario(String statusScenario) {
+		this.statusScenario = statusScenario;
+	}
+
 	public Feature getFeature() {
 		return feature;
 	}
@@ -75,14 +95,6 @@ public class Scenario{
 		this.feature = feature;
 	}
 
-//	public List<ScenarioStep> getScenarioSteps() {
-//		return scenarioSteps;
-//	}
-//
-//	public void setScenarioSteps(List<ScenarioStep> scenarioSteps) {
-//		this.scenarioSteps = scenarioSteps;
-//	}
-	
 	public List<Step> getSteps() {
 		return steps;
 	}
@@ -93,29 +105,13 @@ public class Scenario{
 
 	@Override
 	public String toString() {
-//		List<Step> steps = new ArrayList<Step>();
-//		for (ScenarioStep scenarioStep : scenarioSteps) {
-//			steps.add(scenarioStep.getStep());
-//		}
-		return	"{"
+		return "{"
 				+ "\r\n \"idScenario\": \""+idScenario+"\","
+				+ "\r\n \"tagScenario\": \""+tagScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
-				+ "\r\n \"steps\" : "+ steps
-				+ "\r\n }";
+				+ "\r\n \"statusScenario\": \""+statusScenario+"\","
+				+ "\r\n \"steps\" : "+ steps + "}";
 	}
 	
-//	public void addSteps(Step step){
-//		ScenarioStep scst = new ScenarioStep();
-//		scst.setStep(step);
-//		scst.setIdStep(step.getIdStep());
-//		scst.setScenario(this);
-//		scst.setIdScenario(this.getIdScenario());
-//		if(this.scenarioSteps==null)
-//			this.scenarioSteps = new ArrayList<>();
-//		
-//		this.scenarioSteps.add(scst);
-//		step.getScenarioSteps().add(scst);
-//		
-//    }
 }

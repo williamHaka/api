@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="feature")
-public class Feature{
+public class Feature {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,16 +32,19 @@ public class Feature{
 	@OneToMany(mappedBy = "feature")
 	private List<Scenario> scenarios;
 	
-	public Integer getId() {
+	@ManyToOne
+	@JoinColumn(name = "id_project", referencedColumnName = "id_project")
+	private Project project;
+	
+//	@Embedded
+//	private BaseEntity baseEntity;
+	
+	public Integer getIdFeature() {
 		return idFeature;
 	}
 
-	public void setId(Integer id) {
-		this.idFeature = id;
-	}
-	
-	public void setId(String id) {
-		this.idFeature = Integer.parseInt(id);
+	public void setIdFeature(Integer idFeature) {
+		this.idFeature = idFeature;
 	}
 
 	public String getNameFeature() {
@@ -65,13 +71,21 @@ public class Feature{
 		this.scenarios = scenarios;
 	}
 	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	@Override
 	public String toString() {
-		return 
-				  "\r\n \"idFeature\": "+idFeature+","
-				+ "\r\n \"nameFeature\": \""+nameFeature+"\","
-				+ "\r\n \"descriptionFeature\": \""+descriptionFeature+"\","
-				+ "\r\n \"scenarios\" : "+ scenarios;
+		return "{"
+				+ "\r\n \"idFeature\": \"" + idFeature+ "\","
+				+ "\r\n \"nameFeature\": \"" + nameFeature + "\","
+				+ "\r\n \"descriptionFeature\": \"" + descriptionFeature + "\","
+				+ "\r\n \"scenarios\" : "+ scenarios + "}";
 	}
 	
 	public void addScenario(Scenario scenarios){

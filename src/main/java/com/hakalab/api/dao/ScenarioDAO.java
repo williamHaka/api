@@ -13,10 +13,31 @@ import com.hakalab.api.entity.Scenario;
 @Repository
 public class ScenarioDAO extends BaseDAO{
 	
-	public Scenario getById(Integer id) {
-		Query<Scenario> query = getSession().createQuery("select a from scenario a where a.id=:id",Scenario.class);
-		query.setParameter("id", id);
-		return query.getSingleResult();
+	public List<Scenario> getAll() {
+		Query<Scenario> selectScenario = getSession().createQuery("select a from Scenario a", Scenario.class);
+		return selectScenario.getResultList();
+	}
+	
+	public Scenario getByName(String name) {
+		Scenario scenario = null;
+		try {
+			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.nameScenario=:nombre",Scenario.class);
+			query.setParameter("nombre", name);
+			scenario = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return scenario;
+	}
+	
+	public Scenario getById(Integer idScenario) {
+		Scenario scenario = null;
+		try {
+			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.idScenario=:idScenario",Scenario.class);
+			query.setParameter("idScenario", idScenario);
+			scenario = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return scenario;	
 	}
 	
 	public List<Scenario> getByIdFeature(Integer idFeature) {
@@ -29,6 +50,8 @@ public class ScenarioDAO extends BaseDAO{
 		getSession().save(scenario);
 	}
 
+	@Transactional
+	@Modifying
 	public void update(Scenario scenario) {
 		getSession().update(scenario);
 	}
