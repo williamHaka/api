@@ -8,8 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,12 +51,12 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.OK).body(features.toString());
 		}
 
-		@GetMapping(value = "/features/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> getFeature(@PathVariable String name){
-			Feature feature = featureService.getByName(name);		
-			if(feature==null) 
-				 return new ResponseEntity<String>("Features not found with name: "+name, HttpStatus.NOT_FOUND);
-			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
+		@GetMapping(value = "/feature",produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> getFeature(@RequestBody Feature feature){
+			Feature feature2 = featureService.getByName(feature.getNameFeature());		
+			if(feature2==null) 
+				 return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.OK).body(feature2.toString());
 		}
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,18 +67,14 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
 		}
 		
-		
-//		@PutMapping(value = "/updatefeatures",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-//		public void updateFeature(@RequestBody Feature feature) {
-//			//TODO
-//			Integer status = 0;
-//			if (feature.getId()!=null || feature.getId()!=0) {
-//				status = featureService.update(feature);
-//			}
-//			if(status==0)
-//				 return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
-//			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
-//		}
+		@PutMapping(value = "/updatefeature", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String> updateScenario(@RequestBody Feature feature) {
+			Integer status = 0;
+			status = featureService.update(feature);
+			if(status==0)
+				 return new ResponseEntity<String>("Feature not found with name: " + feature.getNameFeature(), HttpStatus.NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
+		}
 		
 		@DeleteMapping("features")
 		public ResponseEntity<String> deteteFeature(@RequestBody Feature feature) {
