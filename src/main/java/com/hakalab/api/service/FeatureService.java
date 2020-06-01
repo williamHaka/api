@@ -60,6 +60,11 @@ public class FeatureService{
 		return feature;
 	}
 	
+	public Feature getById(Integer id) {
+		Feature feature = featureDAO.getById(id);
+		return feature;
+	}
+	
 	public Integer saveFeature(Feature feature) {
 		Integer status = 0;
 		try {

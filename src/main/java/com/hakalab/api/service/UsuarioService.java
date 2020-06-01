@@ -70,6 +70,8 @@ public class UsuarioService {
 				usuarioExist.setLastNameUsuario(usuario.getLastNameUsuario());
 				usuarioExist.setPostalCodeUsuario(usuario.getPostalCodeUsuario());
 				usuarioExist.setNameEmpresaUsuario(usuario.getNameEmpresaUsuario());
+				usuarioDAO.update(usuarioExist);
+				status = 1;
 			}
 		} catch (Exception e) {
 		}

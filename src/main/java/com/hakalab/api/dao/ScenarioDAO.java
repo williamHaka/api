@@ -21,7 +21,7 @@ public class ScenarioDAO extends BaseDAO{
 	public Scenario getByName(String name) {
 		Scenario scenario = null;
 		try {
-			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.nameScenario=:nombre",Scenario.class);
+			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.nameScenario=:nombre", Scenario.class);
 			query.setParameter("nombre", name);
 			scenario = query.getSingleResult();
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class ScenarioDAO extends BaseDAO{
 	public Scenario getById(Integer idScenario) {
 		Scenario scenario = null;
 		try {
-			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.idScenario=:idScenario",Scenario.class);
+			Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.idScenario=:idScenario", Scenario.class);
 			query.setParameter("idScenario", idScenario);
 			scenario = query.getSingleResult();
 		} catch (Exception e) {
@@ -41,7 +41,7 @@ public class ScenarioDAO extends BaseDAO{
 	}
 	
 	public List<Scenario> getByIdFeature(Integer idFeature) {
-		Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.feature.id=:idFeature",Scenario.class);
+		Query<Scenario> query = getSession().createQuery("select a from Scenario a where a.feature.id=:idFeature", Scenario.class);
 		query.setParameter("idFeature", idFeature);
 		return query.getResultList();
 	}

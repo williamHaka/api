@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -64,7 +65,7 @@ public class UsuarioRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(usuario.toString());
 	}
 	
-//	@DeleteMapping(value = "usuarios")
+//	@DeleteMapping(value = "/usuarioById")
 //	public ResponseEntity<String> deleteUsuario(@RequestBody Usuario usuario) {
 //		Usuario usuarioExist = usuarioService.deleteUsuario(usuario.getNameUsuario());
 //		if (usuarioExist == null)
