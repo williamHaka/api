@@ -60,7 +60,7 @@ public class FeatureRestController {
 			Feature feature2 = featureService.getByName(feature.getNameFeature());		
 			if(feature2==null) 
 				 return new ResponseEntity<String>("Features not found with name: "+feature.getNameFeature(), HttpStatus.NOT_FOUND);
-			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
+			return ResponseEntity.status(HttpStatus.OK).body(feature2.toString());
 		}
 
 		
