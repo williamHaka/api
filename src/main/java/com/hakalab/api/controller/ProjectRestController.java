@@ -33,20 +33,20 @@ public class ProjectRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(projects.toString());
 	}
 	
-	@GetMapping(value = "/projectByName/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getProject(@PathVariable String name) {
-		Project project = projectService.getByName(name);
-		if (project == null)
-			return new ResponseEntity<String>("Project not found with name: " + name, HttpStatus.NOT_FOUND);
-		return ResponseEntity.status(HttpStatus.OK).body(project.toString());
+	@GetMapping(value = "/projectByName", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getProjectByName(@RequestBody Project project) {
+		Project projectExist = projectService.getByName(project.getNameProject());
+		if (projectExist.equals(null))
+			return new ResponseEntity<String>("Project not found with name: " + project.getNameProject(), HttpStatus.NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.OK).body(projectExist.toString());
 	}
 	
-	@GetMapping(value = "/projectById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getProject(@PathVariable Integer id) {
-		Project project = projectService.getById(id);
-		if (project == null)
-			return new ResponseEntity<String>("Project not found with Id: " + id, HttpStatus.NOT_FOUND);
-		return ResponseEntity.status(HttpStatus.OK).body(project.toString());
+	@GetMapping(value = "/projectById", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getProjectById(@RequestBody Project project) {
+		Project projectExist = projectService.getById(project.getIdProject());
+		if (projectExist.equals(null))
+			return new ResponseEntity<String>("Project not found with Id: " + project.getIdProject(), HttpStatus.NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.OK).body(projectExist.toString());
 	}
 	
 	@PostMapping(value = "/projects", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +54,7 @@ public class ProjectRestController {
 		Integer status = projectService.saveProject(project);
 		if(status==0)
 			return new ResponseEntity<String>("Project Created with name: " + project.getNameProject(), HttpStatus.FOUND);
-		return new ResponseEntity<String>("Project exist with name: " + project.getNameProject(), HttpStatus.FOUND);
+		return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
 	}
 	
 	@PutMapping(value = "/updateproject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

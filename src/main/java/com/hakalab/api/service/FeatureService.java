@@ -56,7 +56,12 @@ public class FeatureService{
 	}
 
 	public Feature getByName(String name) {
-		Feature feature = featureDAO.getByName(name) ;
+		Feature feature = featureDAO.getByName(name);
+		return feature;
+	}
+	
+	public Feature getById(Integer id) {
+		Feature feature = featureDAO.getById(id);
 		return feature;
 	}
 	
