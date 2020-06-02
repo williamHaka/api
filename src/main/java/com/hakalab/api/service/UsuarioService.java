@@ -69,7 +69,7 @@ public class UsuarioService {
 		Integer status = 0;
 		try {
 			Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
-			if (!usuarioExist.equals(null)) {
+			if (usuarioExist != null) {
 				usuarioExist.setUserNameUsuario(usuario.getUserNameUsuario());
 				usuarioExist.setPassUsuario(usuario.getPassUsuario());
 				usuarioExist.setPhoneUsuario(usuario.getPhoneUsuario());
@@ -87,20 +87,6 @@ public class UsuarioService {
 		return status;
 	}
 	
-//	public Usuario deleteUsuario(Integer idUsuario) {
-//		Usuario usuario = usuarioDAO.getById(idUsuario);
-//		if (!usuario.equals(null)) {
-//			List<UsuarioProject> usuarioProjects = usuarioprojectDAO.getByIdUsuario(usuario);
-//			if (usuarioProjects != null) {
-//				for (UsuarioProject usuarioProject : usuarioProjects) {
-//					usuarioprojectDAO.delete(usuarioProject);
-//				}
-//			}
-//			usuarioDAO.delete(usuario);
-//		}
-//		return usuario;
-//		}
-
 	public Usuario deleteUsuario(Integer idUsuario) {
 		Usuario usuario = usuarioDAO.getById(idUsuario);
 		if (usuario != null) {
