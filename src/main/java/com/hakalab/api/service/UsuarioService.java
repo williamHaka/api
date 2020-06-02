@@ -35,15 +35,6 @@ public class UsuarioService {
 		return usuario;
 	}
 	
-//	public List<Usuario> getByName(String name) {
-//		List<Usuario> usuarios = null;
-//		try {
-//			usuarios = usuarioDAO.getByName(name);
-//		} catch (Exception e) {
-//		}
-//		return usuarios;
-//	}
-	
 	public List<Usuario> getByName(String name) {
 		List<Usuario> usuarios = null;
 		try {

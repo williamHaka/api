@@ -65,14 +65,6 @@ public class UsuarioRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(usuario.toString());
 	}
 	
-//	@DeleteMapping(value = "/usuarioByName")
-//	public ResponseEntity<String> deleteUsuario(@RequestBody Usuario usuario) {
-//		Usuario usuarioExist = usuarioService.deleteUsuario(usuario.getNameUsuario());
-//		if (usuarioExist == null)
-//			return ResponseEntity.status(HttpStatus.OK).body("Eliminated usuario with name: " +usuario.getNameUsuario());
-//		return new ResponseEntity<String>("Usuario not found with name: " +usuario.getNameUsuario(), HttpStatus.NOT_FOUND);
-//	}
-	
 	@DeleteMapping(value = "/usuarioById")
 	public ResponseEntity<String> deleteUsuario(@RequestBody Usuario usuario) {
 		Usuario usuarioExist = usuarioService.deleteUsuario(usuario.getIdUsuario());
