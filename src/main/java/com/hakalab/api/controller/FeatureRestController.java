@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,26 +22,16 @@ import com.hakalab.api.service.UsuarioService;
 
 //Indicamos que es un controlador rest
 @RestController
-@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "/hakalab/") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
 public class FeatureRestController {
 		@Autowired
 		private FeatureService featureService;
-		@Autowired
-		private UsuarioService usuarioService;
 		
 		@RequestMapping(value ="/")  
 		public String hello() {   
 		 return "Hello, world"; 
 		 }
-		
-		@GetMapping(value = "/authenticate")
-		public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
-			String token = usuarioService.getTokenByUsername(usuario);
-			if(token != null)
-				return ResponseEntity.status(HttpStatus.OK).body(token);	
-			return new ResponseEntity<String>("Token null: ", HttpStatus.NOT_FOUND);
-			
-		}
 		
 		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
@@ -76,7 +67,7 @@ public class FeatureRestController {
 			return ResponseEntity.status(HttpStatus.OK).body(feature.toString());
 		}
 		
-		@DeleteMapping("features")
+		@DeleteMapping("/features")
 		public ResponseEntity<String> deteteFeature(@RequestBody Feature feature) {
 			Feature feature2 = featureService.deleteFeature(feature.getNameFeature());
 			if(feature2!=null)

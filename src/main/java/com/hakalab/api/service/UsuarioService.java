@@ -20,7 +20,6 @@ public class UsuarioService{
 				.signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8"))
 				.compact();
 		return jwt;
-				
 	}
 	
 	
