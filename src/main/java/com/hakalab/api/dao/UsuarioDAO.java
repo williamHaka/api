@@ -20,9 +20,9 @@ public class UsuarioDAO extends BaseDAO{
 		return selectUsuario.getResultList();
 	}
 
-	public List<Usuario> getByName(String nameUsuario) {
+	public List<Usuario> getByName(String name) {
 			Query<Usuario> query = getSession().createQuery("select a from Usuario a where a.nameUsuario=:nombre", Usuario.class);
-			query.setParameter("nameUsuario", nameUsuario);
+			query.setParameter("nombre", name);
 			return query.getResultList();
 	}
 

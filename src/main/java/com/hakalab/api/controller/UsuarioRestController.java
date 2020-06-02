@@ -35,17 +35,17 @@ public class UsuarioRestController {
 	@GetMapping(value = "/usuarioById", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getUsuarioById(@RequestBody Usuario usuario) {
 		Usuario usuarioExist = usuarioService.getById(usuario.getIdUsuario());
-		if(usuarioExist == null)
+		if(usuarioExist.equals(null))
 			return new ResponseEntity<String>("Usuario not found with id: " +usuario.getIdUsuario(), HttpStatus.NOT_FOUND);
 		return ResponseEntity.status(HttpStatus.OK).body(usuarioExist.toString());
 	}
 	
-	@GetMapping(value = "/usuarioByName", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/usuariosByName", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getUsuarioByName(@RequestBody Usuario usuario) {
 		List<Usuario> usuarioExist = usuarioService.getByName(usuario.getNameUsuario());
 		if (usuarioExist.isEmpty())
 			return new ResponseEntity<String>("Usuario not found with name: " +usuario.getNameUsuario(), HttpStatus.NOT_FOUND);
-		return ResponseEntity.status(HttpStatus.OK).body(usuario.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(usuarioExist.toString());
 	}
 	
 	@PostMapping(value = "/usuarios", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,11 +65,20 @@ public class UsuarioRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(usuario.toString());
 	}
 	
-//	@DeleteMapping(value = "/usuarioById")
+//	@DeleteMapping(value = "/usuarioByName")
 //	public ResponseEntity<String> deleteUsuario(@RequestBody Usuario usuario) {
 //		Usuario usuarioExist = usuarioService.deleteUsuario(usuario.getNameUsuario());
 //		if (usuarioExist == null)
 //			return ResponseEntity.status(HttpStatus.OK).body("Eliminated usuario with name: " +usuario.getNameUsuario());
 //		return new ResponseEntity<String>("Usuario not found with name: " +usuario.getNameUsuario(), HttpStatus.NOT_FOUND);
 //	}
+	
+	@DeleteMapping(value = "/usuarioById")
+	public ResponseEntity<String> deleteUsuario(@RequestBody Usuario usuario) {
+		Usuario usuarioExist = usuarioService.deleteUsuario(usuario.getIdUsuario());
+		if (usuarioExist == null)
+			return ResponseEntity.status(HttpStatus.OK).body("Eliminated usuario with id: " +usuario.getIdUsuario());
+		return new ResponseEntity<String>("Usuario not found with name: " +usuario.getIdUsuario(), HttpStatus.NOT_FOUND);
+	}
+	
 }

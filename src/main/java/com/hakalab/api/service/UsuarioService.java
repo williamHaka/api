@@ -35,6 +35,15 @@ public class UsuarioService {
 		return usuario;
 	}
 	
+//	public List<Usuario> getByName(String name) {
+//		List<Usuario> usuarios = null;
+//		try {
+//			usuarios = usuarioDAO.getByName(name);
+//		} catch (Exception e) {
+//		}
+//		return usuarios;
+//	}
+	
 	public List<Usuario> getByName(String name) {
 		List<Usuario> usuarios = null;
 		try {
@@ -78,9 +87,23 @@ public class UsuarioService {
 		return status;
 	}
 	
+//	public Usuario deleteUsuario(Integer idUsuario) {
+//		Usuario usuario = usuarioDAO.getById(idUsuario);
+//		if (!usuario.equals(null)) {
+//			List<UsuarioProject> usuarioProjects = usuarioprojectDAO.getByIdUsuario(usuario);
+//			if (usuarioProjects != null) {
+//				for (UsuarioProject usuarioProject : usuarioProjects) {
+//					usuarioprojectDAO.delete(usuarioProject);
+//				}
+//			}
+//			usuarioDAO.delete(usuario);
+//		}
+//		return usuario;
+//		}
+
 	public Usuario deleteUsuario(Integer idUsuario) {
 		Usuario usuario = usuarioDAO.getById(idUsuario);
-		if (!usuario.equals(null)) {
+		if (usuario != null) {
 			List<UsuarioProject> usuarioProjects = usuarioprojectDAO.getByIdUsuario(usuario);
 			if (usuarioProjects != null) {
 				for (UsuarioProject usuarioProject : usuarioProjects) {
@@ -91,5 +114,5 @@ public class UsuarioService {
 		}
 		return usuario;
 		}
-
+	
 }
