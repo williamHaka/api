@@ -28,9 +28,8 @@ public class UsuarioRestController {
 	public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
 		String token = usuarioService.getTokenByUsername(usuario);
 		if(token != null)
-			return ResponseEntity.status(HttpStatus.OK).body(token);	
-		return new ResponseEntity<String>("Token null: ", HttpStatus.NOT_FOUND);
-		
+			return ResponseEntity.status(HttpStatus.CREATED).body(token);	
+		return new ResponseEntity<String>("Token null: ", HttpStatus.UNAUTHORIZED);
 	}
 	
 	@GetMapping(value = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)

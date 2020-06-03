@@ -22,13 +22,20 @@ public class UsuarioService {
 	private UsuarioProjectService usuarioProjectService;
 
 	public String getTokenByUsername(Usuario usuario) throws Exception {
-	    String jwt = Jwts.builder()
-	        .setSubject("users/TzMUocMF4p").setExpiration(new Date(1300819380))
-	        .claim("name", usuario.getUserNameUsuario())
-	        .claim("scope", "self gropus/admins") //setear roles
-	        .signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8"))
-	        .compact();
-	    return jwt;
+		Usuario user = usuarioDAO.getById(usuario.getIdUsuario());
+		if (user != null) {
+			String key = "H4kAl4B";
+			long tiempo = System.currentTimeMillis();
+			String jwt = Jwts.builder()
+					.setSubject("Proyecto haka")
+					.setIssuedAt(new Date(tiempo))
+					.setExpiration(new Date(tiempo + 120000))
+					.claim("usuario", user.getUserNameUsuario())
+					.signWith(SignatureAlgorithm.HS256, key)
+					.compact();
+		    return jwt;
+		}
+	    return null;
 	  }
 	
 	public List<Usuario> getAll() {
