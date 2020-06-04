@@ -19,7 +19,7 @@ import com.hakalab.api.entity.Scenario;
 import com.hakalab.api.service.ScenarioService;
 
 @RestController
-@RequestMapping(value = "/hakalab/features") //esta sera la raiz de la url, es decir http://127.0.0.1:8082/hakalab/
+@RequestMapping(value = "/hakalab/projects/features") //esta sera la raiz de la url, es decir http://127.0.0.1:8082/hakalab/
 public class ScenarioRestController {
 
 	@Autowired
@@ -33,7 +33,7 @@ public class ScenarioRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(scenarios.toString());
 	}
 
-	@GetMapping(value = "/scenariosByName", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/scenarioByName", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getScenarioByName(@RequestBody Scenario scenario){
 		Scenario scenario1 = scenarioService.getByName(scenario.getNameScenario());		
 		if(scenario1 == null) 
@@ -41,7 +41,7 @@ public class ScenarioRestController {
 		return ResponseEntity.status(HttpStatus.OK).body(scenario1.toString());
 	}
 	
-	@GetMapping(value = "/scenariosById", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/scenarioById", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getScenarioById(@RequestBody Scenario scenario){
 		Scenario scenario1 = scenarioService.getById(scenario.getIdScenario());		
 		if(scenario1 == null)

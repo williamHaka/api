@@ -52,7 +52,7 @@ public class ProjectRestController {
 	@PostMapping(value = "/projects", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> addProject(@RequestBody Project project) {
 		Integer status = projectService.saveProject(project);
-		if(status==0)
+		if(status == 0)
 			return new ResponseEntity<String>("Project Created with name: " + project.getNameProject(), HttpStatus.FOUND);
 		return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
 	}

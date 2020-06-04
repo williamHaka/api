@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hakalab.api.entity.Feature;
+import com.hakalab.api.entity.Project;
 import com.hakalab.api.service.FeatureService;
 import com.hakalab.api.service.ProjectService;
 
 //Indicamos que es un controlador rest
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8082/hakalab/
+@RequestMapping(value = "/hakalab/projects") //esta sera la raiz de la url, es decir http://127.0.0.1:8082/hakalab/
 public class FeatureRestController {
 		
 		@Autowired
@@ -64,17 +65,25 @@ public class FeatureRestController {
 		@GetMapping(value = "/featureById",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> getFeatureById(@RequestBody Feature feature){
 			Feature featureExist = featureService.getById(feature.getIdFeature());		
-			if(featureExist.equals(null)) 
+			if(featureExist == null) 
 				 return new ResponseEntity<String>("Features not found with name: "+ feature.getIdFeature(), HttpStatus.NOT_FOUND);
 			return ResponseEntity.status(HttpStatus.OK).body(featureExist.toString());
 		}
 		
+//		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+//		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
+//			Integer status = featureService.saveFeature(feature);
+//			if(status==0) 
+//				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
+//			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
+//		}
+		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
-			Integer status = featureService.saveFeature(feature);
-			if(status==0) 
-				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
-			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
+		public ResponseEntity<String> addFeature(@RequestBody Project project) {
+			Integer status = featureService.saveFeature(project);
+			if(status == 0) 
+				return new ResponseEntity<String>("Features exist with name: "+ project.getNameProject(), HttpStatus.FOUND);
+			return ResponseEntity.status(HttpStatus.CREATED).body(project.toString());
 		}
 		
 		@PutMapping(value = "/updatefeature", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)

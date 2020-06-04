@@ -22,8 +22,8 @@ import com.hakalab.api.entity.Step;
 import com.hakalab.api.entity.StepParameter;
 
 @Service
-public class FeatureService{
-	
+public class FeatureService {
+
 	@Autowired
 	private ProjectDAO projectDAO;
 	@Autowired
@@ -38,7 +38,7 @@ public class FeatureService{
 	private StepDAO stepDAO;
 	@Autowired
 	private ParameterDAO parameterDAO;
-	
+
 	@Autowired
 	private ScenarioStepService scenarioStepService;
 	@Autowired
@@ -59,51 +59,96 @@ public class FeatureService{
 		Feature feature = featureDAO.getByName(name);
 		return feature;
 	}
-	
+
 	public Feature getById(Integer id) {
 		Feature feature = featureDAO.getById(id);
 		return feature;
 	}
-	
-	public Integer saveFeature(Feature feature) {
+
+//	public Integer saveFeature(Feature feature) {
+//		Integer status = 0;
+//		try {
+//			Feature featureExist = featureDAO.getByName(feature.getNameFeature());
+//			if(featureExist == null) {
+//				featureDAO.save(feature);
+//				for (Scenario scenario : feature.getScenarios()) {
+//					scenario.setFeature(feature);
+//					scenarioDAO.save(scenario);
+//					for (Step step : scenario.getSteps()) {
+//						ScenarioStep scenarioStep = new ScenarioStep();
+//						step.setScenarios(feature.getScenarios());
+//						stepDAO.save(step);
+//						scenarioStep.setIdScenario(scenario.getIdScenario());
+//						scenarioStep.setIdStep(step.getIdStep());
+//						scenarioStepDAO.save(scenarioStep);
+//						for (Parameter parameter : step.getParameters()) {
+//							List<Step> stepAux = new ArrayList<Step>();
+//							for (Step steps : scenario.getSteps()) {
+//								stepAux.add(steps);
+//							}
+//							parameter.setSteps(stepAux);
+//							parameterDAO.save(parameter);
+//							StepParameter stepParameter = new StepParameter();
+//							stepParameter.setIdStep(step.getIdStep());
+//							stepParameter.setIdParameter(parameter.getIdParameter());
+//							stepParameterDAO.save(stepParameter);
+//						}
+//					}
+//				}
+//				status = 1;
+//			}else {
+//				return 0;
+//			}
+//		} catch (Exception e) {
+//		}
+//		return status;
+//	} 
+
+	public Integer saveFeature(Project project) {
 		Integer status = 0;
 		try {
-			Feature featureExist = featureDAO.getByName(feature.getNameFeature());
-			if(featureExist == null) {
-				featureDAO.save(feature);
-				for (Scenario scenario : feature.getScenarios()) {
-					scenario.setFeature(feature);
-					scenarioDAO.save(scenario);
-					for (Step step : scenario.getSteps()) {
-						ScenarioStep scenarioStep = new ScenarioStep();
-						step.setScenarios(feature.getScenarios());
-						stepDAO.save(step);
-						scenarioStep.setIdScenario(scenario.getIdScenario());
-						scenarioStep.setIdStep(step.getIdStep());
-						scenarioStepDAO.save(scenarioStep);
-						for (Parameter parameter : step.getParameters()) {
-							List<Step> stepAux = new ArrayList<Step>();
-							for (Step steps : scenario.getSteps()) {
-								stepAux.add(steps);
+			Project projectExist = projectDAO.getById(project.getIdProject());
+			if (projectExist != null) {
+				for (Feature feature : project.getFeatures()) {
+					Feature featureExist = featureDAO.getByName(feature.getNameFeature());
+					if (featureExist == null) {
+						feature.setProject(project);
+						featureDAO.save(feature);
+						for (Scenario scenario : feature.getScenarios()) {
+							scenario.setFeature(feature);
+							scenarioDAO.save(scenario);
+							for (Step step : scenario.getSteps()) {
+								ScenarioStep scenarioStep = new ScenarioStep();
+								step.setScenarios(feature.getScenarios());
+								stepDAO.save(step);
+								scenarioStep.setIdScenario(scenario.getIdScenario());
+								scenarioStep.setIdStep(step.getIdStep());
+								scenarioStepDAO.save(scenarioStep);
+								for (Parameter parameter : step.getParameters()) {
+									List<Step> stepAux = new ArrayList<Step>();
+									for (Step steps : scenario.getSteps()) {
+										stepAux.add(steps);
+									}
+									parameter.setSteps(stepAux);
+									parameterDAO.save(parameter);
+									StepParameter stepParameter = new StepParameter();
+									stepParameter.setIdStep(step.getIdStep());
+									stepParameter.setIdParameter(parameter.getIdParameter());
+									stepParameterDAO.save(stepParameter);
+								}
 							}
-							parameter.setSteps(stepAux);
-							parameterDAO.save(parameter);
-							StepParameter stepParameter = new StepParameter();
-							stepParameter.setIdStep(step.getIdStep());
-							stepParameter.setIdParameter(parameter.getIdParameter());
-							stepParameterDAO.save(stepParameter);
 						}
+						status = 1;
+					} else {
+						return 0;
 					}
 				}
-				status = 1;
-			}else {
-				return 0;
 			}
 		} catch (Exception e) {
 		}
 		return status;
-	} 
-	
+	}
+
 	public Integer update(Feature feature) {
 		Integer status = 0;
 		try {
@@ -115,12 +160,13 @@ public class FeatureService{
 				status = 1;
 			}
 		} catch (Exception e) {
-		}return status;
+		}
+		return status;
 	}
-	
+
 	public Feature deleteFeature(String name) {
 		Feature feature = featureDAO.getByName(name);
-		if(feature!=null) {
+		if (feature != null) {
 			scenarioStepService.delete(feature);
 			stepParameterService.delete(feature);
 			parameterService.delete(feature);
@@ -128,14 +174,14 @@ public class FeatureService{
 			scenarioService.delete(feature);
 			featureDAO.delete(feature);
 		}
-		
+
 		return feature;
 	}
 
 	public void deleteFromProject(Project project) {
-		for (Feature feature: project.getFeatures()) {
+		for (Feature feature : project.getFeatures()) {
 			featureDAO.delete(feature);
 		}
 	}
-	
+
 }
