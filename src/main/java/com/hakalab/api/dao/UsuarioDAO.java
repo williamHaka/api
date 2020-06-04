@@ -48,6 +48,17 @@ public class UsuarioDAO extends BaseDAO{
 		return usuario;
 	}
 	
+	public Usuario getByEmailUser(String emailUsuario) {
+		Usuario usuario = null;
+		try {
+			Query<Usuario> query = getSession().createQuery("select a from Usuario a where a.emailUsuario=:emailUsuario", Usuario.class);
+			query.setParameter("emailUsuario", emailUsuario);
+			usuario = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return usuario;
+	}
+	
 	public void save(Usuario usuario) {
 		getSession().save(usuario);
 	}

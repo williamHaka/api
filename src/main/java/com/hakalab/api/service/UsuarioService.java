@@ -2,7 +2,11 @@ package com.hakalab.api.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+/*import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;*/
 import org.springframework.stereotype.Service;
 import com.hakalab.api.dao.UsuarioDAO;
 import com.hakalab.api.dao.UsuarioProjectDAO;
@@ -21,23 +25,25 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioProjectService usuarioProjectService;
 
-	public String getTokenByUsername(Usuario usuario) throws Exception {
-		Usuario user = usuarioDAO.getById(usuario.getIdUsuario());
-		if (user != null) {
-			String key = "H4kAl4B";
+	public String getToken(Usuario usuario) throws Exception {
+		Usuario user = usuarioDAO.getByEmailUser(usuario.getEmailUsuario());
+		if (user.getEmailUsuario().equals(usuario.getEmailUsuario()) && user.getPassUsuario().equals(usuario.getPassUsuario())) {
+			String secretKey = "H4kAl4B";
+//			List grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
 			long tiempo = System.currentTimeMillis();
-			String jwt = Jwts.builder()
-					.setSubject("Proyecto haka")
+			String token = Jwts.builder()
+					.setSubject(usuario.getEmailUsuario())
 					.setIssuedAt(new Date(tiempo))
 					.setExpiration(new Date(tiempo + 120000))
-					.claim("usuario", user.getUserNameUsuario())
-					.signWith(SignatureAlgorithm.HS256, key)
-					.compact();
-		    return jwt;
+					.claim("nombre", user.getNameUsuario())
+					.claim("apellido", user.getLastNameUsuario())
+//					.claim("authorities", grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+					.signWith(SignatureAlgorithm.HS512,	secretKey.getBytes()).compact();
+			return "Bearer: " + token;
 		}
-	    return null;
-	  }
-	
+		return null;
+	}
+
 	public List<Usuario> getAll() {
 		List<Usuario> usuarios = usuarioDAO.getAll();
 		return usuarios;

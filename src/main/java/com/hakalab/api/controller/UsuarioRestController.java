@@ -26,7 +26,7 @@ public class UsuarioRestController {
 	
 	@GetMapping(value = "/authenticate")
 	public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
-		String token = usuarioService.getTokenByUsername(usuario);
+		String token = usuarioService.getToken(usuario);
 		if(token != null)
 			return ResponseEntity.status(HttpStatus.CREATED).body(token);	
 		return new ResponseEntity<String>("Token null: ", HttpStatus.UNAUTHORIZED);
