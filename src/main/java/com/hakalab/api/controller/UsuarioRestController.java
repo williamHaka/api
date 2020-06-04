@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hakalab.api.entity.Project;
 import com.hakalab.api.entity.Usuario;
 import com.hakalab.api.service.UsuarioService;
 
@@ -35,7 +36,7 @@ public class UsuarioRestController {
 	@GetMapping(value = "/usuarioById", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getUsuarioById(@RequestBody Usuario usuario) {
 		Usuario usuarioExist = usuarioService.getById(usuario.getIdUsuario());
-		if(usuarioExist.equals(null))
+		if(usuarioExist == null)
 			return new ResponseEntity<String>("Usuario not found with id: " +usuario.getIdUsuario(), HttpStatus.NOT_FOUND);
 		return ResponseEntity.status(HttpStatus.OK).body(usuarioExist.toString());
 	}
@@ -55,6 +56,14 @@ public class UsuarioRestController {
 			return new ResponseEntity<String>("Usuario exist with name: " +usuario.getNameUsuario(), HttpStatus.NOT_FOUND);
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuario.toString());
 	}
+	
+//	@PostMapping(value = "/usuarios", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<String> asignUsuario(@RequestBody Usuario usuario) {
+//		Integer status = usuarioService.assignUsuario(usuario);
+//		if (status == null)
+//			return new ResponseEntity<String>("Usuario: " +usuario.getNameUsuario() + "assigned to project: " +usuario.getNameUsuario(), HttpStatus.NOT_FOUND);
+//		return ResponseEntity.status(HttpStatus.CREATED).body(usuario.toString());
+//	}
 	
 	@PutMapping(value = "/updateusuario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> updateUsuario(@RequestBody Usuario usuario) {

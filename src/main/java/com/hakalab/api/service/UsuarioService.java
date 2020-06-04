@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hakalab.api.dao.ProjectDAO;
 import com.hakalab.api.dao.UsuarioDAO;
 import com.hakalab.api.dao.UsuarioProjectDAO;
+import com.hakalab.api.entity.Project;
+import com.hakalab.api.entity.StepParameter;
 import com.hakalab.api.entity.Usuario;
 import com.hakalab.api.entity.UsuarioProject;
 
@@ -17,6 +20,8 @@ public class UsuarioService {
 	private UsuarioDAO usuarioDAO;
 	@Autowired
 	private UsuarioProjectDAO usuarioprojectDAO;
+	@Autowired
+	private ProjectDAO projectDAO;
 	
 	@Autowired
 	private UsuarioProjectService usuarioProjectService;
@@ -55,7 +60,30 @@ public class UsuarioService {
 		}
 		return status;
 	}
-
+	
+//	public Integer assignUsuario(Usuario usuario) {
+//		Integer status = 0;
+//		try {
+//			Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
+//			if (usuarioExist != null) {
+//				Project projectExist =  projectDAO.getById(project.getIdProject());
+//				if (projectExist != null) {
+//					UsuarioProject usuarioProject = new UsuarioProject();
+//					usuarioProject.setIdUsuario(usuario.getIdUsuario());
+//					usuarioProject.setIdProject(project.getIdProject());
+//					usuarioprojectDAO.save(usuarioProject);
+//					status = 200;
+//				}else {
+//					status = 404;
+//				}
+//			}else {
+//				status = 404;
+//			}
+//		} catch (Exception e) {
+//		}
+//		return status;
+//	}
+	
 	public Integer updateUsuario(Usuario usuario) {
 		Integer status = 0;
 		try {

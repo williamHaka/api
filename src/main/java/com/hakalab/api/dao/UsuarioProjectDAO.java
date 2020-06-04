@@ -20,6 +20,10 @@ public class UsuarioProjectDAO extends BaseDAO{
 		return query.getResultList();
 	}
 	
+	public void save(UsuarioProject usuarioProject) {
+		getSession().save(usuarioProject);
+	}
+	
 	@Transactional
 	@Modifying
 	public void delete(UsuarioProject usuarioProject) {
