@@ -9,7 +9,6 @@ import com.hakalab.api.dao.ProjectDAO;
 import com.hakalab.api.dao.UsuarioDAO;
 import com.hakalab.api.dao.UsuarioProjectDAO;
 import com.hakalab.api.entity.Project;
-import com.hakalab.api.entity.StepParameter;
 import com.hakalab.api.entity.Usuario;
 import com.hakalab.api.entity.UsuarioProject;
 
@@ -22,9 +21,6 @@ public class UsuarioService {
 	private UsuarioProjectDAO usuarioprojectDAO;
 	@Autowired
 	private ProjectDAO projectDAO;
-
-	@Autowired
-	private UsuarioProjectService usuarioProjectService;
 
 	public List<Usuario> getAll() {
 		List<Usuario> usuarios = usuarioDAO.getAll();
