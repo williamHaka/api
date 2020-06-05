@@ -23,7 +23,7 @@ import com.hakalab.api.service.UsuarioService;
 //Indicamos que es un controlador rest
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/hakalab/") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
+@RequestMapping(value = "/hakalab") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/hakalab/
 public class FeatureRestController {
 		@Autowired
 		private FeatureService featureService;
