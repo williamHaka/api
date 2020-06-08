@@ -1,8 +1,10 @@
 package com.hakalab.api.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
 import com.hakalab.api.dao.ProjectDAO;
@@ -12,15 +14,36 @@ import com.hakalab.api.entity.Project;
 import com.hakalab.api.entity.Usuario;
 import com.hakalab.api.entity.UsuarioProject;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 @Service
 public class UsuarioService {
-
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 	@Autowired
 	private UsuarioProjectDAO usuarioprojectDAO;
 	@Autowired
 	private ProjectDAO projectDAO;
+
+	public String getToken(Usuario usuario) throws Exception {
+		Usuario user = usuarioDAO.getByEmailUser(usuario.getEmailUsuario());
+		if (user.getEmailUsuario().equals(usuario.getEmailUsuario()) && user.getPassUsuario().equals(usuario.getPassUsuario())) {
+			String secretKey = "H4kAl4B";
+			List grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN");
+			long tiempo = System.currentTimeMillis();
+			String token = Jwts.builder()
+					.setSubject(usuario.getEmailUsuario())
+					.setIssuedAt(new Date(tiempo))
+					.setExpiration(new Date(tiempo + (60000*60)))
+					.claim("nombre", user.getNameUsuario())
+					.claim("apellido", user.getLastNameUsuario())
+					.claim("authorities", grantedAuthorities)
+					.signWith(SignatureAlgorithm.HS512,	secretKey.getBytes()).compact();
+			return "Bearer " + token;
+		}
+		return null;
+	}
 
 	public List<Usuario> getAll() {
 		List<Usuario> usuarios = usuarioDAO.getAll();
