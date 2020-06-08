@@ -1,5 +1,7 @@
 package com.hakalab.api.service;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import com.hakalab.api.dao.UsuarioDAO;
 import com.hakalab.api.dao.UsuarioProjectDAO;
@@ -29,7 +32,7 @@ public class UsuarioService {
 		Usuario user = usuarioDAO.getByEmailUser(usuario.getEmailUsuario());
 		if (user.getEmailUsuario().equals(usuario.getEmailUsuario()) && user.getPassUsuario().equals(usuario.getPassUsuario())) {
 			String secretKey = "H4kAl4B";
-			List grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
+			List grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN");
 			long tiempo = System.currentTimeMillis();
 			String token = Jwts.builder()
 					.setSubject(usuario.getEmailUsuario())
@@ -37,9 +40,9 @@ public class UsuarioService {
 					.setExpiration(new Date(tiempo + 120000))
 					.claim("nombre", user.getNameUsuario())
 					.claim("apellido", user.getLastNameUsuario())
-					.claim("authorities", grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+					.claim("authorities", grantedAuthorities)
 					.signWith(SignatureAlgorithm.HS512,	secretKey.getBytes()).compact();
-			return "Bearer: " + token;
+			return "Bearer " + token;
 		}
 		return null;
 	}

@@ -1,6 +1,8 @@
 package com.hakalab.api.security;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -58,11 +62,14 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	private void setUpSpringAuthentication(Claims claims) {
 		@SuppressWarnings("unchecked")
 		List authorities = (List) claims.get("authorities");
+		
+		Collection<? extends GrantedAuthority> authorities2 =
+		        Arrays.stream(claims.get("authorities").toString().split(","))
+		            .map(SimpleGrantedAuthority::new)
+		            .collect(Collectors.toList());
 
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
-				authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,authorities2);
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
 	}
 
 	private boolean existeJWTToken(HttpServletRequest request, HttpServletResponse res) {
