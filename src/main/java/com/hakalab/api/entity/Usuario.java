@@ -159,5 +159,4 @@ public class Usuario {
 				+ "\r\n \"nameEmpresaUsuario\": \"" + nameEmpresaUsuario+ "\","
 				+ "\r\n \"projects\" : " + projects + "}";
 	}
-	
 }

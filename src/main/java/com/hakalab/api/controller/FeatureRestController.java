@@ -24,22 +24,13 @@ import com.hakalab.api.service.FeatureService;
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/hakalab/projects") //esta sera la raiz de la url, es decir http://127.0.0.1:8082/hakalab/
 public class FeatureRestController {
-		
 		@Autowired
 		private FeatureService featureService;
 		
-		@RequestMapping(value ="/}")  
+		@RequestMapping(value ="/")  
 		public String hello() {   
-		 return "Welcome Api Hakalab"; 
-		}
-		
-//		@GetMapping(value = "/login",consumes = MediaType.APPLICATION_JSON_VALUE)
-//		public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
-//			String token = usuarioService.getTokenByUsername(usuario);
-//			if(token!=null) 
-//				return ResponseEntity.status(HttpStatus.OK).body(token);
-//			return new ResponseEntity<String>("credential incorrect", HttpStatus.NOT_FOUND);
-//		}
+		 return "Hello, world"; 
+		 }
 		
 		@GetMapping(value = "/features",produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> findAll(){
@@ -64,14 +55,6 @@ public class FeatureRestController {
 				 return new ResponseEntity<String>("Features not found with name: "+ feature.getIdFeature(), HttpStatus.NOT_FOUND);
 			return ResponseEntity.status(HttpStatus.OK).body(featureExist.toString());
 		}
-		
-//		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-//		public ResponseEntity<String> addFeature(@RequestBody Feature feature) {
-//			Integer status = featureService.saveFeature(feature);
-//			if(status==0) 
-//				return new ResponseEntity<String>("Features exist with name: "+feature.getNameFeature(), HttpStatus.FOUND);
-//			return ResponseEntity.status(HttpStatus.CREATED).body(feature.toString());
-//		}
 		
 		@PostMapping(value = "/features",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> addFeature(@RequestBody Project project) {
