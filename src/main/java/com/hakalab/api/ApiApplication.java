@@ -31,7 +31,6 @@ public class ApiApplication {
 			http.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/hakalab/").permitAll()
 				.antMatchers(HttpMethod.GET, "/hakalab/authenticate").permitAll()
 				.anyRequest().authenticated();
 		}
