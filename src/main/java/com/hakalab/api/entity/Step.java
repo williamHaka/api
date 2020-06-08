@@ -28,13 +28,6 @@ public class Step {
 	@Column(name = "description")
 	private String descriptionStep;
 	
-	
-//	@OneToMany(mappedBy="step")
-//	private List<ScenarioStep> scenarioSteps;
-	 
-//	@OneToMany(mappedBy="step")
-//	private List<StepParameter> stepParameter;
-	
 	 @ManyToMany(mappedBy = "steps")
 	 private List<Scenario> scenarios;
 	 

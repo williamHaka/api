@@ -54,6 +54,7 @@ public class Usuario {
 			joinColumns = {@JoinColumn(name = "id_usuario")},
 			inverseJoinColumns = {@JoinColumn(name = "id_project")}
 			)
+	
 	private List<Project> projects;
 	
 	public Integer getIdUsuario() {

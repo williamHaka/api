@@ -43,10 +43,19 @@ public class Scenario{
             name = "scenario_step",
             joinColumns = {@JoinColumn(name = "id_scenario")},
             inverseJoinColumns = {@JoinColumn(name = "id_step")}
-    )
+    		)
 	
 	private List<Step> steps;
 
+	@ManyToMany
+	@JoinTable(
+			name = "scenario_ciclo",
+			joinColumns = {@JoinColumn(name = "id_scenario")},
+			inverseJoinColumns = {@JoinColumn(name = "id_ciclo")}
+			)
+	
+	private List<CicloTest> ciclos;
+	
 	public String getTagScenario() {
 		return tagScenario;
 	}
@@ -101,6 +110,14 @@ public class Scenario{
 
 	public void setSteps(List<Step> steps) {
 		this.steps = steps;
+	}
+
+	public List<CicloTest> getCiclos() {
+		return ciclos;
+	}
+
+	public void setCiclos(List<CicloTest> ciclos) {
+		this.ciclos = ciclos;
 	}
 
 	@Override
