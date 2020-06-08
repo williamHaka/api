@@ -37,7 +37,7 @@ public class UsuarioService {
 			String token = Jwts.builder()
 					.setSubject(usuario.getEmailUsuario())
 					.setIssuedAt(new Date(tiempo))
-					.setExpiration(new Date(tiempo + 120000))
+					.setExpiration(new Date(tiempo + (60000*60)))
 					.claim("nombre", user.getNameUsuario())
 					.claim("apellido", user.getLastNameUsuario())
 					.claim("authorities", grantedAuthorities)
