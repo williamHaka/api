@@ -22,6 +22,9 @@ public class CicloTest {
 	@Column(name = "id_ciclo")
 	private Integer idCiclo;
 
+	@Column(name = "name")
+	private String nameCiclo;
+	
 	@Column(name = "description")
 	private String descriptionCiclo;
 	
@@ -38,6 +41,14 @@ public class CicloTest {
 
 	public void setIdCiclo(Integer idCiclo) {
 		this.idCiclo = idCiclo;
+	}
+
+	public String getNameCiclo() {
+		return nameCiclo;
+	}
+
+	public void setNameCiclo(String nameCiclo) {
+		this.nameCiclo = nameCiclo;
 	}
 
 	public String getDescriptionCiclo() {

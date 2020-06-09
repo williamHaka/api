@@ -15,4 +15,29 @@ public class CicloTestDAO extends BaseDAO {
 		return selectCiclo.getResultList();
 	}
 	
+	public CicloTest getByName(String name) {
+		CicloTest ciclo = null;
+		try {
+			Query<CicloTest> query = getSession().createQuery("select a from CicloTest a where a.nameCiclo=;nombre", CicloTest.class);
+			query.setParameter("nombreCiclo", name);
+			ciclo = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return ciclo;
+	}
+	
+	public CicloTest getById(Integer id) {
+		CicloTest cicloTest = null;
+		try {
+			Query<CicloTest> query = getSession().createQuery("select a from CicloTest a where a.idCiclo=:id", CicloTest.class);
+			query.setParameter("id", id);
+			cicloTest = query.getSingleResult();
+		} catch (Exception e) {
+		}
+		return cicloTest;
+	}
+	
+	public void save(CicloTest ciclo) {
+		getSession().save(ciclo);
+	}
 }

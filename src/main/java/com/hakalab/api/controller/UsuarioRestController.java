@@ -86,7 +86,7 @@ public class UsuarioRestController {
 		Usuario usuarioExist = usuarioService.deleteUsuario(usuario.getIdUsuario());
 		if (usuarioExist == null)
 			return ResponseEntity.status(HttpStatus.OK).body("Eliminated usuario with id: " +usuario.getIdUsuario());
-		return new ResponseEntity<String>("Usuario not found with name: " +usuario.getIdUsuario(), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>("Usuario not found with id: " +usuario.getIdUsuario(), HttpStatus.NOT_FOUND);
 	}
 	
 }

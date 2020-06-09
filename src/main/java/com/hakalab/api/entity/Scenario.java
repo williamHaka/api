@@ -127,6 +127,7 @@ public class Scenario{
 				+ "\r\n \"tagScenario\": \""+tagScenario+"\","
 				+ "\r\n \"nameScenario\": \"" + nameScenario + "\","
 				+ "\r\n \"typeScenario\": \"" + typeScenario+ "\","
+			    + "\r\n \"ciclos\": \"" + ciclos+ "\","
 //				+ "\r\n \"statusScenario\": \""+statusScenario+"\","
 				+ "\r\n \"steps\" : "+ steps + "}";
 	}

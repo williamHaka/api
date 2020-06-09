@@ -19,6 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UsuarioService {
+	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 	@Autowired
