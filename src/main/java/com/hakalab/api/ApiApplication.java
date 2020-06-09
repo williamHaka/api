@@ -17,22 +17,21 @@ import com.hakalab.api.security.JWTAuthorizationFilter;
 @SpringBootApplication
 @ComponentScan
 public class ApiApplication {
-	
+
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		SpringApplication.run(ApiApplication.class, args);
 	}
-	
-	@EnableWebSecurity
-	@Configuration
-	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/hakalab/authenticate").permitAll()
-				.anyRequest().authenticated();
+		@EnableWebSecurity
+		@Configuration
+		class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+			@Override
+			protected void configure(HttpSecurity http) throws Exception {
+				http.cors().and()
+						.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+						.authorizeRequests().antMatchers(HttpMethod.GET, "/hakalab/authenticate").permitAll()
+						.anyRequest().authenticated();
+			}
 		}
-	}
 }

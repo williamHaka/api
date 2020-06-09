@@ -29,19 +29,21 @@ public class UsuarioService {
 
 	public String getToken(Usuario usuario) throws Exception {
 		Usuario user = usuarioDAO.getByEmailUser(usuario.getEmailUsuario());
-		if (user.getEmailUsuario().equals(usuario.getEmailUsuario()) && user.getPassUsuario().equals(usuario.getPassUsuario())) {
-			String secretKey = "H4kAl4B";
-			List grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN");
-			long tiempo = System.currentTimeMillis();
-			String token = Jwts.builder()
-					.setSubject(usuario.getEmailUsuario())
-					.setIssuedAt(new Date(tiempo))
-					.setExpiration(new Date(tiempo + 10000))//(60000*60)))
-					.claim("nombre", user.getNameUsuario())
-					.claim("apellido", user.getLastNameUsuario())
-					.claim("authorities", grantedAuthorities)
-					.signWith(SignatureAlgorithm.HS512,	secretKey.getBytes()).compact();
-			return "Bearer " + token;
+		if(user != null) {
+			if (user.getEmailUsuario().equals(usuario.getEmailUsuario()) && user.getPassUsuario().equals(usuario.getPassUsuario())) {
+				String secretKey = "H4kAl4B";
+				List grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN");
+				long tiempo = System.currentTimeMillis();
+				String token = Jwts.builder()
+						.setSubject(usuario.getEmailUsuario())
+						.setIssuedAt(new Date(tiempo))
+						.setExpiration(new Date(tiempo + (60000*60)))
+						.claim("nombre", user.getNameUsuario())
+						.claim("apellido", user.getLastNameUsuario())
+						.claim("authorities", grantedAuthorities)
+						.signWith(SignatureAlgorithm.HS512,	secretKey.getBytes()).compact();
+				return "Bearer " + token;
+			}
 		}
 		return null;
 	}
