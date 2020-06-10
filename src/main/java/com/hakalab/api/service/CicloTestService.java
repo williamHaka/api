@@ -64,7 +64,6 @@ public class CicloTestService {
 			if (cicloExist != null) {
 				cicloExist.setNameCiclo(ciclo.getNameCiclo());
 				cicloExist.setDescriptionCiclo(ciclo.getDescriptionCiclo());
-				cicloExist.setExecutionDateCiclo(ciclo.getExecutionDateCiclo());
 				cicloTestDAO.update(cicloExist);
 				status = 1;
 			}
@@ -73,8 +72,8 @@ public class CicloTestService {
 		return status;
 	}
 	
-//	public CicloTest deleteCiclo(Integer idCiclo) {
-//		CicloTest ciclo = cicloTestDAO.getById(idCiclo);
+//	public CicloTest deleteCiclo(String name) {
+//		CicloTest ciclo = cicloTestDAO.getByName(name);
 //		if (ciclo != null) {
 //			List<ScenarioCiclo> scenarioCiclos = scenariocicloDAO.getIdScenario(scenario);
 //			if (scenarioCiclos != null ) {

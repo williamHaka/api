@@ -1,6 +1,6 @@
 package com.hakalab.api.entity;
 
-import java.util.Calendar;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ public class CicloTest {
 	
 	@CreationTimestamp
 	@Column(name = "execution_date")
-	private Calendar executionDateCiclo;
+	private Timestamp executionDateCiclo;
 	
 	@ManyToMany(mappedBy = "ciclos")
 	private List<Scenario> scenarios;
@@ -59,11 +59,19 @@ public class CicloTest {
 		this.descriptionCiclo = descriptionCiclo;
 	}
 
-	public Calendar getExecutionDateCiclo() {
+//	public Calendar getExecutionDateCiclo() {
+//		return executionDateCiclo;
+//	}
+//
+//	public void setExecutionDateCiclo(Calendar executionDateCiclo) {
+//		this.executionDateCiclo = executionDateCiclo;
+//	}
+
+	public Timestamp getExecutionDateCiclo() {
 		return executionDateCiclo;
 	}
 
-	public void setExecutionDateCiclo(Calendar executionDateCiclo) {
+	public void setExecutionDateCiclo(Timestamp executionDateCiclo) {
 		this.executionDateCiclo = executionDateCiclo;
 	}
 

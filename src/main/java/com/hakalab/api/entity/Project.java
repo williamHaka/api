@@ -1,5 +1,6 @@
 package com.hakalab.api.entity;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="project")
@@ -25,6 +28,10 @@ public class Project {
 	
 	@Column(name = "description")
 	private String descriptionProject;
+	
+	@CreationTimestamp
+	@Column(name = "creation_date")
+	private Timestamp creationDateProject;
 	
 	@OneToMany(mappedBy = "project")
 	private List<Feature> features;
@@ -67,6 +74,14 @@ public class Project {
 		this.descriptionProject = descriptionProject;
 	}
 	
+	public Timestamp getCreationDateProject() {
+		return creationDateProject;
+	}
+
+	public void setCreationDateProject(Timestamp creationDateProject) {
+		this.creationDateProject = creationDateProject;
+	}
+
 	@Override
 	public String toString() {
 		return "{"
