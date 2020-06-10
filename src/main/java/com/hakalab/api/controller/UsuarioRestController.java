@@ -26,14 +26,6 @@ public class UsuarioRestController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping(value = "/authenticate")
-	public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
-		String token = usuarioService.getToken(usuario);
-		if(token != null)
-			return ResponseEntity.status(HttpStatus.CREATED).body(token);	
-		return new ResponseEntity<String>("Token null: ", HttpStatus.UNAUTHORIZED);
-	}
-	
 	@GetMapping(value = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> findAll() {
 		List<Usuario> usuarios = usuarioService.getAll();
