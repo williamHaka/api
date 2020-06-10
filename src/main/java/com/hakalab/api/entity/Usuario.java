@@ -1,5 +1,6 @@
 package com.hakalab.api.entity;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "usuario")
@@ -41,6 +44,10 @@ public class Usuario {
 	
 	@Column(name = "lastNameUsuario")
 	private String lastNameUsuario;
+	
+	@CreationTimestamp
+	@Column(name = "creation_date")
+	private Timestamp creationDateUser;
 	
 	@Column(name = "postalCodeUsuario")
 	private String postalCodeUsuario;
@@ -119,6 +126,14 @@ public class Usuario {
 
 	public void setLastNameUsuario(String lastNameUsuario) {
 		this.lastNameUsuario = lastNameUsuario;
+	}
+
+	public Timestamp getCreationDateUser() {
+		return creationDateUser;
+	}
+
+	public void setCreationDateUser(Timestamp creationDateUser) {
+		this.creationDateUser = creationDateUser;
 	}
 
 	public String getPostalCodeUsuario() {
