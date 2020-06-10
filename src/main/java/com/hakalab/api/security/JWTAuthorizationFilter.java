@@ -70,6 +70,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,authorities2);
 		SecurityContextHolder.getContext().setAuthentication(auth);
+
 	}
 
 	private boolean existeJWTToken(HttpServletRequest request, HttpServletResponse res) {

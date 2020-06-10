@@ -26,7 +26,7 @@ public class UsuarioRestController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping(value = "/authenticate")
+	@PostMapping(value = "/authenticate")
 	public ResponseEntity<String> getToken(@RequestBody Usuario usuario) throws Exception{
 		String token = usuarioService.getToken(usuario);
 		if(token != null)

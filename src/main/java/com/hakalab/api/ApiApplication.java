@@ -29,9 +29,10 @@ public class ApiApplication {
 			@Override
 			protected void configure(HttpSecurity http) throws Exception {
 				http.cors().and()
-						.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-						.authorizeRequests().antMatchers(HttpMethod.GET, "/hakalab/authenticate").permitAll()
-						.anyRequest().authenticated();
+					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+					.authorizeRequests()
+					.antMatchers(HttpMethod.POST, "/hakalab/authenticate").permitAll()
+					.anyRequest().authenticated();
 			}
 		}
 }
