@@ -90,10 +90,6 @@ public class Step {
 
 	@Override
 	public String toString() {
-//		List<Parameter> parameters = new ArrayList<Parameter>();
-//		for (StepParameter sp : stepParameter) {
-//			parameters.add(sp.getParameter());
-//		}
 		return "{"
 				+ "\r\n \"idStep\": \"" + idStep + "\","
 				+ "\r\n \"nameStep\": \"" + nameStep + "\","
@@ -107,17 +103,4 @@ public class Step {
 		this.scenarios.add(scenario);
 	}
 
-//	public void addParameter(Parameter parameter){
-//	StepParameter stpa = new StepParameter();
-//	stpa.setStep(this);
-//	stpa.setIdStep(this.getIdStep());
-//	stpa.setParameter(parameter);
-//	stpa.setIdParameter(parameter.getIdParameter());
-//	if(this.stepParameter==null)
-//		this.stepParameter = new ArrayList<>();
-//	
-//	this.stepParameter.add(stpa);
-//	parameter.getStepParameter().add(stpa);
-//	
-//}
 }

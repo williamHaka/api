@@ -57,6 +57,22 @@ public class CicloTestService {
 		return status;
 	}
 	
+	public Integer updateCiclo(CicloTest ciclo) {
+		Integer status = 0;
+		try {
+			CicloTest cicloExist = cicloTestDAO.getById(ciclo.getIdCiclo());
+			if (cicloExist != null) {
+				cicloExist.setNameCiclo(ciclo.getNameCiclo());
+				cicloExist.setDescriptionCiclo(ciclo.getDescriptionCiclo());
+				cicloExist.setExecutionDateCiclo(ciclo.getExecutionDateCiclo());
+				cicloTestDAO.update(cicloExist);
+				status = 1;
+			}
+		} catch (Exception e) {
+		}
+		return status;
+	}
+	
 //	public CicloTest deleteCiclo(Integer idCiclo) {
 //		CicloTest ciclo = cicloTestDAO.getById(idCiclo);
 //		if (ciclo != null) {

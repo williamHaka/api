@@ -30,7 +30,7 @@ public class CicloTest {
 	
 	@CreationTimestamp
 	@Column(name = "execution_date")
-	private Calendar executionDate;
+	private Calendar executionDateCiclo;
 	
 	@ManyToMany(mappedBy = "ciclos")
 	private List<Scenario> scenarios;
@@ -59,12 +59,12 @@ public class CicloTest {
 		this.descriptionCiclo = descriptionCiclo;
 	}
 
-	public Calendar getExecutionDate() {
-		return executionDate;
+	public Calendar getExecutionDateCiclo() {
+		return executionDateCiclo;
 	}
 
-	public void setExecutionDate(Calendar executionDate) {
-		this.executionDate = executionDate;
+	public void setExecutionDateCiclo(Calendar executionDateCiclo) {
+		this.executionDateCiclo = executionDateCiclo;
 	}
 
 	public List<Scenario> getScenarios() {
@@ -79,6 +79,8 @@ public class CicloTest {
 	public String toString() {
 		return "{"
 				+ "\r\n \"idCiclo\": \"" + idCiclo+ "\","
-				+ "\r\n \"descriptionCiclo\" : "+ descriptionCiclo + "}";
+				+ "\r\n \"nameCiclo\": \"" + nameCiclo+ "\","
+				+ "\r\n \"descriptionCiclo\": \"" + descriptionCiclo+ "\","
+				+ "\r\n \"executionDateCiclo\" : "+ executionDateCiclo + "}";
 	}
 }

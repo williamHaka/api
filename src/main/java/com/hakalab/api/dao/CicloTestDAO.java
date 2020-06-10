@@ -2,7 +2,10 @@ package com.hakalab.api.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.query.Query;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import com.hakalab.api.entity.CicloTest;
@@ -40,4 +43,11 @@ public class CicloTestDAO extends BaseDAO {
 	public void save(CicloTest ciclo) {
 		getSession().save(ciclo);
 	}
+	
+	@Transactional
+	@Modifying
+	public void update(CicloTest ciclo) {
+		getSession().update(ciclo);
+	}
+	
 }
