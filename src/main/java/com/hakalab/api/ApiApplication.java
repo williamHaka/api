@@ -31,7 +31,7 @@ public class ApiApplication {
 				http.cors().and()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/hakalab/authenticate").permitAll()
+					.antMatchers("/hakalab/projects/", "/hakalab/authenticate", "/hakalab/usuarios").permitAll()
 					.anyRequest().authenticated();
 			}
 		}
