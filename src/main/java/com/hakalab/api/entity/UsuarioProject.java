@@ -1,11 +1,15 @@
 package com.hakalab.api.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "usuario_project")
@@ -22,6 +26,10 @@ public class UsuarioProject {
 	@Column(name = "id_project")
 	private Integer idProject;
 
+	@CreationTimestamp
+	@Column(name = "assignment_date")
+	private Timestamp assignmentDate;
+	
 	public Integer getIdUsuarioProject() {
 		return idUsuarioProject;
 	}
@@ -45,6 +53,13 @@ public class UsuarioProject {
 	public void setIdProject(Integer idProject) {
 		this.idProject = idProject;
 	}
-	
+
+	public Timestamp getAssignmentDate() {
+		return assignmentDate;
+	}
+
+	public void setAssignmentDate(Timestamp assignmentDate) {
+		this.assignmentDate = assignmentDate;
+	}
 	
 }
