@@ -19,7 +19,7 @@ import com.hakalab.api.entity.Project;
 import com.hakalab.api.service.ProjectService;
 
 @RestController
-@RequestMapping(value = "/hakalab")
+@RequestMapping(value = "/hakalab/organizacion")
 public class ProjectRestController {
 
 	@Autowired

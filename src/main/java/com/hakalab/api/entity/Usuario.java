@@ -1,7 +1,6 @@
 package com.hakalab.api.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -55,14 +53,9 @@ public class Usuario {
 	@Column(name = "nameEmpresaUsuario")
 	private String nameEmpresaUsuario;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "usuario_project",
-			joinColumns = {@JoinColumn(name = "id_usuario")},
-			inverseJoinColumns = {@JoinColumn(name = "id_project")}
-			)
-	
-	private List<Project> projects;
+	@ManyToOne
+	@JoinColumn(name = "id_project", referencedColumnName = "id_project")
+	private Project project;
 	
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -152,12 +145,12 @@ public class Usuario {
 		this.nameEmpresaUsuario = nameEmpresaUsuario;
 	}
 
-	public List<Project> getProjects() {
-		return projects;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	@Override
@@ -172,7 +165,8 @@ public class Usuario {
 				+ "\r\n \"nameUsuario\": \"" + nameUsuario + "\","
 				+ "\r\n \"lastNameUsuario\": \"" + lastNameUsuario + "\","
 				+ "\r\n \"postalCodeUsuario\": \"" + postalCodeUsuario + "\","
-				+ "\r\n \"nameEmpresaUsuario\": \"" + nameEmpresaUsuario+ "\","
-				+ "\r\n \"projects\" : " + projects + "}";
+//				+ "\r\n \"nameEmpresaUsuario\": \"" + nameEmpresaUsuario+ "\","
+				+ "\r\n \"nameEmpresaUsuario\" : \"" + nameEmpresaUsuario+ "\"}";
+//		+ "\r\n \"projects\" : " + projects + "}";
 	}
 }

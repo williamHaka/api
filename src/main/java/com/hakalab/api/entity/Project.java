@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,8 +35,11 @@ public class Project {
 	@OneToMany(mappedBy = "project")
 	private List<Feature> features;
 
-	@ManyToMany(mappedBy = "projects")
+	@OneToMany(mappedBy = "project")
 	private List<Usuario> usuarios;
+	
+//	@ManyToMany(mappedBy = "projects")
+//	private List<Usuario> usuarios;
 	
 //	@Embedded
 //	private BaseEntity baseEntity;
@@ -82,12 +84,21 @@ public class Project {
 		this.creationDateProject = creationDateProject;
 	}
 
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
 	@Override
 	public String toString() {
 		return "{"
 				+ "\r\n \"idProject\": "+idProject+","
 				+ "\r\n \"nameProject\": \""+nameProject+"\","
 				+ "\r\n \"descriptionProject\": \""+descriptionProject+"\","
+				+ "\r\n \"usuarios\" :  "+ usuarios + ","
 				+ "\r\n \"features\" :  "+ features + "}";
 	}
 

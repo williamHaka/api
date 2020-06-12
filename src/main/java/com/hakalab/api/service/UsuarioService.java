@@ -7,18 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.hakalab.api.dao.ProjectDAO;
 import com.hakalab.api.dao.UsuarioDAO;
-import com.hakalab.api.dao.UsuarioProjectDAO;
 import com.hakalab.api.entity.Project;
 import com.hakalab.api.entity.Usuario;
-import com.hakalab.api.entity.UsuarioProject;
 
 @Service
 public class UsuarioService {
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
-	@Autowired
-	private UsuarioProjectDAO usuarioprojectDAO;
+//	@Autowired
+//	private UsuarioProjectDAO usuarioprojectDAO;
 	@Autowired
 	private ProjectDAO projectDAO;
 
@@ -57,31 +55,52 @@ public class UsuarioService {
 		return status;
 	}
 
-	public Integer assignUsuario(Usuario usuario) {
+//	public Integer assignUsuario(Usuario usuario) {
+//		Integer status = 0;
+//		try {
+//			Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
+//			if (usuarioExist != null) {
+//				for (Project project: usuario.getProjects()) {
+//					Project projectExist = projectDAO.getById(project.getIdProject());
+//					if (projectExist != null) {
+//						UsuarioProject usuarioProject = new UsuarioProject();
+//						usuarioProject.setIdUsuario(usuario.getIdUsuario());
+//						usuarioProject.setIdProject(project.getIdProject());
+//						usuarioprojectDAO.save(usuarioProject);
+//						status = 200;
+//					} else {
+//						status = 0;
+//					}
+//				}
+//			} else {
+//				status = 0;
+//			}
+//		} catch (Exception e) {
+//		}
+//		return status;
+//	}
+
+	public Integer assignUsuario(Project project) {
 		Integer status = 0;
 		try {
-			Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
-			if (usuarioExist != null) {
-				for (Project project: usuario.getProjects()) {
-					Project projectExist = projectDAO.getById(project.getIdProject());
-					if (projectExist != null) {
-						UsuarioProject usuarioProject = new UsuarioProject();
-						usuarioProject.setIdUsuario(usuario.getIdUsuario());
-						usuarioProject.setIdProject(project.getIdProject());
-						usuarioprojectDAO.save(usuarioProject);
-						status = 200;
-					} else {
-						status = 0;
+			Project projectExist = projectDAO.getById(project.getIdProject());
+			if (projectExist != null) {
+				for (Usuario usuario : project.getUsuarios()) {
+					Usuario usuarioExist = usuarioDAO.getNameUser(usuario.getNameUsuario());
+					if (usuarioExist == null) {
+						usuario.setProject(project);
+//						usuarioDAO.save(usuario);
+					}
+					else {
+						return 0;
 					}
 				}
-			} else {
-				status = 0;
 			}
 		} catch (Exception e) {
 		}
 		return status;
 	}
-
+	
 	public Integer updateUsuario(Usuario usuario) {
 		Integer status = 0;
 		try {
@@ -104,18 +123,18 @@ public class UsuarioService {
 		return status;
 	}
 
-	public Usuario deleteUsuario(Integer idUsuario) {
-		Usuario usuario = usuarioDAO.getById(idUsuario);
-		if (usuario != null) {
-			List<UsuarioProject> usuarioProjects = usuarioprojectDAO.getByIdUsuario(usuario);
-			if (usuarioProjects != null) {
-				for (UsuarioProject usuarioProject : usuarioProjects) {
-					usuarioprojectDAO.delete(usuarioProject);
-				}
-			}
-			usuarioDAO.delete(usuario);
-		}
-		return usuario;
-	}
+//	public Usuario deleteUsuario(Integer idUsuario) {
+//		Usuario usuario = usuarioDAO.getById(idUsuario);
+//		if (usuario != null) {
+//			List<UsuarioProject> usuarioProjects = usuarioprojectDAO.getByIdUsuario(usuario);
+//			if (usuarioProjects != null) {
+//				for (UsuarioProject usuarioProject : usuarioProjects) {
+//					usuarioprojectDAO.delete(usuarioProject);
+//				}
+//			}
+//			usuarioDAO.delete(usuario);
+//		}
+//		return usuario;
+//	}
 
 }
