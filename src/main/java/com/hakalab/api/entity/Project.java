@@ -98,6 +98,7 @@ public class Project {
 				+ "\r\n \"idProject\": "+idProject+","
 				+ "\r\n \"nameProject\": \""+nameProject+"\","
 				+ "\r\n \"descriptionProject\": \""+descriptionProject+"\","
+				+ "\r\n \"creationDateProject\": \""+creationDateProject+"\","
 				+ "\r\n \"usuarios\" :  "+ usuarios + ","
 				+ "\r\n \"features\" :  "+ features + "}";
 	}

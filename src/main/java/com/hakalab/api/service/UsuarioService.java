@@ -46,39 +46,16 @@ public class UsuarioService {
 	public Integer saveUsuario(Usuario usuario) {
 		Integer status = 0;
 		try {
-			Usuario usuarioExist = usuarioDAO.getNameUser(usuario.getNameUsuario());
+			Usuario usuarioExist = usuarioDAO.getByEmailUser(usuario.getEmailUsuario());
+//			Usuario usuarioExist = usuarioDAO.getNameUser(usuario.getNameUsuario());
 			if (usuarioExist == null) {
 				usuarioDAO.save(usuario);
+				status = 1;
 			}
 		} catch (Exception e) {
 		}
 		return status;
 	}
-
-//	public Integer assignUsuario(Usuario usuario) {
-//		Integer status = 0;
-//		try {
-//			Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
-//			if (usuarioExist != null) {
-//				for (Project project: usuario.getProjects()) {
-//					Project projectExist = projectDAO.getById(project.getIdProject());
-//					if (projectExist != null) {
-//						UsuarioProject usuarioProject = new UsuarioProject();
-//						usuarioProject.setIdUsuario(usuario.getIdUsuario());
-//						usuarioProject.setIdProject(project.getIdProject());
-//						usuarioprojectDAO.save(usuarioProject);
-//						status = 200;
-//					} else {
-//						status = 0;
-//					}
-//				}
-//			} else {
-//				status = 0;
-//			}
-//		} catch (Exception e) {
-//		}
-//		return status;
-//	}
 
 	public Integer assignUsuario(Project project) {
 		Integer status = 0;
@@ -86,10 +63,10 @@ public class UsuarioService {
 			Project projectExist = projectDAO.getById(project.getIdProject());
 			if (projectExist != null) {
 				for (Usuario usuario : project.getUsuarios()) {
-					Usuario usuarioExist = usuarioDAO.getNameUser(usuario.getNameUsuario());
-					if (usuarioExist == null) {
-						usuario.setProject(project);
-//						usuarioDAO.save(usuario);
+					Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
+					if (usuarioExist != null) {
+						usuarioExist.setProject(projectExist);
+						usuarioDAO.update(usuarioExist);
 					}
 					else {
 						return 0;
@@ -123,6 +100,19 @@ public class UsuarioService {
 		return status;
 	}
 
+	public Integer deleteUsuario(Usuario usuario) {
+		Integer status = 0;
+		try {
+			Usuario usuarioExist = usuarioDAO.getById(usuario.getIdUsuario());
+			if (usuarioExist != null) {
+				usuarioDAO.delete(usuarioExist);
+				status = 1;
+			}
+		} catch (Exception e) {
+		}
+		return status;
+	}
+	
 //	public Usuario deleteUsuario(Integer idUsuario) {
 //		Usuario usuario = usuarioDAO.getById(idUsuario);
 //		if (usuario != null) {
