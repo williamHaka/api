@@ -26,7 +26,7 @@ public class OrganizacionRestController {
 	private OrganizacionService organizacionService;
 	
 	@PostMapping(value = "/organizacion", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> addProject(@RequestBody Organizacion organizacion) {
+	public ResponseEntity<String> addOrganizacion(@RequestBody Organizacion organizacion) {
 		Organizacion organizacionSave = organizacionService.save(organizacion);
 		if(organizacionSave == null) {
 			return new ResponseEntity<String>("El rut ingresado ya se encuentra en el sistema: " + organizacion.getRutOrganizacion(), HttpStatus.CONFLICT);
@@ -53,7 +53,7 @@ public class OrganizacionRestController {
 	}
 	
 	@PutMapping(value = "/organizacion", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateProject(@RequestBody Organizacion organizacion) {
+	public ResponseEntity<String> updateOrganizacion(@RequestBody Organizacion organizacion) {
 		Organizacion organizacionUpdate = organizacionService.update(organizacion);
 		if(organizacionUpdate == null) {
 			return new ResponseEntity<String>("No se encuentra organizacion: " + organizacion.getNombreOrganizacion() + " en el sistema", HttpStatus.NOT_FOUND);
@@ -62,11 +62,11 @@ public class OrganizacionRestController {
 	}
 	
 	@DeleteMapping(value = "/organizacion", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> deleteProject(@RequestBody Organizacion organizacion) {
-		Integer status = organizacionService.detele(organizacion.getIdOrganizacion());
+	public ResponseEntity<String> deleteOrganizacion(@RequestBody Organizacion organizacion) {
+		Integer status = organizacionService.delete(organizacion.getIdOrganizacion());
 		if(status == 0) {
 			return new ResponseEntity<String>("No se ha encontrado la organizacion: "+organizacion.getNombreOrganizacion(), HttpStatus.NOT_FOUND);
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Organizacion eliminada: "+organizacion.getNombreOrganizacion());
+		return ResponseEntity.status(HttpStatus.OK).body("Organizacion eliminada");
 	}
 }

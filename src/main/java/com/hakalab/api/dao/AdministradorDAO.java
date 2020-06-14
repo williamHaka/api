@@ -9,44 +9,50 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import com.hakalab.api.entity.Administrador;
-import com.hakalab.api.entity.Usuario;
 
 @Repository
-public class AdministradorDAO extends BaseDAO{
-	public List<Administrador> getAll(){
-		Query<Administrador> selectAdministrador = getSession().createQuery("select a from Administrador a", Administrador.class);
+public class AdministradorDAO extends BaseDAO {
+	public List<Administrador> getAll() {
+		Query<Administrador> selectAdministrador = getSession().createQuery("select a from Administrador a",Administrador.class);
 		return selectAdministrador.getResultList();
 	}
-	
+
 	public Administrador getById(Integer id) {
-		Administrador administrador = null;
-			Query<Administrador> query = getSession().createQuery("select a from Administrador a where a.id=:id", Administrador.class);
+		try {
+			Query<Administrador> query = getSession().createQuery("select a from Administrador a where a.id=:id",
+					Administrador.class);
 			query.setParameter("id", id);
-			administrador = query.getSingleResult();
-		return administrador;
+			Administrador administrador = query.getSingleResult();
+			return administrador;
+		} catch (Exception e) {
+		}
+		return null;
 	}
-	
+
 	public Administrador getByCorreo(String correo) {
-		Administrador administrador = null;
-			Query<Administrador> query = getSession().createQuery("select a from Administrador a where a.correo=:correo", Administrador.class);
+		try {
+			Query<Administrador> query = getSession().createQuery("select a from Administrador a where a.correo=:correo",Administrador.class);
 			query.setParameter("correo", correo);
-			administrador = query.getSingleResult();
-		return administrador;
+			Administrador administrador = query.getSingleResult();
+			return administrador;
+		} catch (Exception e) {
+		}
+		return null;
 	}
-	
+
 	public void save(Administrador administrador) {
 		getSession().save(administrador);
 	}
-	
+
 	@Transactional
 	@Modifying
-	public void update(Usuario usuario) {
-		getSession().update(usuario);
+	public void update(Administrador administrador) {
+		getSession().update(administrador);
 	}
-	
+
 	@Transactional
 	@Modifying
-	public void delete(Usuario usuario) {
-		getSession().delete(usuario);
+	public void delete(Administrador administrador) {
+		getSession().delete(administrador);
 	}
 }

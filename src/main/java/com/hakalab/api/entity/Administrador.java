@@ -15,73 +15,62 @@ public class Administrador {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer id;
-	
-	@Column(name = "nombre")
-	private String nombre;
-	
-	@Column(name = "apellido")
-	private String apellido;
+	private Integer idAdministrador;
 	
 	@Column(name = "correo")
-	private String correo;
+	private String correoAdministrador;
 	
 	@Column(name = "password")
-	private String password;
+	private String passwordAdministrador;
 	
-	@Column(name = "telefono")
-	private String telefono;
+	@Column(name = "nombre")
+	private String nombreAdministrador;
+	
+	@Column(name = "apellido")
+	private String apellidoAdministrador;
 	
 	@ManyToOne
 	@JoinColumn(name = "organizacion", referencedColumnName = "id")
 	private Organizacion organizacion;
-	
-	public Integer getId() {
-		return id;
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
+
+	public Integer getIdAdministrador() {
+		return idAdministrador;
 	}
 
-	public String getCorreo() {
-		return correo;
+	public void setIdAdministrador(Integer idAdministrador) {
+		this.idAdministrador = idAdministrador;
 	}
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
+	public String getNombreAdministrador() {
+		return nombreAdministrador;
 	}
 
-	public String getpassword() {
-		return password;
+	public void setNombreAdministrador(String nombreAdministrador) {
+		this.nombreAdministrador = nombreAdministrador;
 	}
 
-	public void setpassword(String password) {
-		this.password = password;
+	public String getApellidoAdministrador() {
+		return apellidoAdministrador;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public void setApellidoAdministrador(String apellidoAdministrador) {
+		this.apellidoAdministrador = apellidoAdministrador;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public String getCorreoAdministrador() {
+		return correoAdministrador;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public void setCorreoAdministrador(String correoAdministrador) {
+		this.correoAdministrador = correoAdministrador;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public String getPasswordAdministrador() {
+		return passwordAdministrador;
 	}
 
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setPasswordAdministrador(String passwordAdministrador) {
+		this.passwordAdministrador = passwordAdministrador;
 	}
 
 	public Organizacion getOrganizacion() {
@@ -95,12 +84,11 @@ public class Administrador {
 	@Override
 	public String toString() {
 		return "{"
-				+"\r\n \"id\": \""+id+"\","
-				+"\r\n \"correo\": \""+correo+"\","
-				+"\r\n \"Contraseña\": \""+password+"\","
-				+"\r\n \"telefono\": \""+telefono+"\","
-				+"\r\n \"nombre\": \""+nombre+"\","
-				+"\r\n \"apellido\": \""+apellido+"\""
+				+"\r\n \"idAdministrador\": "+idAdministrador+","
+				+"\r\n \"correoAdministrador\": \""+correoAdministrador+"\","
+				+"\r\n \"passwordAdministrador\": \""+passwordAdministrador+"\","
+				+"\r\n \"nombreAdministrador\": \""+nombreAdministrador+"\","
+				+"\r\n \"apellidoAdministrador\": \""+apellidoAdministrador+"\""
 				+"\n}";
 				
 	}

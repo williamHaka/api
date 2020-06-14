@@ -1,10 +1,13 @@
 package com.hakalab.api.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +27,9 @@ public class Organizacion {
 	
 	@Column(name = "direccion")
 	private String direccionOrganizacion;
+	
+	@OneToMany(mappedBy = "organizacion")
+	private List<Administrador> administradores;
 	
 	public Integer getIdOrganizacion() {
 		return idOrganizacion;
@@ -57,13 +63,21 @@ public class Organizacion {
 		this.direccionOrganizacion = direccionOrganizacion;
 	}
 
+	public List<Administrador> getAdministradores() {
+		return administradores;
+	}
+
+	public void setAdministradores(List<Administrador> administradores) {
+		this.administradores = administradores;
+	}
+
 	@Override
 	public String toString() {
 		return "{"
 				+"\r\n \"idOrganizacion\": "+idOrganizacion+","
 				+"\r\n \"nombreOrganizacion\": \""+nombreOrganizacion+"\","
 				+"\r\n \"rutOrganizacion\": \""+rutOrganizacion+"\","
-				+"\r\n \"direccionOrganizacion\": \""+direccionOrganizacion+"\""
-				+"\n}";
+				+"\r\n \"direccionOrganizacion\": \""+direccionOrganizacion+"\","
+				+"\r\n \"Administradores\": "+administradores+"}";
 	}
 }
