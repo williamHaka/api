@@ -57,6 +57,9 @@ public class OrganizacionService {
 	public Integer delete(Integer id) {
 		Organizacion organizacionExist = organizacionDAO.getById(id);
 		if (organizacionExist != null) {
+			for (Administrador administrador : organizacionExist.getAdministradores()) {
+				administradorDAO.delete(administrador);
+			}
 			organizacionDAO.delete(organizacionExist);
 			return 1;
 		}
