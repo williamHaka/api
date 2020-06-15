@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,6 +32,13 @@ public class Organizacion {
 	
 	@OneToMany(mappedBy = "organizacion")
 	private List<Administrador> administradores;
+	
+	@ManyToOne
+	@JoinColumn(name = "suscripcion", referencedColumnName = "id")
+	private Suscripcion suscripcion;
+	
+	@Column(name = "estado_suscripcion")
+	private Boolean estadoSuscripcion;
 	
 	public Integer getIdOrganizacion() {
 		return idOrganizacion;
@@ -71,6 +80,22 @@ public class Organizacion {
 		this.administradores = administradores;
 	}
 
+	public Suscripcion getSuscripcion() {
+		return suscripcion;
+	}
+
+	public void setSuscripcion(Suscripcion suscripcion) {
+		this.suscripcion = suscripcion;
+	}
+
+	public Boolean getEstadoSuscripcion() {
+		return estadoSuscripcion;
+	}
+
+	public void setEstadoSuscripcion(Boolean estadoSuscripcion) {
+		this.estadoSuscripcion = estadoSuscripcion;
+	}
+
 	@Override
 	public String toString() {
 		return "{"
@@ -78,6 +103,8 @@ public class Organizacion {
 				+"\r\n \"nombreOrganizacion\": \""+nombreOrganizacion+"\","
 				+"\r\n \"rutOrganizacion\": \""+rutOrganizacion+"\","
 				+"\r\n \"direccionOrganizacion\": \""+direccionOrganizacion+"\","
-				+"\r\n \"Administradores\": "+administradores+"}";
+				+"\r\n \"estadoSuscripcion\": "+estadoSuscripcion+","
+				+"\r\n \"suscripcion\": "+suscripcion+","
+				+"\r\n \"administradores\": "+administradores+"}";
 	}
 }

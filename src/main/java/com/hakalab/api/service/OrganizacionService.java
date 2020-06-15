@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hakalab.api.dao.AdministradorDAO;
 import com.hakalab.api.dao.OrganizacionDAO;
+import com.hakalab.api.dao.SuscripcionDAO;
 import com.hakalab.api.entity.Administrador;
 import com.hakalab.api.entity.Organizacion;
 
@@ -16,6 +17,8 @@ public class OrganizacionService {
 	private OrganizacionDAO organizacionDAO;
 	@Autowired
 	private AdministradorDAO administradorDAO;
+	@Autowired
+	private SuscripcionDAO suscripcionDAO;
 	
 	public Organizacion save(Organizacion organizacion) {
 		Organizacion organizacionExist = organizacionDAO.getByRut(organizacion.getRutOrganizacion());
@@ -48,6 +51,13 @@ public class OrganizacionService {
 			organizacionExist.setNombreOrganizacion(organizacion.getNombreOrganizacion());
 			organizacionExist.setDireccionOrganizacion(organizacion.getRutOrganizacion());
 			organizacionExist.setRutOrganizacion(organizacion.getRutOrganizacion());
+			if (organizacion.getSuscripcion() != null) {
+				organizacionExist.setSuscripcion(suscripcionDAO.getById(organizacion.getSuscripcion().getIdSuscripcion()));
+				organizacionExist.setEstadoSuscripcion(true);
+			}else {
+				organizacionExist.setSuscripcion(organizacion.getSuscripcion());
+				organizacionExist.setEstadoSuscripcion(false);
+			}
 			organizacionDAO.update(organizacionExist);
 			return organizacionExist;
 		}
